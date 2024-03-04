@@ -1,0 +1,12 @@
+Milestone 4: Extras! (50 points)
+Record here the list of Extra Features you have discussed with your TA
+
+1) Reset button
+2) Steady state selection method
+3) Added thin horizontal line to the population graph that is at the same fitness value as the fittest organism, allowing the user to see exactly
+	what the bes fitness is. Useful for testing, especially when testing elitism
+...
+
+
+
+
