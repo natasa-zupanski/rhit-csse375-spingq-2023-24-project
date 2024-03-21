@@ -546,21 +546,21 @@ public class Population {
 		int fill = 0;
 		int index = 0;
 		
-		double multiplier = (double) total / (double) 4*ranks[0];
+		double multiplier = (double) total / (double) 4*ranks[0]; // example: 10 organisms, each fitness. 1 fitness 100. 1 fitness 1. rest fitness 50. Mult = 100+400+0=500/4*100 = 500/4 = 125?
 		
 		while (fill < orgs.length) {
-			int rank = ranks[orgs.length - 1 - index];
-			int numToRun = (int) (rank * multiplier);
+			int rank = ranks[orgs.length - 1 - index]; // The 100?
+			int numToRun = (int) (rank * multiplier); // 100 * 125 = 12,500 -- would completely fill with the fitness 100.
 			numToRun /= total;
 			numToRun /= (index + 1);
-			if (numToRun == 0) {
+			if (numToRun == 0) { // 1
 				numToRun += 1;
 			} 
 			for (int i = 0; i < numToRun; i++) {
 				if (fill == orgs.length) {
 					break;
 				} else {
-					result[fill] = temp[orgs.length - 1 - index];
+					result[fill] = temp[orgs.length - 1 - index]; // add 0..., 
 					fill += 1;
 				}
 			}

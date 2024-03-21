@@ -29,11 +29,20 @@ public class Organism implements Comparable<Organism> {
 			new Color(4, 122, 252), new Color(150, 54, 254), new Color(217, 67, 255) };
 
 	/**
-	 * ensures: constructs an organism given the length of its chromosome, the number of alleles each organism has in its genetic code, the fitness method, the name of the process that determines how fit an organism is based on its genetic code, and a boolean that determines whether or not there should be any ?s in the genetc code of the organism. This also overrides the fitmess method. The genetic code is randomly generated.
+	 * ensures: constructs an organism given the length of its chromosome, the
+	 * number of alleles each organism has in its genetic code, the fitness method,
+	 * the name of the process that determines how fit an organism is based on its
+	 * genetic code, and a boolean that determines whether or not there should be
+	 * any ?s in the genetc code of the organism. This also overrides the fitmess
+	 * method. The genetic code is randomly generated.
 	 * 
-	 * @param length, the number of alleles in the genetic code of the organism
-	 * @param fitnessMethod, the method that determines the fitness of an organism from its genetic code
-	 * @param someUnsure, if true, there may be ?s in the genetic code of the organism. If false, there will only be 0s and 1s in the genetic code.
+	 * @param length,        the number of alleles in the genetic code of the
+	 *                       organism
+	 * @param fitnessMethod, the method that determines the fitness of an organism
+	 *                       from its genetic code
+	 * @param someUnsure,    if true, there may be ?s in the genetic code of the
+	 *                       organism. If false, there will only be 0s and 1s in the
+	 *                       genetic code.
 	 */
 	public Organism(int length, String fitnessMethod, boolean someUnsure) {
 		this(length, fitnessMethod);
@@ -58,7 +67,8 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: counts and returns the number of 0s in the genetic code of the organism.
+	 * ensures: counts and returns the number of 0s in the genetic code of the
+	 * organism.
 	 * 
 	 * @return, the number of 0s in the genetic code of the organism.
 	 */
@@ -73,7 +83,8 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: counts and returns the number of ?s in the genetic code of the organism.
+	 * ensures: counts and returns the number of ?s in the genetic code of the
+	 * organism.
 	 * 
 	 * @return, the number of ?s in the genetic code of the organism
 	 */
@@ -88,10 +99,12 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: constructs an organism from the given genetic code as a String, with each character being an allele, and the given fitness method.
+	 * ensures: constructs an organism from the given genetic code as a String, with
+	 * each character being an allele, and the given fitness method.
 	 * 
-	 * @param chromosome, the genetic code of the organism
-	 * @param fitnessMethod, the name of the process used to determine how fit an organism is based on their genetic code 
+	 * @param chromosome,    the genetic code of the organism
+	 * @param fitnessMethod, the name of the process used to determine how fit an
+	 *                       organism is based on their genetic code
 	 */
 	public Organism(String chromosome, String fitnessMethod) {
 		this(chromosome);
@@ -99,7 +112,8 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: contructs an organism's genetic code from a string, each character an allele.
+	 * ensures: contructs an organism's genetic code from a string, each character
+	 * an allele.
 	 * 
 	 * @param chromosome, the string which the organisms genetic code will be set to
 	 */
@@ -108,9 +122,11 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: constructs an organism from the length of its chromosome, the number of alleles in its randomly decided genetic code, and its fitness method, the process which decides how fit it is based on its genetic code.
+	 * ensures: constructs an organism from the length of its chromosome, the number
+	 * of alleles in its randomly decided genetic code, and its fitness method, the
+	 * process which decides how fit it is based on its genetic code.
 	 * 
-	 * @param length, the number of alleles in the genetic code
+	 * @param length,        the number of alleles in the genetic code
 	 * @param fitnessMethod, the process which decides how fit an organism is
 	 */
 	public Organism(int length, String fitnessMethod) {
@@ -153,7 +169,8 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: gets and returns the length of the chromosome of the organism, the number of alleles in its genetic code
+	 * ensures: gets and returns the length of the chromosome of the organism, the
+	 * number of alleles in its genetic code
 	 * 
 	 * @return, the length of the chromosme
 	 */
@@ -162,7 +179,8 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: flips the value of an allele at a specific index, from 0 to 1 or 1 to 0
+	 * ensures: flips the value of an allele at a specific index, from 0 to 1 or 1
+	 * to 0
 	 * 
 	 * @param index, the index at which to flip the allele
 	 */
@@ -179,7 +197,9 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: transforsms the string of the chromosome of the organism into a 2D array of integers, which helps in the graphics process. 1s become 1s. 0s become 0s, and ?s become -1s.
+	 * ensures: transforsms the string of the chromosome of the organism into a 2D
+	 * array of integers, which helps in the graphics process. 1s become 1s. 0s
+	 * become 0s, and ?s become -1s.
 	 * 
 	 * @return, the chromosome as an array of 2D integers
 	 */
@@ -211,7 +231,9 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: mutates the chromosome. This means there is a chance for each allele in the genetic code to flip. This chance is the given rate which is taken to be a percent.
+	 * ensures: mutates the chromosome. This means there is a chance for each allele
+	 * in the genetic code to flip. This chance is the given rate which is taken to
+	 * be a percent.
 	 * 
 	 * @param rate, the chance as a percent of each allele to flip
 	 */
@@ -231,11 +253,13 @@ public class Organism implements Comparable<Organism> {
 		this.chromosome = String.valueOf(arr);
 	}
 
-
 	/**
-	 * ensures: mutates the organism, having a chance to flip each allele of the organism. On average, this method flips a number of alleles equal to the given rate. 
+	 * ensures: mutates the organism, having a chance to flip each allele of the
+	 * organism. On average, this method flips a number of alleles equal to the
+	 * given rate.
 	 * 
-	 * @param rate, the number of alleles that flip on average during mutation, the given rate of mutation
+	 * @param rate, the number of alleles that flip on average during mutation, the
+	 *              given rate of mutation
 	 */
 	public void mutate(int rate) {
 		int percent = (rate * 100) / this.length();
@@ -243,7 +267,8 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: sets the chromosome based on a given string which represents the genetic code
+	 * ensures: sets the chromosome based on a given string which represents the
+	 * genetic code
 	 * 
 	 * @param chrom, the given genetic code as a string
 	 */
@@ -254,16 +279,21 @@ public class Organism implements Comparable<Organism> {
 	/**
 	 * ensures: gets and returns the chromosme of the organism, its genetic code
 	 * 
-	 * @return, the chromosome 
+	 * @return, the chromosome
 	 */
 	public String getChromosome() {
 		return this.chromosome;
 	}
 
 	/**
-	 * ensures: draws the organism on a 2D graphic, deciding how small or large to draw it to fit the given height. The organism is represented by its genetic code arranged in a grid, 1s being represented as colorful boxes, 0s being represented as black boxes, and ?s being represented as white boxes. Sometimes the index of the allele is shown in the corner of this box that represents it.
+	 * ensures: draws the organism on a 2D graphic, deciding how small or large to
+	 * draw it to fit the given height. The organism is represented by its genetic
+	 * code arranged in a grid, 1s being represented as colorful boxes, 0s being
+	 * represented as black boxes, and ?s being represented as white boxes.
+	 * Sometimes the index of the allele is shown in the corner of this box that
+	 * represents it.
 	 * 
-	 * @param g, the graphics the organism is drawn on
+	 * @param g,      the graphics the organism is drawn on
 	 * @param height, the height given in which the drawn organism will fit
 	 */
 	public void drawOn(Graphics2D g, int height) {
@@ -302,11 +332,12 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: gets the index of an allele in the genetic code based on the row and column given
+	 * ensures: gets the index of an allele in the genetic code based on the row and
+	 * column given
 	 * 
 	 * @param row, the row the allele is in
 	 * @param col, the column the allele is in
-	 * @return, the index of the allele in the chromosome
+	 *             @return, the index of the allele in the chromosome
 	 */
 	private int rowColToIndex(int row, int col) {
 		int rows = (int) Math.sqrt(this.length());
@@ -315,12 +346,15 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: returns the color palette for an allele, the first color being the background color for that box and the second color being that of the text which displays the index of the allele in the chromosome.
+	 * ensures: returns the color palette for an allele, the first color being the
+	 * background color for that box and the second color being that of the text
+	 * which displays the index of the allele in the chromosome.
 	 * 
-	 * @param i, the value of the allele as an integer. 1 is 1. 0 is 0. ? is -1.
+	 * @param i,   the value of the allele as an integer. 1 is 1. 0 is 0. ? is -1.
 	 * @param col, the column the allele is found in
 	 * @param row, the row the allele is found in
-	 * @return, the color pallete, the first color being the background color, the second being the text color.
+	 *             @return, the color pallete, the first color being the background
+	 *             color, the second being the text color.
 	 */
 	private Color[] getColorPalette(int i, int col, int row) {
 		if (i == -1) {
@@ -337,11 +371,13 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: takes the index of an allele in the chromosome and returns the row and column it should be in.
+	 * ensures: takes the index of an allele in the chromosome and returns the row
+	 * and column it should be in.
 	 * 
 	 * @param index, the index of the allele.
-	 * @param cols, the number of columns in a 2D representation of the chromosome.
-	 * @return, the row and column pair at which the allele can be found in a 2D representation of the chromosome.
+	 * @param cols,  the number of columns in a 2D representation of the chromosome.
+	 *               @return, the row and column pair at which the allele can be
+	 *               found in a 2D representation of the chromosome.
 	 */
 	private int[] indexToRowCol(int index, int cols) {
 		int col = index % cols;
@@ -351,7 +387,9 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: flips an allele at a given x,y coordinate, calculating first which row and column this allele is in and, from this, getting the index of that allele. The allele is then flipped at that index.
+	 * ensures: flips an allele at a given x,y coordinate, calculating first which
+	 * row and column this allele is in and, from this, getting the index of that
+	 * allele. The allele is then flipped at that index.
 	 * 
 	 * @param x, the x coordinate of the allele to flip
 	 * @param y, the y coordinate of the allele to flip
@@ -372,7 +410,8 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: calculates and returns the fitness of an organism based on the fitness method in use
+	 * ensures: calculates and returns the fitness of an organism based on the
+	 * fitness method in use
 	 * 
 	 * @return, the fitness of the organism
 	 */
@@ -390,9 +429,12 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: calculates the number of ones in the organism's genetic code which is the fitness of the organism if the fitness method is Num. of 1s or the number of 1s in the genetic code.
+	 * ensures: calculates the number of ones in the organism's genetic code which
+	 * is the fitness of the organism if the fitness method is Num. of 1s or the
+	 * number of 1s in the genetic code.
 	 * 
-	 * @return, the number of ones in the chromosome of the organism, the fitness if the fitness method is Num. of 1s
+	 * @return, the number of ones in the chromosome of the organism, the fitness if
+	 * the fitness method is Num. of 1s
 	 */
 	public int fitnessOf1s() {
 		int sum = 0;
@@ -407,9 +449,14 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: if there are ?s in the genetic code of the organism, this method randomly decides to set them to 0 or 1 to aid in the calculation of the constant fitness of the organism given that ?s are allowed to exist in the genetic code. This method specifically returns the number of ?s which were determined to hold the value of 1.
+	 * ensures: if there are ?s in the genetic code of the organism, this method
+	 * randomly decides to set them to 0 or 1 to aid in the calculation of the
+	 * constant fitness of the organism given that ?s are allowed to exist in the
+	 * genetic code. This method specifically returns the number of ?s which were
+	 * determined to hold the value of 1.
 	 * 
-	 * @return, the number of ?s in the genetic code of the organism that are deemed to hold the value of 1.
+	 * @return, the number of ?s in the genetic code of the organism that are deemed
+	 * to hold the value of 1.
 	 */
 	public int determineUnresolvedFitnesses() {
 		Random r = new Random();
@@ -427,16 +474,20 @@ public class Organism implements Comparable<Organism> {
 
 	/**
 	 * 
-	 * ensures: It returns the temporary number of 1s in the genetic code of the organism, taking into account those ?s which were determined to hold values of 1s.
+	 * ensures: It returns the temporary number of 1s in the genetic code of the
+	 * organism, taking into account those ?s which were determined to hold values
+	 * of 1s.
 	 * 
-	 * @return, the temporary number of 1s in the organism which has ?s in its genetic code.
+	 * @return, the temporary number of 1s in the organism which has ?s in its
+	 * genetic code.
 	 */
 	private int getFitnessForDay() {
 		return this.fitnessOf1s() + this.determineUnresolvedFitnesses();
 	}
 
 	/**
-	 * ensures: sets the constant fitness of the organism to -1, effectively resetting it so it can be determined again.
+	 * ensures: sets the constant fitness of the organism to -1, effectively
+	 * resetting it so it can be determined again.
 	 * 
 	 */
 	public void resetConstantFitness() {
@@ -445,10 +496,19 @@ public class Organism implements Comparable<Organism> {
 
 	/**
 	 * 
-	 * ensures: gets and sets the constant fitness, assuming it to be temporary for a certain number of days during the organisms life. In this life, the organism has the chance to reach perfect fitness, at which point the number of days remaining will be recorded and the constant fitness set to this times 19. This method returns that remaining number of days times 19 or the constant fitness of the organism.
+	 * ensures: gets and sets the constant fitness, assuming it to be temporary for
+	 * a certain number of days during the organisms life. In this life, the
+	 * organism has the chance to reach perfect fitness, at which point the number
+	 * of days remaining will be recorded and the constant fitness set to this times
+	 * 19. This method returns that remaining number of days times 19 or the
+	 * constant fitness of the organism.
 	 * 
-	 * @param days, the number of days in which the organism can achieve perfect fitness before its fitness is set 
-	 * @return, 19 times the number of days remaining after the organism achieves perfect fitness, 0 if it never achieves perfect fitness. Additionally, if the constant fitness is already set, this returns the constant fitness.
+	 * @param days, the number of days in which the organism can achieve perfect
+	 *              fitness before its fitness is set
+	 *              @return, 19 times the number of days remaining after the
+	 *              organism achieves perfect fitness, 0 if it never achieves
+	 *              perfect fitness. Additionally, if the constant fitness is
+	 *              already set, this returns the constant fitness.
 	 */
 	public int getFitnessAfterDays(int days) {
 		if (this.constantFitness == -1) {
@@ -460,17 +520,19 @@ public class Organism implements Comparable<Organism> {
 				count += 1;
 			}
 
-			this.constantFitness = 19*(days - count);
-			return 19*(days - count);
+			this.constantFitness = 19 * (days - count);
+			return 19 * (days - count);
 		} else {
 			return this.constantFitness;
 		}
 	}
 
-	
 	/**
 	 * 
-	 * ensures: calculates and returns the number of consecutive 1s in the genetic code of the organism. This is the method used to determine the fitness of the organism if the fitness method is Consec. num. of 1s or the consecutive number of 1s.
+	 * ensures: calculates and returns the number of consecutive 1s in the genetic
+	 * code of the organism. This is the method used to determine the fitness of the
+	 * organism if the fitness method is Consec. num. of 1s or the consecutive
+	 * number of 1s.
 	 * 
 	 * @return, the consecutive number of 1s in the genetic code
 	 */
@@ -492,9 +554,13 @@ public class Organism implements Comparable<Organism> {
 
 	/**
 	 * 
-	 * ensures: calculates and returns the fitness of the organism if the fitness method is Target Organism. This method finds the number of alleles in the genetic code of the organisms that are the same as that of the target organism.
+	 * ensures: calculates and returns the fitness of the organism if the fitness
+	 * method is Target Organism. This method finds the number of alleles in the
+	 * genetic code of the organisms that are the same as that of the target
+	 * organism.
 	 * 
-	 * @return, the number of alleles that are the same in this organism and the target organism
+	 * @return, the number of alleles that are the same in this organism and the
+	 * target organism
 	 */
 	public int fitnessTargetOrganism() {
 		// System.out.println("called target");
@@ -512,10 +578,16 @@ public class Organism implements Comparable<Organism> {
 
 	/**
 	 * 
-	 * ensures: creates and returns a new organism that is the crossover of the genetic code of this organism and that of another, given organism. The point at which this returned organisms code stops being this organisms code and is the other organisms code is randomly determined. In other words, the crossover point is randomly determined.
+	 * ensures: creates and returns a new organism that is the crossover of the
+	 * genetic code of this organism and that of another, given organism. The point
+	 * at which this returned organisms code stops being this organisms code and is
+	 * the other organisms code is randomly determined. In other words, the
+	 * crossover point is randomly determined.
 	 * 
-	 * @param other, the organism with which this organism will create the new organisms genetic code
-	 * @return, the new organism, its genetic code a crossover between this organism and other, the other organism
+	 * @param other, the organism with which this organism will create the new
+	 *               organisms genetic code
+	 *               @return, the new organism, its genetic code a crossover between
+	 *               this organism and other, the other organism
 	 */
 	public Organism newCrossover(Organism other) {
 		if (other.length() == this.length()) {
@@ -548,10 +620,14 @@ public class Organism implements Comparable<Organism> {
 
 	/**
 	 * 
-	 * ensures: compares this organism to another organism, arg0, based on their fitness. Determines which organism has the greater and lesser fitness or if both have the same fitness.
+	 * ensures: compares this organism to another organism, arg0, based on their
+	 * fitness. Determines which organism has the greater and lesser fitness or if
+	 * both have the same fitness.
 	 * 
 	 * @param arg0, the other organism to which this organism is compared
-	 * @return, positive if this organisms fitness is greater, negative if this organisms fitness os lesser, and zero if both organisms have the same fitness.
+	 *              @return, positive if this organisms fitness is greater, negative
+	 *              if this organisms fitness os lesser, and zero if both organisms
+	 *              have the same fitness.
 	 */
 	@Override
 	public int compareTo(Organism arg0) {
@@ -576,7 +652,8 @@ public class Organism implements Comparable<Organism> {
 
 	/**
 	 *
-	 * ensures: sets the fitness method of the organisms which is used to decide how to determine the fitness of the organism from its genetic code
+	 * ensures: sets the fitness method of the organisms which is used to decide how
+	 * to determine the fitness of the organism from its genetic code
 	 * 
 	 * @param method, the name of the fitness method to set
 	 */
