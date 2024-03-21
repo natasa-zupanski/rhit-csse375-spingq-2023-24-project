@@ -2,6 +2,10 @@ package tests;
 
 import mainApp.Organism;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.*;
+
 public class OrganismTests {
 
     public void lengthTest() {
