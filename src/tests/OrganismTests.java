@@ -84,7 +84,6 @@ public class OrganismTests {
         // untestable as it is below...
     }
 
-    @Test
     public void mutateTest() {
         // the rate is the chance to flip at each index. So, we cannot know how many
         // will be flipped. we only have that value on average of all mutate calls with
@@ -103,6 +102,7 @@ public class OrganismTests {
         // assertEquals(4, getNumDiffsForStrings(before, after));
     }
 
+    @Test
     public void setChromosomeTest() {
         Organism one = new Organism("0000");
         one.setChromosome("1000");
@@ -113,6 +113,7 @@ public class OrganismTests {
         assertEquals("0", two.getChromosome());
     }
 
+    @Test
     public void getChromosomeTest() {
         Organism one = new Organism("0000");
         assertEquals("0000", one.getChromosome());
@@ -121,6 +122,7 @@ public class OrganismTests {
         assertEquals("100101", two.getChromosome());
     }
 
+    @Test
     public void fitnessOf1sTest() {
         Organism one = new Organism("0010000", "Num. of 1s");
         assertEquals(1, one.fitnessOf1s());
@@ -131,6 +133,7 @@ public class OrganismTests {
         assertEquals(13, thirteen.fitnessOf1s());
     }
 
+    @Test
     public void fitnessConsec1sTest() {
         Organism one = new Organism("0101010101010101010101010101010", "Consec. num. 1s");
         assertEquals(1, one.fitness());
@@ -141,6 +144,7 @@ public class OrganismTests {
         assertEquals(5, five.fitnessConsec1s());
     }
 
+    @Test
     public void fitnessTargetOrganismtest() {
         Organism target = new Organism(
                 "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
@@ -160,17 +164,5 @@ public class OrganismTests {
         assertEquals(100 - 13, thirteenOff.fitness());
         assertEquals(100 - 13, thirteenOff.fitnessTargetOrganism());
     }
-
-    // requires: |first| = |second|
-    // private int getNumDiffsForStrings(String first, String second) {
-    // int diffs = 0;
-    // for (int i = 0; i < first.length(); i++) {
-    // if (first.charAt(i) != second.charAt(i)) {
-    // diffs++;
-    // }
-    // }
-
-    // return diffs;
-    // }
 
 }
