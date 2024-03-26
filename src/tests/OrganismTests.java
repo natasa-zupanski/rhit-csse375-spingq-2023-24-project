@@ -81,30 +81,44 @@ public class OrganismTests {
     }
 
     public void mutatePercentTest() {
-
+        // untestable as it is below...
     }
 
     @Test
     public void mutateTest() {
-        Organism one = new Organism("1111");
-        String before = one.getChromosome();
-        one.mutate(1);
-        String after = one.getChromosome();
-        assertEquals(1, getNumDiffsForStrings(before, after));
+        // the rate is the chance to flip at each index. So, we cannot know how many
+        // will be flipped. we only have that value on average of all mutate calls with
+        // the same rate.
 
-        Organism four = new Organism("1111");
-        before = four.getChromosome();
-        four.mutate(4);
-        after = four.getChromosome();
-        assertEquals(4, getNumDiffsForStrings(before, after));
+        // Organism one = new Organism("1111");
+        // String before = one.getChromosome();
+        // one.mutate(1);
+        // String after = one.getChromosome();
+        // assertEquals(1, getNumDiffsForStrings(before, after));
+
+        // Organism four = new Organism("1111");
+        // before = four.getChromosome();
+        // four.mutate(4);
+        // after = four.getChromosome();
+        // assertEquals(4, getNumDiffsForStrings(before, after));
     }
 
     public void setChromosomeTest() {
+        Organism one = new Organism("0000");
+        one.setChromosome("1000");
+        assertEquals("1000", one.getChromosome());
 
+        Organism two = new Organism("100101");
+        two.setChromosome("0");
+        assertEquals("0", two.getChromosome());
     }
 
     public void getChromosomeTest() {
+        Organism one = new Organism("0000");
+        assertEquals("0000", one.getChromosome());
 
+        Organism two = new Organism("100101");
+        assertEquals("100101", two.getChromosome());
     }
 
     public void fitnessOf1sTest() {
@@ -148,15 +162,15 @@ public class OrganismTests {
     }
 
     // requires: |first| = |second|
-    private int getNumDiffsForStrings(String first, String second) {
-        int diffs = 0;
-        for (int i = 0; i < first.length(); i++) {
-            if (first.charAt(i) != second.charAt(i)) {
-                diffs++;
-            }
-        }
+    // private int getNumDiffsForStrings(String first, String second) {
+    // int diffs = 0;
+    // for (int i = 0; i < first.length(); i++) {
+    // if (first.charAt(i) != second.charAt(i)) {
+    // diffs++;
+    // }
+    // }
 
-        return diffs;
-    }
+    // return diffs;
+    // }
 
 }
