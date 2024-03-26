@@ -263,11 +263,18 @@ public class Organism implements Comparable<Organism> {
 	 *              given rate of mutation
 	 */
 	public void mutate(int rate) {
-		int percent = (rate * 100) / this.length();
-		this.mutatePercent(percent);
+		// int percent = (rate * 100) / this.length();
+		// this.mutatePercent(percent);
 		// Random r = new Random();
 		// int index = r.nextInt(length());
 		// flipAllele(index);
+		Random r = new Random();
+		for (int i = 0; i < this.length(); i++) {
+			int chance = r.nextInt(this.length());
+			if (chance < rate) {
+				flipAllele(i);
+			}
+		}
 	}
 
 	/**
