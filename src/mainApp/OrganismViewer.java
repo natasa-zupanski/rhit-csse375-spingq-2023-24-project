@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -21,13 +20,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 /**
  * Class: OrganismComponent
+ * 
  * @author R_003: Allyn Loyd and Natasa Zupanski
- * </br>Purpose: Used to view/load/save files representing an organism's genotype
- * </br>Restrictions: None
- * </br> For example: OrganismViewer organismViewer = new OrganismViewer();
- */ 
+ *         </br>
+ *         Purpose: Used to view/load/save files representing an organism's
+ *         genotype
+ *         </br>
+ *         Restrictions: None
+ *         </br>
+ *         For example: OrganismViewer organismViewer = new OrganismViewer();
+ */
 class OrganismViewer {
 	private JFrame frame;
 
