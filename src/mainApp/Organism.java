@@ -243,6 +243,7 @@ public class Organism implements Comparable<Organism> {
 		for (int index = 0; index < this.length(); index++) {
 			int chance = r.nextInt(100);
 			if (chance < rate) {
+				// flipAllele(index);
 				if (arr[index] == '0') {
 					arr[index] = '1';
 				} else if (arr[index] == '1') {
@@ -264,6 +265,9 @@ public class Organism implements Comparable<Organism> {
 	public void mutate(int rate) {
 		int percent = (rate * 100) / this.length();
 		this.mutatePercent(percent);
+		// Random r = new Random();
+		// int index = r.nextInt(length());
+		// flipAllele(index);
 	}
 
 	/**
