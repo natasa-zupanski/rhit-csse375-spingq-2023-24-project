@@ -431,18 +431,18 @@ public class Organism implements Comparable<Organism> {
 		if (this.constantFitness != -1) {
 			return this.constantFitness;
 		} else if (this.fitness != null) {
-			return fitness.getFitness(this);
+			return fitness.getFitness(chromosome);
 		} else if (this.fitnessType.equals("Target Organism")) {
 			fitness = new FitnessTargetOrganism();
-			return fitness.getFitness(this);
+			return fitness.getFitness(chromosome);
 			// return this.fitnessTargetOrganism();
 		} else if (this.fitnessType.equals("Num. of 1s")) {
 			fitness = new FitnessNumOfOnes();
-			return fitness.getFitness(this);
+			return fitness.getFitness(chromosome);
 			// return this.fitnessOf1s();
 		} else if (this.fitnessType.equals("Consec. num. of 1s")) {
 			fitness = new FitnessConsecOnes();
-			return fitness.getFitness(this);
+			return fitness.getFitness(chromosome);
 			// return this.fitnessConsec1s();
 		}
 		return 0;
