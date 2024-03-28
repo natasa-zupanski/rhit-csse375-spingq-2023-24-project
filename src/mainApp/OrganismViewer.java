@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,19 +27,18 @@ import javax.swing.SwingConstants;
  * </br>Restrictions: None
  * </br> For example: OrganismViewer organismViewer = new OrganismViewer();
  */ 
-class OrganismViewer {
-	private JFrame frame;
+class OrganismViewer extends Views {
 
+	@Override
 	public void setUpViewer() {
+	
 		final int frameWidth = 360;
 		final int frameHeight = 420;
 
-		this.frame = new JFrame();
 		this.frame.setTitle("ChromosomeViewer");
 		this.frame.setSize(frameWidth, frameHeight);
 		this.frame.setLocation(1100, 100);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setLayout(new BorderLayout());
+		
 
 		JLabel fileTitle = new JLabel("");
 		this.frame.add(fileTitle, BorderLayout.NORTH);
@@ -187,10 +185,6 @@ class OrganismViewer {
 		panel.add(load);
 		panel.add(save);
 
-	}
-
-	public void runApp() {
-		this.frame.setVisible(true);
 	}
 
 }

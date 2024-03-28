@@ -15,6 +15,6 @@ public class PopulationTest {
         testPopulation.nextGeneration();
         Organism fitOrganism = testPopulation.getFittest();
         String organism = fitOrganism.getChromosome();
-		assertEquals(0, array);
+		assertEquals(0, organism);
 	}
 }
