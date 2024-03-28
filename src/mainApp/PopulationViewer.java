@@ -29,6 +29,7 @@ public class PopulationViewer extends Views{
 
 	@Override
 	public void setUpViewer() {
+		super.setUpViewer();
 		fittestOrganism.setUpViewer();
 		generationViewer.setUpViewer();
 

@@ -28,7 +28,7 @@ public class GenerationViewer extends Views{
 	}
 	
 	public void setUpViewer() {
-		
+		super.setUpViewer();
 		final int frameWidth = 400;
 		final int frameHeight = 400;
 

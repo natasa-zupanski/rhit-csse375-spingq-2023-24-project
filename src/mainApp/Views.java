@@ -15,4 +15,7 @@ abstract class Views{
     void runApp() {
         frame.setVisible(true);
     }
+    public JFrame getFrame() {
+        return frame;
+    }
 }

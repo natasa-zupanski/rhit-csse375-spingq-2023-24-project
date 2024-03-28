@@ -27,11 +27,11 @@ import javax.swing.SwingConstants;
  * </br>Restrictions: None
  * </br> For example: OrganismViewer organismViewer = new OrganismViewer();
  */ 
-class OrganismViewer extends Views {
+public class OrganismViewer extends Views {
 
 	@Override
 	public void setUpViewer() {
-	
+		super.setUpViewer();
 		final int frameWidth = 360;
 		final int frameHeight = 420;
 

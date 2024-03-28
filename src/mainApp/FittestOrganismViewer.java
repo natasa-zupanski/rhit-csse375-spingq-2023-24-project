@@ -19,6 +19,7 @@ public class FittestOrganismViewer extends Views{
 	
 	@Override
 	public void setUpViewer() {
+		super.setUpViewer();
 		this.frame.setTitle("FittestOrganismViewer");
 		this.frame.setSize(360, 360);
 		this.frame.setLocation(1125, 25);
