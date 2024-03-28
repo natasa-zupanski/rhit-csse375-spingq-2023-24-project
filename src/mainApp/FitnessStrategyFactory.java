@@ -16,4 +16,17 @@ public class FitnessStrategyFactory {
                              // replace this with an exception
         }
     }
+
+    public static FitnessType getTypeFromString(String type) {
+        switch (type) {
+            case "Target Organism":
+                return FitnessType.TARGETORG;
+            case "Num. of 1s":
+                return FitnessType.NUMONES;
+            case "Consec. num. of 1s":
+                return FitnessType.CONSECONES;
+            default:
+                return FitnessType.NUMONES;
+        }
+    }
 }

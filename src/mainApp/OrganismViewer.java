@@ -140,7 +140,7 @@ class OrganismViewer {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						component.setOrganism(new Organism(genotype, ""));
+						component.setOrganism(new Organism(genotype, FitnessStrategyFactory.getTypeFromString("")));
 						fileTitle.setText(file.getName());
 						frame.repaint();
 						fileChooserFrame.setVisible(false);

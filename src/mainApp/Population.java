@@ -42,6 +42,7 @@ public class Population {
 	private boolean crossover;
 	private String selectionMethod = "";
 	private String fitnessMethod = "";
+	private FitnessType fitnessType;
 
 	// -- variables used for graphics
 	private ArrayList<Integer> bestFitnesses = new ArrayList<>();
@@ -56,7 +57,7 @@ public class Population {
 	 * 
 	 * @param mutationRate,         percent chance for mutation for each allele in
 	 *                              the chromosome of an organism
-	 * @param numOfGens,            the max number of generations a population
+	 * @param numOfGens,            the max numsber of generations a population
 	 *                              should evolve for
 	 * @param genSize,              the amount of organisms in a generation
 	 * @param chromosomeLength,     the length of the chromosome, the number of
@@ -85,6 +86,7 @@ public class Population {
 		this.chromosomeLength = chromosomeLength;
 		this.selectionMethod = selectionMethod;
 		this.fitnessMethod = fitnessMethod;
+		this.fitnessType = FitnessStrategyFactory.getTypeFromString(fitnessMethod);
 		this.crossover = crossover;
 		this.terminationCondition = terminationCondition;
 	}
@@ -111,7 +113,7 @@ public class Population {
 	 * ensures: starts the first generation of the population
 	 */
 	public void newGen() {
-		this.generations.add(new Generation(genSize, chromosomeLength, selectionMethod, fitnessMethod));
+		this.generations.add(new Generation(genSize, chromosomeLength, selectionMethod, fitnessType));
 	}
 
 	/**
@@ -254,7 +256,7 @@ public class Population {
 
 		for (int index = 0; index < toMutate.length; index++) {
 			// creates a new organism from the one at the current index
-			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.fitnessMethod);
+			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.fitnessType);
 			// mutates that new organism
 			intermediate.mutate(this.mutationRate);
 			// adds it to the result
@@ -332,7 +334,7 @@ public class Population {
 
 		// replaced the bottom with the top organisms
 		for (int index = 0; index < numToCopy; index++) {
-			temp[index] = new Organism(toCopy[index].getChromosome(), this.fitnessMethod);
+			temp[index] = new Organism(toCopy[index].getChromosome(), this.fitnessType);
 		}
 
 		return temp;
@@ -540,7 +542,7 @@ public class Population {
 			int lastSum = sum;
 			sum += fitnesses[index];
 			if (chance >= lastSum && chance <= sum) {
-				return new Organism(orgs[index].getChromosome(), this.fitnessMethod);
+				return new Organism(orgs[index].getChromosome(), this.fitnessType);
 			}
 		}
 		return null;
@@ -677,7 +679,7 @@ public class Population {
 			int lastSum = sum;
 			sum += ranks[index];
 			if (chance >= lastSum && chance <= sum) {
-				return new Organism(orgs[index].getChromosome(), this.fitnessMethod);
+				return new Organism(orgs[index].getChromosome(), this.fitnessType);
 			}
 		}
 
