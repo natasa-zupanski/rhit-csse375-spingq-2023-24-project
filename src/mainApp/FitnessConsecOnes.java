@@ -19,4 +19,9 @@ public class FitnessConsecOnes implements FitnessStrategy {
         return max;
     }
 
+    @Override
+    public FitnessType getFitnessType() {
+        return FitnessType.CONSECONES;
+    }
+
 }

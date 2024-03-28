@@ -14,4 +14,9 @@ public class FitnessNumOfOnes implements FitnessStrategy {
         return count;
     }
 
+    @Override
+    public FitnessType getFitnessType() {
+        return FitnessType.NUMONES;
+    }
+
 }

@@ -35,11 +35,12 @@ public class OrganismTests {
         assertEquals(13, thirteen.numOf0s());
     }
 
-    public void numOf1sTest() {
-        Organism one = new Organism("001000000");
+    // public void numOf1sTest() {
+    // Organism one = new Organism("001000000");
 
-        Organism thirteen = new Organism("10100010010000000000001000010001000010010011000000110");
-    }
+    // Organism thirteen = new
+    // Organism("10100010010000000000001000010001000010010011000000110");
+    // }
 
     @Test
     public void flipAlleleTest() {

@@ -26,4 +26,9 @@ public class FitnessProdConsecOnes implements FitnessStrategy {
         return prod;
     }
 
+    @Override
+    public FitnessType getFitnessType() {
+        return FitnessType.PRODCONSECONES;
+    }
+
 }

@@ -20,4 +20,9 @@ public class FitnessTargetOrganism implements FitnessStrategy {
         return diffs;
     }
 
+    @Override
+    public FitnessType getFitnessType() {
+        return FitnessType.TARGETORG;
+    }
+
 }
