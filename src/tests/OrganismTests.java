@@ -136,11 +136,11 @@ public class OrganismTests {
 
     @Test
     public void fitnessConsec1sTest() {
-        Organism one = new Organism("0101010101010101010101010101010", "Consec. num. 1s");
+        Organism one = new Organism("0101010101010101010101010101010", "Consec. num. of 1s");
         assertEquals(1, one.fitness());
         assertEquals(1, one.fitnessConsec1s());
 
-        Organism five = new Organism("010010111011111001010100100001111000001101", "Consec. num. 1s");
+        Organism five = new Organism("010010111011111001010100100001111000001101", "Consec. num. of 1s");
         assertEquals(5, five.fitness());
         assertEquals(5, five.fitnessConsec1s());
     }

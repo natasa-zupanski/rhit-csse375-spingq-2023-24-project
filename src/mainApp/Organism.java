@@ -21,6 +21,7 @@ public class Organism implements Comparable<Organism> {
 	private int constantFitness = -1;
 	private String chromosome;
 	private String fitnessType = "Num. of 1s";
+	private FitnessStrategy fitness = null;
 
 	// constant fields
 	private final int HEIGHT = 300;
@@ -429,12 +430,20 @@ public class Organism implements Comparable<Organism> {
 	public int fitness() {
 		if (this.constantFitness != -1) {
 			return this.constantFitness;
+		} else if (this.fitness != null) {
+			return fitness.getFitness(this);
 		} else if (this.fitnessType.equals("Target Organism")) {
-			return this.fitnessTargetOrganism();
+			fitness = new FitnessTargetOrganism();
+			return fitness.getFitness(this);
+			// return this.fitnessTargetOrganism();
 		} else if (this.fitnessType.equals("Num. of 1s")) {
-			return this.fitnessOf1s();
+			fitness = new FitnessNumOfOnes();
+			return fitness.getFitness(this);
+			// return this.fitnessOf1s();
 		} else if (this.fitnessType.equals("Consec. num. of 1s")) {
-			return this.fitnessConsec1s();
+			fitness = new FitnessConsecOnes();
+			return fitness.getFitness(this);
+			// return this.fitnessConsec1s();
 		}
 		return 0;
 	}
