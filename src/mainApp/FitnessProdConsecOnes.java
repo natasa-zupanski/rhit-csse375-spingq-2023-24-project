@@ -19,6 +19,9 @@ public class FitnessProdConsecOnes implements FitnessStrategy {
                 curCount = 0;
             }
         }
+        if (chromosome.charAt(chromosome.length() - 1) == '1') {
+            prod *= curCount;
+        }
         if (!existsOne) {
             return 0;
         }

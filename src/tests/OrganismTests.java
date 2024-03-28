@@ -167,4 +167,13 @@ public class OrganismTests {
         assertEquals(100 - 13, thirteenOff.fitnessTargetOrganism());
     }
 
+    @Test
+    public void fitnessProdConsecOnesTest() {
+        Organism one = new Organism("010101010101", FitnessType.PRODCONSECONES);
+        assertEquals(1, one.fitness());
+
+        Organism six = new Organism("1100001000111", FitnessType.PRODCONSECONES);
+        assertEquals(6, six.fitness());
+    }
+
 }
