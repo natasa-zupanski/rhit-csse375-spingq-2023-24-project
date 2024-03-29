@@ -27,7 +27,6 @@ public class PopulationViewer extends Views{
 	FittestOrganismViewer fittestOrganism = new FittestOrganismViewer();
 	GenerationViewer generationViewer = new GenerationViewer();
 
-	@Override
 	public void setUpViewer() {
 		super.setUpViewer();
 		fittestOrganism.setUpViewer();
