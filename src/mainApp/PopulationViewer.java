@@ -15,12 +15,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+
 /**
  * Class: PopulationViewer
+ * 
  * @author R_003: Allyn Loyd and Natasa Zupanski
- * </br>Purpose: used to create a JFrame that allows an user to set parameters for a population, run evolution, and see data related to the fitness.
- * </br>Restrictions: None
- * </br> For example: PopulationViewer populationViewer = new PopulationViewer(); 
+ *         </br>
+ *         Purpose: used to create a JFrame that allows an user to set
+ *         parameters for a population, run evolution, and see data related to
+ *         the fitness.
+ *         </br>
+ *         Restrictions: None
+ *         </br>
+ *         For example: PopulationViewer populationViewer = new
+ *         PopulationViewer();
  */
 public class PopulationViewer {
 	private JFrame frame;
@@ -44,13 +52,15 @@ public class PopulationViewer {
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setLayout(new BorderLayout());
 
-		PopulationAdvanceListener advanceListener = new PopulationAdvanceListener(pop, fittestOrganism, this, generationViewer);
+		PopulationAdvanceListener advanceListener = new PopulationAdvanceListener(pop, fittestOrganism, this,
+				generationViewer);
 		Timer timer = new Timer(1, advanceListener);
 		timer.stop();
 		frame.add(pop);
 
 		JLabel selectionLabel = new JLabel("Selection Method", SwingConstants.CENTER);
-		String[] selectionMethods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State" , "Learning Chance"};
+		String[] selectionMethods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State",
+				"Learning Chance" };
 		JComboBox selectionOptions = new JComboBox(selectionMethods);
 		selectionOptions.addActionListener(new ActionListener() {
 			@Override
@@ -130,7 +140,7 @@ public class PopulationViewer {
 				pop.handleSetElitism(rate);
 			}
 		});
-		
+
 		JLabel terminationLabel = new JLabel("Termination Fitness", SwingConstants.CENTER);
 		JTextField terminationText = new JTextField(pop.handleGetTermination());
 		terminationText.addActionListener(new ActionListener() {
@@ -188,7 +198,7 @@ public class PopulationViewer {
 		frame.add(pop);
 
 		JPanel panel = new JPanel(new GridLayout(2, 1));
-		JPanel top = new JPanel(new GridLayout(1,9));
+		JPanel top = new JPanel(new GridLayout(1, 9));
 		top.add(selectionLabel);
 		top.add(selectionOptions);
 		top.add(fitnessLabel);
@@ -225,11 +235,11 @@ public class PopulationViewer {
 			timer.stop(); // doesn't throw it either
 			status = "Stopped";
 		} catch (NullPointerException e) {
-		
+
 		}
 
 	}
-	
+
 	public String getStatus() {
 		return this.status;
 	}
