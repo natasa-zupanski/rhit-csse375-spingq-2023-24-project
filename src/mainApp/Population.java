@@ -1,8 +1,4 @@
 package mainApp;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
 //import java.awt.Stroke;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,7 +24,7 @@ public class Population {
 	// constant value fields
 	final private int STABLE_PERCENT = 10;
 	private EvolutionParameters parameters;
-	private GraphicsParameters graphicParam = new GraphicsParameters();
+	private PopulationVisualization populationVisualization;
 
 	// changing fields
 	// -- variables used for the evolution of the population
@@ -42,6 +38,7 @@ public class Population {
 	 */
 	public Population(EvolutionParameters parameters) {
 		this.parameters = parameters;
+		this.populationVisualization = new PopulationVisualization(parameters);
 	}
 
 	/**
@@ -91,21 +88,6 @@ public class Population {
 		Arrays.sort(parameters.getCurrentGeneration());
 	}
 
-	/**
-	 * 
-	 * ensures: returns the amount of generations completed if the population is not
-	 * terminated. A terminated generation returns the max gens to complete
-	 * 
-	 * @return
-	 */
-	public int gensSoFar() {
-		if (!this.parameters.getTerminated()) {
-			// return generations.size();
-			return this.graphicParam.bestFitSize();
-		} else {
-			return this.parameters.getNumbersOfGen();
-		}
-	}
 
 	/**
 	 * 
@@ -117,16 +99,12 @@ public class Population {
 
 		// adds the best, worst, and average fitnesses of this generation to be used in
 		// creating the GUI
-		this.graphicParam.addBestFitnesses(getBestFitness());
-		this.graphicParam.addAvgFitnesses(getAvgFitness());
-		this.graphicParam.addLowFitnesses(getWorstFitness());
 
+		this.populationVisualization.populateData(getBestFitness(), getAvgFitness(), getWorstFitness(), getAvg1s(), getAvg0s(), getAvgQs());
 		if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
-			this.graphicParam.addAvgNum1s(getAvg1s());
-			this.graphicParam.addAvgNum0s(getAvg0s());
-			this.graphicParam.addAvgNumQs(getAvgQs());
 			resetConstantFitnesses();
 		}
+		
 		// gets the last index, that of the generation to evolve from
 		// int lastIndex = this.gensSoFar() - 1;
 
@@ -207,8 +185,7 @@ public class Population {
 
 		// prints out the generation number and the best fitness of that generation as a
 		// means to debug and provide non-graphic representation
-		System.out.println(
-				"Created gen #" + this.gensSoFar() + " Best fitness: " +  this.graphicParam.getBestFitness(graphicParam.bestFitSize()-1));
+		this.populationVisualization.printBestFitness();
 	}
 
 	private void resetConstantFitnesses() {
@@ -730,75 +707,14 @@ public class Population {
 
 	}
 
-	/**
-	 * TODO inner comments
-	 * ensures: draws the population at a point and time, the line of best fitness,
-	 * that of average fitness, that of worst fitness and, if the research results
-	 * are attempting to be replicated, the average number of 1s, 0s, and ?s as they
-	 * change in the population over time.
-	 * 
-	 * @param g, the 2D graphics on which to draw these lines
-	 */
-	public void drawOn(Graphics2D g) {
-
-		int numOfGens = parameters.getNumbersOfGen();
-		int scale = 1000 / numOfGens;
-
-		g.setColor(Color.BLACK);
-
-		for (int i = 0; i <= 10; i++) {
-			g.drawLine(50 + i * scale * numOfGens / 10, 350 - 5, 50 + i * scale * numOfGens / 10, 350 + 5);
-			g.drawString("" + i * numOfGens / 10, 50 + (i * scale * numOfGens / 10) - 10, 350 + 20);
-			g.drawLine(50 - 5, 350 - i * 30, 50 + 5, 350 - i * 30);
-			g.drawString("" + i * 10, 50 - 25, 350 - (i * 30) + 5);
-		}
-
-		g.setStroke(new BasicStroke(2));
-
-		g.drawLine(50, 350, 50 + 1000, 350);
-		g.drawLine(50, 50, 50, 350);
-
-		g.setColor(Color.GRAY);
-		g.setStroke(new BasicStroke(1));
-		if (gensSoFar() > 2) {
-			g.drawLine(50, 350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3, 50 + (gensSoFar() - 2) * scale,
-					350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3);
-		}
-
-		g.setStroke(new BasicStroke(2));
-		for (int i = 0; i < gensSoFar() - 2; i++) {
-			g.setColor(Color.GREEN);
-			g.drawLine(50 + i * scale, (350 - graphicParam.getBestFitness(i) * 3), 50 + (i + 1) * scale,
-					(350 - graphicParam.getBestFitness(i + 1) * 3));
-			g.setColor(Color.ORANGE);
-			g.drawLine(50 + i * scale, 350 - graphicParam.getAvgFitness(i) * 3, 50 + (i + 1) * scale,
-					350 - graphicParam.getAvgFitness(i + 1) * 3);
-			g.setColor(Color.RED);
-			g.drawLine(50 + i * scale, 350 - graphicParam.getLowFitness(i) * 3, 50 + (i + 1) * scale,
-					350 - graphicParam.getLowFitness(i + 1) * 3);
-			g.setColor(Color.MAGENTA);
-			g.drawLine(50 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)), 50 + (i + 1) * scale,
-					350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1))));
-			g.setColor(Color.BLACK);
-			g.drawLine(50, 50 - graphicParam.getBestFitness(i) * 3, 50 + (i + 1) * scale, 50 - graphicParam.getBestFitness(i) * 3);
-			if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
-				g.setColor(Color.BLUE);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum1s(i) * 3, 50 + (i + 1) * scale,
-						350 - graphicParam.getAvgNum1s(i + 1) * 3);
-				g.setColor(Color.CYAN);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum0s(i) * 3, 50 + (i + 1) * scale,
-						350 - graphicParam.getAvgNum0s(i + 1) * 3);
-				g.setColor(Color.LIGHT_GRAY);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNumQs(i) * 3, 50 + (i + 1) * scale,
-						350 - graphicParam.getAvgNumQs(i + 1) * 3);
-
-			}
-		}
-	}
-
 	public EvolutionParameters getEvolutionParameters()
 	{
 		return this.parameters;
+	}
+
+	public PopulationVisualization getPopulationVisualization()
+	{
+		return this.populationVisualization;
 	}
 
 	/**

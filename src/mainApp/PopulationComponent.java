@@ -36,7 +36,7 @@ public class PopulationComponent extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		this.population.drawOn(g2d);
+		this.population.getPopulationVisualization().drawOn(g2d);
 
 	}
 
@@ -103,7 +103,7 @@ public class PopulationComponent extends JComponent {
 	}
 
 	public int handleGetGensSoFar() {
-		return this.population.gensSoFar();
+		return this.population.getPopulationVisualization().gensSoFar();
 	}
 
 	public void handleRunPopulationEvol() {
