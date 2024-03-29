@@ -1,4 +1,5 @@
 package mainApp;
+
 //import java.awt.Stroke;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class Population {
 	/**
 	 * ensures: constructs a population
 	 * 
-	 @parameters      contains information about the population                      
+	 * @parameters contains information about the population
 	 */
 	public Population(EvolutionParameters parameters) {
 		this.parameters = parameters;
@@ -45,7 +46,7 @@ public class Population {
 	 * ensures: constructs a population based on default values
 	 */
 	public Population() {
-        this(new EvolutionParameters(1, 500, 100, 100, 1, "Truncation", "Num. of 1s", true, 100));
+		this(new EvolutionParameters(1, 500, 100, 100, 1, "Truncation", "Num. of 1s", true, 100));
 	}
 
 	/**
@@ -69,7 +70,8 @@ public class Population {
 
 	public void spawnFirstGeneration() {
 		for (int i = 0; i < parameters.getGenSize(); i++) {
-			this.parameters.setCurrGen(i, new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(), parameters.getUnsure()));
+			this.parameters.setCurrGen(i, new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(),
+					parameters.getUnsure()));
 		}
 	}
 
@@ -88,7 +90,6 @@ public class Population {
 		Arrays.sort(parameters.getCurrentGeneration());
 	}
 
-
 	/**
 	 * 
 	 * ensures: adds to generations the next generation as according to the
@@ -100,11 +101,12 @@ public class Population {
 		// adds the best, worst, and average fitnesses of this generation to be used in
 		// creating the GUI
 
-		this.populationVisualization.populateData(getBestFitness(), getAvgFitness(), getWorstFitness(), getAvg1s(), getAvg0s(), getAvgQs());
+		this.populationVisualization.populateData(getBestFitness(), getAvgFitness(), getWorstFitness(), getAvg1s(),
+				getAvg0s(), getAvgQs());
 		if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
 			resetConstantFitnesses();
 		}
-		
+
 		// gets the last index, that of the generation to evolve from
 		// int lastIndex = this.gensSoFar() - 1;
 
@@ -707,13 +709,11 @@ public class Population {
 
 	}
 
-	public EvolutionParameters getEvolutionParameters()
-	{
+	public EvolutionParameters getEvolutionParameters() {
 		return this.parameters;
 	}
 
-	public PopulationVisualization getPopulationVisualization()
-	{
+	public PopulationVisualization getPopulationVisualization() {
 		return this.populationVisualization;
 	}
 
@@ -736,7 +736,8 @@ public class Population {
 	 * @return, the latest generation
 	 */
 	public Generation getLatestGen() {
-		return new Generation(parameters.getCurrentGeneration(), parameters.getSelectionMethod(), parameters.getFitnessMethod());
+		return new Generation(parameters.getCurrentGeneration(), parameters.getSelectionMethod(),
+				parameters.getFitnessMethod());
 		// return this.generations.get(generations.size() - 1);
 	}
 }
