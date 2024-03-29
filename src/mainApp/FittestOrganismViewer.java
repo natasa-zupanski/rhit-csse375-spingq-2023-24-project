@@ -34,7 +34,7 @@ public class FittestOrganismViewer extends Views{
 		
 		this.frame.add(panel,BorderLayout.SOUTH);
 	
-		this.frame.setVisible(true);
+		super.runApp();
 	}
 	
 	public void updateOrganism(Organism o) {
