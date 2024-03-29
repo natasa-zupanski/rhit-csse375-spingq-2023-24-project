@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.stream.Stream;
 
 class EvolutionParameters {
     private int mutationRate;
@@ -24,6 +23,7 @@ class EvolutionParameters {
 	private boolean isUnsure;
 	private FitnessType fitnessType;
 	private Organism[] currentGeneration;
+    private boolean termination;
 
 	public EvolutionParameters(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
 	String selectionMethod, String fitnessMethod, boolean crossover, int terminationCondition) {
@@ -35,6 +35,7 @@ class EvolutionParameters {
 		this.selectionMethod = selectionMethod;
 		this.fitnessMethod = fitnessMethod;
 		this.crossover = crossover;
+		this.termination = false;
 		this.terminationCondition = terminationCondition;
 		this.selectionType = SelectionStrategyFactory.getSelectionTypeFromString(selectionMethod);
 		if (selectionType == SelectionType.LEARNINGCHANCE) {
@@ -123,6 +124,30 @@ class EvolutionParameters {
     public void setSelection(String m) {
         this.selectionMethod = m;
     }
+
+    public void setCurrGen(int i, Organism organism) {
+        this.currentGeneration[i] = organism;
+    }
+
+    public Organism[] getCurrentGeneration() {
+        return this.currentGeneration;
+    }
+
+    public boolean getTerminated() {
+       return this.termination;
+    }
+
+    public void setCurrentGeneration(Organism[] result) {
+        this.currentGeneration = result;
+    }
+
+    public Organism getCurrentGeneration(int i) {
+        return this.currentGeneration[i];
+    }
+
+    public void setTerminate(boolean b) {
+        this.termination = true;
+    }
 }
 
 class GraphicsParameters {
@@ -132,6 +157,58 @@ class GraphicsParameters {
     private ArrayList<Integer> avgNum1s = new ArrayList<>();
     private ArrayList<Integer> avgNum0s = new ArrayList<>();
     private ArrayList<Integer> avgNumQs = new ArrayList<>();
+	
+    public int bestFitSize() {
+        return bestFitnesses.size();
+    }
+
+    public void addBestFitnesses(Integer bestFitness) {
+        this.bestFitnesses.add(bestFitness);
+    }
+
+    public void addAvgFitnesses(Integer avgFitness) {
+        this.avgFitnesses.add(avgFitness);
+    }
+
+    public void addLowFitnesses(Integer worstFitness) {
+       this.lowFitnesses.add(worstFitness);
+    }
+
+    public void addAvgNum1s(Integer avg1s) {
+        this.avgNum1s.add(avg1s);
+    }
+
+    public void addAvgNum0s(Integer avg0s) {
+        this.avgNum0s.add(avg0s);
+    }
+
+    public void addAvgNumQs(Integer avgQs) {
+        this.avgNumQs.add(avgQs);
+    }
+
+    public int getBestFitness(int i) {
+       return this.bestFitnesses.get(i);
+    }
+
+    public int getAvgFitness(int i) {
+        return this.avgFitnesses.get(i);
+    }
+
+    public int getLowFitness(int i) {
+        return this.lowFitnesses.get(i);
+    }
+
+    public int getAvgNum1s(int i) {
+        return this.avgNum1s.get(i);
+    }
+
+    public int getAvgNum0s(int i) {
+       return this.avgNum0s.get(i);
+    }
+
+    public int getAvgNumQs(int i) {
+        return this.avgNumQs.get(i);
+    }
 
     // Methods to manipulate graphics parameters
 }
@@ -160,17 +237,9 @@ public class Population {
 	// -- variables used for the evolution of the population
 	// private ArrayList<Generation> generations = new ArrayList<>();
 	// private ArrayList<GenerationHistory> history = new ArrayList();
-	private Organism[] currGeneration;
-	private boolean terminated = false;
 	
-	// -- variables used for graphics
-	private ArrayList<Integer> bestFitnesses = new ArrayList<>();
-	private ArrayList<Integer> avgFitnesses = new ArrayList<>();
-	private ArrayList<Integer> lowFitnesses = new ArrayList<>();
-	private ArrayList<Integer> avgNum1s = new ArrayList<>();
-	private ArrayList<Integer> avgNum0s = new ArrayList<>();
-	private ArrayList<Integer> avgNumQs = new ArrayList<>();
 	private EvolutionParameters parameters;
+	private GraphicsParameters graphicParam = new GraphicsParameters();
 	
 
 	/**
@@ -230,7 +299,7 @@ public class Population {
 
 	public void spawnFirstGeneration() {
 		for (int i = 0; i < parameters.getGenSize(); i++) {
-			currGeneration[i] = new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(), parameters.getUnsure());
+			this.parameters.setCurrGen(i, new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(), parameters.getUnsure()));
 		}
 	}
 
@@ -246,7 +315,7 @@ public class Population {
 	// }
 
 	private void sortCurr() {
-		Arrays.sort(currGeneration);
+		Arrays.sort(parameters.getCurrentGeneration());
 	}
 
 	/**
@@ -257,9 +326,9 @@ public class Population {
 	 * @return
 	 */
 	public int gensSoFar() {
-		if (!this.terminated) {
+		if (!this.parameters.getTerminated()) {
 			// return generations.size();
-			return bestFitnesses.size();
+			return this.graphicParam.bestFitSize();
 		} else {
 			return this.parameters.getNumbersOfGen();
 		}
@@ -275,14 +344,14 @@ public class Population {
 
 		// adds the best, worst, and average fitnesses of this generation to be used in
 		// creating the GUI
-		bestFitnesses.add(getBestFitness());
-		avgFitnesses.add(getAvgFitness());
-		lowFitnesses.add(getWorstFitness());
+		this.graphicParam.addBestFitnesses(getBestFitness());
+		this.graphicParam.addAvgFitnesses(getAvgFitness());
+		this.graphicParam.addLowFitnesses(getWorstFitness());
 
 		if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
-			this.avgNum1s.add(getAvg1s());
-			this.avgNum0s.add(getAvg0s());
-			this.avgNumQs.add(getAvgQs());
+			this.graphicParam.addAvgNum1s(getAvg1s());
+			this.graphicParam.addAvgNum0s(getAvg0s());
+			this.graphicParam.addAvgNumQs(getAvgQs());
 			resetConstantFitnesses();
 		}
 		// gets the last index, that of the generation to evolve from
@@ -299,7 +368,7 @@ public class Population {
 		int mutateNum = genSize - elitismNum;
 
 		// gets the organisms of the last generation and sorts them
-		Organism[] orgs = Arrays.copyOfRange(currGeneration, 0, genSize);
+		Organism[] orgs = Arrays.copyOfRange(parameters.getCurrentGeneration(), 0, genSize);
 		Arrays.sort(orgs);
 
 		// initializes the variable to returned, the next generation, though currently
@@ -361,16 +430,16 @@ public class Population {
 		// adds the new generation to the generations
 		// this.generations.add(new Generation(result, this.selectionMethod,
 		// this.fitnessMethod));
-		currGeneration = result;
+		parameters.setCurrentGeneration(result);
 
 		// prints out the generation number and the best fitness of that generation as a
 		// means to debug and provide non-graphic representation
 		System.out.println(
-				"Created gen #" + this.gensSoFar() + " Best fitness: " + bestFitnesses.get(bestFitnesses.size() - 1));
+				"Created gen #" + this.gensSoFar() + " Best fitness: " +  this.graphicParam.getBestFitness(graphicParam.bestFitSize()-1));
 	}
 
 	private void resetConstantFitnesses() {
-		for (Organism o : currGeneration) {
+		for (Organism o : parameters.getCurrentGeneration()) {
 			o.resetConstantFitness();
 		}
 	}
@@ -379,7 +448,7 @@ public class Population {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].numOfQs();
+			sum += parameters.getCurrentGeneration(i).numOfQs();
 		}
 		return sum / genSize;
 	}
@@ -388,7 +457,7 @@ public class Population {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].numOf0s();
+			sum += parameters.getCurrentGeneration(i).numOf0s();
 		}
 		return sum / genSize;
 	}
@@ -397,28 +466,28 @@ public class Population {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].fitnessOf1s();
+			sum += parameters.getCurrentGeneration(i).fitnessOf1s();
 		}
 		return sum / genSize;
 	}
 
 	private Integer getWorstFitness() {
 		sortCurr();
-		return currGeneration[0].fitness();
+		return parameters.getCurrentGeneration(0).fitness();
 	}
 
 	private Integer getAvgFitness() {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].fitness();
+			sum += parameters.getCurrentGeneration(i).fitness();
 		}
 		return sum / genSize;
 	}
 
 	private Integer getBestFitness() {
 		sortCurr();
-		return currGeneration[parameters.getGenSize() - 1].fitness();
+		return parameters.getCurrentGeneration(parameters.getGenSize() - 1).fitness();
 	}
 
 	/**
@@ -919,36 +988,36 @@ public class Population {
 		g.setColor(Color.GRAY);
 		g.setStroke(new BasicStroke(1));
 		if (gensSoFar() > 2) {
-			g.drawLine(50, 350 - bestFitnesses.get(gensSoFar() - 2) * 3, 50 + (gensSoFar() - 2) * scale,
-					350 - bestFitnesses.get(gensSoFar() - 2) * 3);
+			g.drawLine(50, 350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3, 50 + (gensSoFar() - 2) * scale,
+					350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3);
 		}
 
 		g.setStroke(new BasicStroke(2));
 		for (int i = 0; i < gensSoFar() - 2; i++) {
 			g.setColor(Color.GREEN);
-			g.drawLine(50 + i * scale, (350 - bestFitnesses.get(i) * 3), 50 + (i + 1) * scale,
-					(350 - bestFitnesses.get(i + 1) * 3));
+			g.drawLine(50 + i * scale, (350 - graphicParam.getBestFitness(i) * 3), 50 + (i + 1) * scale,
+					(350 - graphicParam.getBestFitness(i + 1) * 3));
 			g.setColor(Color.ORANGE);
-			g.drawLine(50 + i * scale, 350 - avgFitnesses.get(i) * 3, 50 + (i + 1) * scale,
-					350 - avgFitnesses.get(i + 1) * 3);
+			g.drawLine(50 + i * scale, 350 - graphicParam.getAvgFitness(i) * 3, 50 + (i + 1) * scale,
+					350 - graphicParam.getAvgFitness(i + 1) * 3);
 			g.setColor(Color.RED);
-			g.drawLine(50 + i * scale, 350 - lowFitnesses.get(i) * 3, 50 + (i + 1) * scale,
-					350 - lowFitnesses.get(i + 1) * 3);
+			g.drawLine(50 + i * scale, 350 - graphicParam.getLowFitness(i) * 3, 50 + (i + 1) * scale,
+					350 - graphicParam.getLowFitness(i + 1) * 3);
 			g.setColor(Color.MAGENTA);
-			g.drawLine(50 + i * scale, 350 - (bestFitnesses.get(i) - lowFitnesses.get(i)), 50 + (i + 1) * scale,
-					350 - ((bestFitnesses.get(i + 1) - lowFitnesses.get(i + 1))));
+			g.drawLine(50 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)), 50 + (i + 1) * scale,
+					350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1))));
 			g.setColor(Color.BLACK);
-			g.drawLine(50, 50 - bestFitnesses.get(i) * 3, 50 + (i + 1) * scale, 50 - bestFitnesses.get(i) * 3);
+			g.drawLine(50, 50 - graphicParam.getBestFitness(i) * 3, 50 + (i + 1) * scale, 50 - graphicParam.getBestFitness(i) * 3);
 			if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
 				g.setColor(Color.BLUE);
-				g.drawLine(50 + i * scale, 350 - avgNum1s.get(i) * 3, 50 + (i + 1) * scale,
-						350 - avgNum1s.get(i + 1) * 3);
+				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum1s(i) * 3, 50 + (i + 1) * scale,
+						350 - graphicParam.getAvgNum1s(i + 1) * 3);
 				g.setColor(Color.CYAN);
-				g.drawLine(50 + i * scale, 350 - avgNum0s.get(i) * 3, 50 + (i + 1) * scale,
-						350 - avgNum0s.get(i + 1) * 3);
+				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum0s(i) * 3, 50 + (i + 1) * scale,
+						350 - graphicParam.getAvgNum0s(i + 1) * 3);
 				g.setColor(Color.LIGHT_GRAY);
-				g.drawLine(50 + i * scale, 350 - avgNumQs.get(i) * 3, 50 + (i + 1) * scale,
-						350 - avgNumQs.get(i + 1) * 3);
+				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNumQs(i) * 3, 50 + (i + 1) * scale,
+						350 - graphicParam.getAvgNumQs(i + 1) * 3);
 
 			}
 		}
@@ -1146,7 +1215,7 @@ public class Population {
 	public Organism getFittest() {
 		// return generations.get(gensSoFar() - 1).getFittest();
 		sortCurr();
-		return currGeneration[parameters.getGenSize()- 1];
+		return parameters.getCurrentGeneration(parameters.getGenSize() - 1);
 	}
 
 	/**
@@ -1156,7 +1225,7 @@ public class Population {
 	 * 
 	 */
 	public void terminate() {
-		this.terminated = true;
+		this.parameters.setTerminate(true);
 	}
 
 	/**
@@ -1166,7 +1235,7 @@ public class Population {
 	 * @return, the latest generation
 	 */
 	public Generation getLatestGen() {
-		return new Generation(currGeneration, parameters.getSelectionMethod(), parameters.getFitnessMethod());
+		return new Generation(parameters.getCurrentGeneration(), parameters.getSelectionMethod(), parameters.getFitnessMethod());
 		// return this.generations.get(generations.size() - 1);
 	}
 }
