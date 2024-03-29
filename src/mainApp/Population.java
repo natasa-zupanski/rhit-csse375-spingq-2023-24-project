@@ -141,26 +141,30 @@ public class Population {
 
 		// selects from the leftover organisms to decide which to mutate, all according
 		// to the selection method
-		String selectionMethod = parameters.getSelectionMethod();
-		if (selectionMethod.equals("Truncation")) {
-			toMutate = this.getToMutateTruncation(leftover);
-		}
-		if (selectionMethod.equals("Roulette Wheel")) {
-			toMutate = this.selectByChancePercents(leftover);
-		}
-		if (selectionMethod.equals("Rank")) {
-			toMutate = this.selectByRank(leftover);
-		}
-		if (selectionMethod.equals("Stable State")) {
-			toMutate = this.selectByStableState(leftover);
-		}
-		if (selectionMethod.equals("Rank Roulette")) {
-			toMutate = this.selectByRankRoulette(leftover);
-		}
-		if (selectionMethod.equals("Learning Chance")) {
-			resetConstantFitnesses();
-			toMutate = this.selectByLearningChances(leftover);
-		}
+		// String selectionMethod = parameters.getSelectionMethod();
+		SelectionType type = parameters.getSelectionType();
+		SelectionStrategy strategy = SelectionStrategyFactory.getSelectionStrategyOfType(type, STABLE_PERCENT,
+				parameters.getNumbersOfGen());
+		toMutate = strategy.selectFrom(leftover);
+		// if (selectionMethod.equals("Truncation")) {
+		// toMutate = this.getToMutateTruncation(leftover);
+		// }
+		// if (selectionMethod.equals("Roulette Wheel")) {
+		// toMutate = this.selectByChancePercents(leftover);
+		// }
+		// if (selectionMethod.equals("Rank")) {
+		// toMutate = this.selectByRank(leftover);
+		// }
+		// if (selectionMethod.equals("Stable State")) {
+		// toMutate = this.selectByStableState(leftover);
+		// }
+		// if (selectionMethod.equals("Rank Roulette")) {
+		// toMutate = this.selectByRankRoulette(leftover);
+		// }
+		// if (selectionMethod.equals("Learning Chance")) {
+		// resetConstantFitnesses();
+		// toMutate = this.selectByLearningChances(leftover);
+		// }
 
 		// applies crossover if crossover is turned on
 		if (parameters.getCrossover()) {

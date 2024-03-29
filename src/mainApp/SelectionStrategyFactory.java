@@ -2,12 +2,12 @@ package mainApp;
 
 public class SelectionStrategyFactory {
 
-    public static SelectionStrategy getSelectionStrategyOfType(SelectionType type, int value) {
+    public static SelectionStrategy getSelectionStrategyOfType(SelectionType type, int percent, int numGens) {
         switch (type) {
             case STABLESTATE:
-                return new SelectionStableState(value);
+                return new SelectionStableState(percent);
             case LEARNINGCHANCE:
-                return new SelectionLearningChance(value);
+                return new SelectionLearningChance(numGens);
             case TRUNCATION:
                 return new SelectionTruncation();
             case RANKROULETTE:

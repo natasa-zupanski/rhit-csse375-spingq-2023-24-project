@@ -12,6 +12,7 @@ public class SelectionLearningChance implements SelectionStrategy {
 
     @Override
     public Organism[] selectFrom(Organism[] orgs) {
+        resetConstantFitnesses(orgs);
         HashMap<Organism, Integer> map = new HashMap<>();
 
         for (int i = 0; i < orgs.length; i++) {
@@ -24,6 +25,12 @@ public class SelectionLearningChance implements SelectionStrategy {
         }
 
         return result;
+    }
+
+    private void resetConstantFitnesses(Organism[] orgs) {
+        for (Organism o : orgs) {
+            o.resetConstantFitness();
+        }
     }
 
     private Organism selectedByLearningChances(HashMap<Organism, Integer> map) {
