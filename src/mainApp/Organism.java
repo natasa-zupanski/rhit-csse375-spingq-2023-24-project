@@ -680,4 +680,8 @@ public class Organism implements Comparable<Organism> {
 	public void setFitnessMethod(String method) {
 		this.fitnessType = method;
 	}
+
+	public FitnessType getFitnessType() {
+		return this.fitness.getFitnessType();
+	}
 }
