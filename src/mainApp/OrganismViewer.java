@@ -25,27 +25,22 @@ import javax.swing.SwingConstants;
  * Class: OrganismComponent
  * 
  * @author R_003: Allyn Loyd and Natasa Zupanski
- *         </br>
- *         Purpose: Used to view/load/save files representing an organism's
- *         genotype
- *         </br>
- *         Restrictions: None
- *         </br>
- *         For example: OrganismViewer organismViewer = new OrganismViewer();
- */
-class OrganismViewer {
-	private JFrame frame;
+ * </br>Purpose: Used to view/load/save files representing an organism's genotype
+ * </br>Restrictions: None
+ * </br> For example: OrganismViewer organismViewer = new OrganismViewer();
+ */ 
+public class OrganismViewer extends Views {
 
+	@Override
 	public void setUpViewer() {
+		super.setUpViewer();
 		final int frameWidth = 360;
 		final int frameHeight = 420;
 
-		this.frame = new JFrame();
 		this.frame.setTitle("ChromosomeViewer");
 		this.frame.setSize(frameWidth, frameHeight);
 		this.frame.setLocation(1100, 100);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setLayout(new BorderLayout());
+		
 
 		JLabel fileTitle = new JLabel("");
 		this.frame.add(fileTitle, BorderLayout.NORTH);
@@ -192,10 +187,6 @@ class OrganismViewer {
 		panel.add(load);
 		panel.add(save);
 
-	}
-
-	public void runApp() {
-		this.frame.setVisible(true);
 	}
 
 }

@@ -1,14 +1,8 @@
 package mainApp;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
 //import java.awt.Stroke;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.stream.Stream;
 
 /**
  * 
@@ -29,83 +23,29 @@ import java.util.stream.Stream;
 public class Population {
 	// constant value fields
 	final private int STABLE_PERCENT = 10;
+	private EvolutionParameters parameters;
+	private PopulationVisualization populationVisualization;
 
 	// changing fields
 	// -- variables used for the evolution of the population
 	// private ArrayList<Generation> generations = new ArrayList<>();
 	// private ArrayList<GenerationHistory> history = new ArrayList();
-	private Organism[] currGeneration;
-	private boolean terminated = false;
-	private int genSize = 0;
-	private int mutationRate = 0;
-	private int numOfGens = 0;
-	private int chromosomeLength = 0;
-	private int elitismPercent = 0;
-	private int terminationCondition = 0;
-	private boolean crossover;
-	private String selectionMethod = "";
-	private String fitnessMethod = "";
-	private FitnessType fitnessType;
-	private SelectionType selectionType;
-	private boolean isUnsure = false;
-
-	// -- variables used for graphics
-	private ArrayList<Integer> bestFitnesses = new ArrayList<>();
-	private ArrayList<Integer> avgFitnesses = new ArrayList<>();
-	private ArrayList<Integer> lowFitnesses = new ArrayList<>();
-	private ArrayList<Integer> avgNum1s = new ArrayList<>();
-	private ArrayList<Integer> avgNum0s = new ArrayList<>();
-	private ArrayList<Integer> avgNumQs = new ArrayList<>();
 
 	/**
 	 * ensures: constructs a population
 	 * 
-	 * @param mutationRate,         percent chance for mutation for each allele in
-	 *                              the chromosome of an organism
-	 * @param numOfGens,            the max numsber of generations a population
-	 *                              should evolve for
-	 * @param genSize,              the amount of organisms in a generation
-	 * @param chromosomeLength,     the length of the chromosome, the number of
-	 *                              alleles it has, of each organism
-	 * @param elitism,              the percent value of the population that'll copy
-	 *                              over to the next generation unmutated
-	 * @param selectionMethod,      the method used for deciding which organisms of
-	 *                              each generation will be used to make the next
-	 *                              and how
-	 * @param fitnessMethod,        the method used for evaluating whether an
-	 *                              organism is considered fit or not, depending on
-	 *                              its chromosome
-	 * @param crossover,            if true crossover is implemented, every two
-	 *                              organisms producing two offspring for the next
-	 *                              generation
-	 * @param terminationCondition, specifies which fitness level needs to be
-	 *                              achieved for the program and evolution of the
-	 *                              population to end
+	 @parameters      contains information about the population                      
 	 */
-	public Population(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
-			String selectionMethod, String fitnessMethod, boolean crossover, int terminationCondition) {
-		this.numOfGens = numOfGens;
-		this.mutationRate = mutationRate;
-		this.genSize = genSize;
-		this.elitismPercent = elitism;
-		this.chromosomeLength = chromosomeLength;
-		this.selectionMethod = selectionMethod;
-		this.selectionType = SelectionStrategyFactory.getSelectionTypeFromString(selectionMethod);
-		if (selectionType == SelectionType.LEARNINGCHANCE) {
-			isUnsure = true;
-		}
-		this.fitnessMethod = fitnessMethod;
-		this.fitnessType = FitnessStrategyFactory.getTypeFromString(fitnessMethod);
-		this.crossover = crossover;
-		this.terminationCondition = terminationCondition;
-		this.currGeneration = new Organism[genSize];
+	public Population(EvolutionParameters parameters) {
+		this.parameters = parameters;
+		this.populationVisualization = new PopulationVisualization(parameters);
 	}
 
 	/**
 	 * ensures: constructs a population based on default values
 	 */
 	public Population() {
-		this(1, 500, 100, 100, 1, "Truncation", "Num. of 1s", true, 100);
+        this(new EvolutionParameters(1, 500, 100, 100, 1, "Truncation", "Num. of 1s", true, 100));
 	}
 
 	/**
@@ -128,8 +68,8 @@ public class Population {
 	// }
 
 	public void spawnFirstGeneration() {
-		for (int i = 0; i < genSize; i++) {
-			currGeneration[i] = new Organism(chromosomeLength, fitnessType, isUnsure);
+		for (int i = 0; i < parameters.getGenSize(); i++) {
+			this.parameters.setCurrGen(i, new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(), parameters.getUnsure()));
 		}
 	}
 
@@ -145,24 +85,9 @@ public class Population {
 	// }
 
 	private void sortCurr() {
-		Arrays.sort(currGeneration);
+		Arrays.sort(parameters.getCurrentGeneration());
 	}
 
-	/**
-	 * 
-	 * ensures: returns the amount of generations completed if the population is not
-	 * terminated. A terminated generation returns the max gens to complete
-	 * 
-	 * @return
-	 */
-	public int gensSoFar() {
-		if (!this.terminated) {
-			// return generations.size();
-			return bestFitnesses.size();
-		} else {
-			return this.numOfGens;
-		}
-	}
 
 	/**
 	 * 
@@ -174,16 +99,12 @@ public class Population {
 
 		// adds the best, worst, and average fitnesses of this generation to be used in
 		// creating the GUI
-		bestFitnesses.add(getBestFitness());
-		avgFitnesses.add(getAvgFitness());
-		lowFitnesses.add(getWorstFitness());
 
-		if (this.selectionMethod.equals("Learning Chance")) {
-			this.avgNum1s.add(getAvg1s());
-			this.avgNum0s.add(getAvg0s());
-			this.avgNumQs.add(getAvgQs());
+		this.populationVisualization.populateData(getBestFitness(), getAvgFitness(), getWorstFitness(), getAvg1s(), getAvg0s(), getAvgQs());
+		if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
 			resetConstantFitnesses();
 		}
+		
 		// gets the last index, that of the generation to evolve from
 		// int lastIndex = this.gensSoFar() - 1;
 
@@ -193,11 +114,12 @@ public class Population {
 
 		// gets the number of organisms that will be carried over as accoring to elitism
 		// get the number of organisms that will be mutated eventually
-		int elitismNum = (elitismPercent * genSize) / 100;
-		int mutateNum = this.genSize - elitismNum;
+		int genSize = this.parameters.getGenSize();
+		int elitismNum = (parameters.getElitismPercent() * genSize) / 100;
+		int mutateNum = genSize - elitismNum;
 
 		// gets the organisms of the last generation and sorts them
-		Organism[] orgs = Arrays.copyOfRange(currGeneration, 0, genSize);
+		Organism[] orgs = Arrays.copyOfRange(parameters.getCurrentGeneration(), 0, genSize);
 		Arrays.sort(orgs);
 
 		// initializes the variable to returned, the next generation, though currently
@@ -217,28 +139,29 @@ public class Population {
 
 		// selects from the leftover organisms to decide which to mutate, all according
 		// to the selection method
-		if (this.selectionMethod.equals("Truncation")) {
+		String selectionMethod = parameters.getSelectionMethod();
+		if (selectionMethod.equals("Truncation")) {
 			toMutate = this.getToMutateTruncation(leftover);
 		}
-		if (this.selectionMethod.equals("Roulette Wheel")) {
+		if (selectionMethod.equals("Roulette Wheel")) {
 			toMutate = this.selectByChancePercents(leftover);
 		}
-		if (this.selectionMethod.equals("Rank")) {
+		if (selectionMethod.equals("Rank")) {
 			toMutate = this.selectByRank(leftover);
 		}
-		if (this.selectionMethod.equals("Stable State")) {
+		if (selectionMethod.equals("Stable State")) {
 			toMutate = this.selectByStableState(leftover);
 		}
-		if (this.selectionMethod.equals("Rank Roulette")) {
+		if (selectionMethod.equals("Rank Roulette")) {
 			toMutate = this.selectByRankRoulette(leftover);
 		}
-		if (this.selectionMethod.equals("Learning Chance")) {
+		if (selectionMethod.equals("Learning Chance")) {
 			resetConstantFitnesses();
 			toMutate = this.selectByLearningChances(leftover);
 		}
 
 		// applies crossover if crossover is turned on
-		if (this.crossover) {
+		if (parameters.getCrossover()) {
 			toMutate = this.applyCrossover(toMutate);
 		}
 
@@ -258,60 +181,63 @@ public class Population {
 		// adds the new generation to the generations
 		// this.generations.add(new Generation(result, this.selectionMethod,
 		// this.fitnessMethod));
-		currGeneration = result;
+		parameters.setCurrentGeneration(result);
 
 		// prints out the generation number and the best fitness of that generation as a
 		// means to debug and provide non-graphic representation
-		System.out.println(
-				"Created gen #" + this.gensSoFar() + " Best fitness: " + bestFitnesses.get(bestFitnesses.size() - 1));
+		this.populationVisualization.printBestFitness();
 	}
 
 	private void resetConstantFitnesses() {
-		for (Organism o : currGeneration) {
+		for (Organism o : parameters.getCurrentGeneration()) {
 			o.resetConstantFitness();
 		}
 	}
 
 	private Integer getAvgQs() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].numOfQs();
+			sum += parameters.getCurrentGeneration(i).numOfQs();
 		}
 		return sum / genSize;
 	}
 
 	private Integer getAvg0s() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].numOf0s();
+			sum += parameters.getCurrentGeneration(i).numOf0s();
 		}
 		return sum / genSize;
 	}
 
 	private Integer getAvg1s() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].fitnessOf1s();
+			sum += parameters.getCurrentGeneration(i).fitnessOf1s();
 		}
 		return sum / genSize;
 	}
 
 	private Integer getWorstFitness() {
 		sortCurr();
-		return currGeneration[0].fitness();
+		return parameters.getCurrentGeneration(0).fitness();
 	}
 
 	private Integer getAvgFitness() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += currGeneration[i].fitness();
+			sum += parameters.getCurrentGeneration(i).fitness();
 		}
 		return sum / genSize;
 	}
 
 	private Integer getBestFitness() {
 		sortCurr();
-		return currGeneration[genSize - 1].fitness();
+		return parameters.getCurrentGeneration(parameters.getGenSize() - 1).fitness();
 	}
 
 	/**
@@ -329,9 +255,9 @@ public class Population {
 
 		for (int index = 0; index < toMutate.length; index++) {
 			// creates a new organism from the one at the current index
-			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.fitnessType);
+			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.parameters.getFitnessType());
 			// mutates that new organism
-			intermediate.mutate(this.mutationRate);
+			intermediate.mutate(this.parameters.getMutationRate());
 			// adds it to the result
 			result[index] = intermediate;
 		}
@@ -407,7 +333,7 @@ public class Population {
 
 		// replaced the bottom with the top organisms
 		for (int index = 0; index < numToCopy; index++) {
-			temp[index] = new Organism(toCopy[index].getChromosome(), this.fitnessType);
+			temp[index] = new Organism(toCopy[index].getChromosome(), this.parameters.getFitnessType());
 		}
 
 		return temp;
@@ -488,7 +414,7 @@ public class Population {
 		HashMap<Organism, Integer> map = new HashMap<>();
 
 		for (int i = 0; i < orgs.length; i++) {
-			map.putIfAbsent(orgs[i], orgs[i].getFitnessAfterDays(this.numOfGens) + 1);
+			map.putIfAbsent(orgs[i], orgs[i].getFitnessAfterDays(this.parameters.getNumbersOfGen()) + 1);
 		}
 
 		Organism[] result = new Organism[orgs.length];
@@ -565,7 +491,7 @@ public class Population {
 
 		for (int i = 0; i < orgs.length; i++) {
 
-			orgs[i].setFitnessMethod(this.fitnessMethod);
+			orgs[i].setFitnessMethod(this.parameters.getFitnessMethod());
 			result[i] = orgs[i].fitness();
 		}
 
@@ -615,7 +541,7 @@ public class Population {
 			int lastSum = sum;
 			sum += fitnesses[index];
 			if (chance >= lastSum && chance <= sum) {
-				return new Organism(orgs[index].getChromosome(), this.fitnessType);
+				return new Organism(orgs[index].getChromosome(), this.parameters.getFitnessType());
 			}
 		}
 		return null;
@@ -752,7 +678,7 @@ public class Population {
 			int lastSum = sum;
 			sum += ranks[index];
 			if (chance >= lastSum && chance <= sum) {
-				return new Organism(orgs[index].getChromosome(), this.fitnessType);
+				return new Organism(orgs[index].getChromosome(), this.parameters.getFitnessType());
 			}
 		}
 
@@ -773,7 +699,7 @@ public class Population {
 		// this.newGen();
 		// this.sortFitness(0);
 
-		for (int count = 0; count < this.numOfGens; count++) {
+		for (int count = 0; count < this.parameters.getNumbersOfGen(); count++) {
 			this.nextGeneration();
 			// this.sortFitness(this.gensSoFar() - 1);
 			sortCurr();
@@ -781,252 +707,14 @@ public class Population {
 
 	}
 
-	/**
-	 * TODO inner comments
-	 * ensures: draws the population at a point and time, the line of best fitness,
-	 * that of average fitness, that of worst fitness and, if the research results
-	 * are attempting to be replicated, the average number of 1s, 0s, and ?s as they
-	 * change in the population over time.
-	 * 
-	 * @param g, the 2D graphics on which to draw these lines
-	 */
-	public void drawOn(Graphics2D g) {
-
-		int scale = 1000 / this.numOfGens;
-
-		g.setColor(Color.BLACK);
-
-		for (int i = 0; i <= 10; i++) {
-			g.drawLine(50 + i * scale * this.numOfGens / 10, 350 - 5, 50 + i * scale * this.numOfGens / 10, 350 + 5);
-			g.drawString("" + i * this.numOfGens / 10, 50 + (i * scale * this.numOfGens / 10) - 10, 350 + 20);
-			g.drawLine(50 - 5, 350 - i * 30, 50 + 5, 350 - i * 30);
-			g.drawString("" + i * 10, 50 - 25, 350 - (i * 30) + 5);
-		}
-
-		g.setStroke(new BasicStroke(2));
-
-		g.drawLine(50, 350, 50 + 1000, 350);
-		g.drawLine(50, 50, 50, 350);
-
-		g.setColor(Color.GRAY);
-		g.setStroke(new BasicStroke(1));
-		if (gensSoFar() > 2) {
-			g.drawLine(50, 350 - bestFitnesses.get(gensSoFar() - 2) * 3, 50 + (gensSoFar() - 2) * scale,
-					350 - bestFitnesses.get(gensSoFar() - 2) * 3);
-		}
-
-		g.setStroke(new BasicStroke(2));
-		for (int i = 0; i < gensSoFar() - 2; i++) {
-			g.setColor(Color.GREEN);
-			g.drawLine(50 + i * scale, (350 - bestFitnesses.get(i) * 3), 50 + (i + 1) * scale,
-					(350 - bestFitnesses.get(i + 1) * 3));
-			g.setColor(Color.ORANGE);
-			g.drawLine(50 + i * scale, 350 - avgFitnesses.get(i) * 3, 50 + (i + 1) * scale,
-					350 - avgFitnesses.get(i + 1) * 3);
-			g.setColor(Color.RED);
-			g.drawLine(50 + i * scale, 350 - lowFitnesses.get(i) * 3, 50 + (i + 1) * scale,
-					350 - lowFitnesses.get(i + 1) * 3);
-			g.setColor(Color.MAGENTA);
-			g.drawLine(50 + i * scale, 350 - (bestFitnesses.get(i) - lowFitnesses.get(i)), 50 + (i + 1) * scale,
-					350 - ((bestFitnesses.get(i + 1) - lowFitnesses.get(i + 1))));
-			g.setColor(Color.BLACK);
-			g.drawLine(50, 50 - bestFitnesses.get(i) * 3, 50 + (i + 1) * scale, 50 - bestFitnesses.get(i) * 3);
-			if (this.selectionMethod.equals("Learning Chance")) {
-				g.setColor(Color.BLUE);
-				g.drawLine(50 + i * scale, 350 - avgNum1s.get(i) * 3, 50 + (i + 1) * scale,
-						350 - avgNum1s.get(i + 1) * 3);
-				g.setColor(Color.CYAN);
-				g.drawLine(50 + i * scale, 350 - avgNum0s.get(i) * 3, 50 + (i + 1) * scale,
-						350 - avgNum0s.get(i + 1) * 3);
-				g.setColor(Color.LIGHT_GRAY);
-				g.drawLine(50 + i * scale, 350 - avgNumQs.get(i) * 3, 50 + (i + 1) * scale,
-						350 - avgNumQs.get(i + 1) * 3);
-
-			}
-		}
+	public EvolutionParameters getEvolutionParameters()
+	{
+		return this.parameters;
 	}
 
-	/**
-	 * 
-	 * ensures: sets the mutation rate of the population, modeled as a percent, to
-	 * the given variable
-	 * 
-	 * @param r, the rate, as a percent, to set the mutation rate to
-	 */
-	public void setMutationRate(int r) {
-		this.mutationRate = r;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and returns the mutation rate, modeled as a percent
-	 * 
-	 * @return
-	 */
-	public int getMutationRate() {
-		return this.mutationRate;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the generation size to some given integer, s
-	 * 
-	 * @param s, the integer to set the generation size to
-	 */
-	public void setGenSize(int s) {
-		this.genSize = s;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and returns the generation size, an integer
-	 * 
-	 * @return the generation size
-	 */
-	public int getGenSize() {
-		return this.genSize;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the number of generations to run to the given integer, g
-	 * 
-	 * @param g, the integer to set the number of generations to run to
-	 */
-	public void setNumGens(int g) {
-		this.numOfGens = g;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and retruns the number of generations to run
-	 * 
-	 * @return the number of generations to run
-	 */
-	public int getNumGens() {
-		return this.numOfGens;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the chromosome length, the number of alleles each organism is
-	 * supposed to have, to the given integer l
-	 * 
-	 * @param l, the integer to set the chromosome length to
-	 */
-	public void setGenomeLength(int l) {
-		this.chromosomeLength = l;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and returns the chromosome length, the number of alleles each
-	 * organis is supposed to have
-	 * 
-	 * @return the current chromosome length
-	 */
-	public int getGenomeLength() {
-		return this.chromosomeLength;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the elitism percent, the percent of organisms to be copied over
-	 * to the next generation unchanged
-	 * 
-	 * @param r, the percent given as an integer
-	 */
-	public void setElitism(int r) {
-		this.elitismPercent = r;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and returns the elitism percent, the percent of organisms to be
-	 * copied over to the next generation unchanged
-	 * 
-	 * @return the elitism percent of the population
-	 */
-	public int getElitism() {
-		return this.elitismPercent;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the termination condition, the fitness value at which the user
-	 * wishes the program to terminate and the population to stop evolving
-	 * 
-	 * @param t, the integer value to set the termination condition to
-	 */
-	public void setTermination(int t) {
-		this.terminationCondition = t;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and returns the current termination condition, the fitness
-	 * value at which the user wishes the program to terminate
-	 * 
-	 * @return, the current termination condition
-	 */
-	public int getTermination() {
-		return this.terminationCondition;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the selection method, the process used to decide which
-	 * organisms are carried on to the next generation, alebeit possibly mutated and
-	 * crossover over, and by what amount they will be carried over
-	 * 
-	 * @param m, the name of the selection method to use
-	 */
-	public void setSelection(String m) {
-		this.selectionMethod = m;
-	}
-
-	/**
-	 * 
-	 * ensures: gets the selection method, the process used to select from one
-	 * generation the organisms used to create the next
-	 * 
-	 * @return, the selection method in use
-	 */
-	public String getSelction() {
-		return this.selectionMethod;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the crossover, true if crossover is applied, false if it is
-	 * not, in accordance to the value of the given c
-	 * 
-	 * @param c, the true or false boolean value to set the crossover to
-	 */
-	public void setCrossover(boolean c) {
-		this.crossover = c;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and returns whether of not crossover is implemented and being
-	 * used
-	 * 
-	 * @return, true if crossover is applied, false if not
-	 */
-	public boolean getCrossover() {
-		return this.crossover;
-	}
-
-	/**
-	 * 
-	 * ensures: sets the fitness method, the process which extracts a fitness value,
-	 * a phenotype, from the genetic code or genotype of an organism
-	 * 
-	 * @param fitnessMethod, the name of the method to be used
-	 */
-	public void setFitnessMethod(String fitnessMethod) {
-		this.fitnessMethod = fitnessMethod;
+	public PopulationVisualization getPopulationVisualization()
+	{
+		return this.populationVisualization;
 	}
 
 	/**
@@ -1038,17 +726,7 @@ public class Population {
 	public Organism getFittest() {
 		// return generations.get(gensSoFar() - 1).getFittest();
 		sortCurr();
-		return currGeneration[genSize - 1];
-	}
-
-	/**
-	 * 
-	 * ensures: sets the boolean value, terminated, to true. Terminated helps
-	 * determine when the program should stop the evolution of a population
-	 * 
-	 */
-	public void terminate() {
-		this.terminated = true;
+		return parameters.getCurrentGeneration(parameters.getGenSize() - 1);
 	}
 
 	/**
@@ -1058,7 +736,7 @@ public class Population {
 	 * @return, the latest generation
 	 */
 	public Generation getLatestGen() {
-		return new Generation(currGeneration, selectionMethod, fitnessMethod);
+		return new Generation(parameters.getCurrentGeneration(), parameters.getSelectionMethod(), parameters.getFitnessMethod());
 		// return this.generations.get(generations.size() - 1);
 	}
 }

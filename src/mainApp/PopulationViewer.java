@@ -1,6 +1,5 @@
 package mainApp;
 
-import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -30,8 +28,7 @@ import javax.swing.Timer;
  *         For example: PopulationViewer populationViewer = new
  *         PopulationViewer();
  */
-public class PopulationViewer {
-	private JFrame frame;
+public class PopulationViewer extends Views{
 	private PopulationComponent pop = new PopulationComponent(new Population());
 	private String status = "Stopped";
 	private Timer timer;
@@ -39,18 +36,16 @@ public class PopulationViewer {
 	GenerationViewer generationViewer = new GenerationViewer();
 
 	public void setUpViewer() {
+		super.setUpViewer();
 		fittestOrganism.setUpViewer();
 		generationViewer.setUpViewer();
 
 		final int frameWidth = 1100;
 		final int frameHeight = 500;
 
-		this.frame = new JFrame();
 		this.frame.setTitle("EvolutionViewer");
 		this.frame.setSize(frameWidth, frameHeight);
 		this.frame.setLocation(25, 75);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setLayout(new BorderLayout());
 
 		PopulationAdvanceListener advanceListener = new PopulationAdvanceListener(pop, fittestOrganism, this,
 				generationViewer);
@@ -59,9 +54,8 @@ public class PopulationViewer {
 		frame.add(pop);
 
 		JLabel selectionLabel = new JLabel("Selection Method", SwingConstants.CENTER);
-		String[] selectionMethods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State",
-				"Learning Chance" };
-		JComboBox selectionOptions = new JComboBox(selectionMethods);
+		String[] selectionMethods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State" , "Learning Chance"};
+		JComboBox<String> selectionOptions = new JComboBox<String>(selectionMethods);
 		selectionOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -71,7 +65,7 @@ public class PopulationViewer {
 
 		JLabel fitnessLabel = new JLabel("Fitness Method", SwingConstants.CENTER);
 		String[] fitnessMethods = { "Num. of 1s", "Target Organism", "Consec. num. of 1s" };
-		JComboBox fitnessOptions = new JComboBox(fitnessMethods);
+		JComboBox<String> fitnessOptions = new JComboBox<String>(fitnessMethods);
 		selectionOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -222,10 +216,6 @@ public class PopulationViewer {
 		panel.add(top);
 		panel.add(bottom);
 		this.frame.add(panel, BorderLayout.SOUTH);
-	}
-
-	public void runApp() {
-		this.frame.setVisible(true);
 	}
 
 	public void terminateRun() {

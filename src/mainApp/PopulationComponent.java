@@ -21,9 +21,11 @@ import javax.swing.JComponent;
 public class PopulationComponent extends JComponent {
 
 	private Population population;
+	private EvolutionParameters evolutionParameters;
 
 	public PopulationComponent(Population p) {
 		this.population = p;
+		this.evolutionParameters = p.getEvolutionParameters();
 	}
 
 	public void updateState() {
@@ -34,74 +36,74 @@ public class PopulationComponent extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		this.population.drawOn(g2d);
+		this.population.getPopulationVisualization().drawOn(g2d);
 
 	}
 
 	public void drawScreen() {
 		this.repaint();
 	}
-
-	public void createNewPopulation(int mutationRate, int numOfGens, int genSize, int chromosomeLength,
-			int elitismPercent, String selectionMethod, String fitnessMethod, boolean crossover, int termination) {
-		this.population = new Population(mutationRate, numOfGens, genSize, chromosomeLength, elitismPercent,
-				selectionMethod, fitnessMethod, crossover, termination);
+	
+	public void createNewPopulation(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitismPercent, String selectionMethod, String fitnessMethod, boolean crossover, int termination) {
+		EvolutionParameters parameters = new EvolutionParameters(mutationRate, numOfGens, genSize, chromosomeLength, elitismPercent, selectionMethod, fitnessMethod, crossover, termination);
+		this.population = new Population(parameters);
+		this.evolutionParameters = population.getEvolutionParameters();
 	}
 
 	public String handleGetMutationRate() {
-		return "" + this.population.getMutationRate();
+		return "" + this.evolutionParameters.getMutationRate();
 	}
 
 	public void handleSetMutationRate(int r) {
-		this.population.setMutationRate(r);
+		this.evolutionParameters.setMutationRate(r);
 	}
 
 	public void handleSetSelection(String selection) {
-		this.population.setSelection(selection);
+		this.evolutionParameters.setSelection(selection);
 	}
 
 	public boolean handleGetCrossover() {
-		return this.population.getCrossover();
+		return this.evolutionParameters.getCrossover();
 	}
 
 	public void handleSetCrossover(boolean crossover) {
-		this.population.setCrossover(crossover);
+		this.evolutionParameters.setCrossover(crossover);
 	}
 
 	public String handleGetGenSize() {
-		return String.valueOf(this.population.getGenSize());
+		return String.valueOf(this.evolutionParameters.getGenSize());
 	}
 
 	public void handleSetGenSize(int size) {
-		this.population.setGenSize(size);
+		this.evolutionParameters.setGenSize(size);
 	}
 
 	public String handleGetNumGens() {
-		return String.valueOf(this.population.getNumGens());
+		return String.valueOf(this.evolutionParameters.getNumbersOfGen());
 	}
 
 	public void handleSetNumGens(int num) {
-		this.population.setNumGens(num);
+		this.evolutionParameters.setNumGens(num);
 	}
 
 	public String handleGetGenomeLength() {
-		return String.valueOf(this.population.getGenomeLength());
+		return String.valueOf(this.evolutionParameters.getChromosomeLength());
 	}
 
 	public void handleSetGenomeLength(int length) {
-		this.population.setGenomeLength(length);
+		this.evolutionParameters.setGenomeLength(length);
 	}
 
 	public String handleGetElitism() {
-		return String.valueOf(this.population.getElitism());
+		return String.valueOf(this.evolutionParameters.getElitismPercent());
 	}
 
 	public void handleSetElitism(int rate) {
-		this.population.setElitism(rate);
+		this.evolutionParameters.setElitism(rate);
 	}
 
 	public int handleGetGensSoFar() {
-		return this.population.gensSoFar();
+		return this.population.getPopulationVisualization().gensSoFar();
 	}
 
 	public void handleRunPopulationEvol() {
@@ -109,7 +111,7 @@ public class PopulationComponent extends JComponent {
 	}
 
 	public void handleSetFitness(String fitnessMethod) {
-		this.population.setFitnessMethod(fitnessMethod);
+		this.evolutionParameters.setFitnessMethod(fitnessMethod);
 	}
 
 	public Organism handleGetFittest() {
@@ -117,7 +119,7 @@ public class PopulationComponent extends JComponent {
 	}
 
 	public void handleSetTermination(int t) {
-		this.population.setTermination(t);
+		this.evolutionParameters.setTermination(t);
 	}
 
 	public Generation handleGetLatestGen() {
@@ -125,11 +127,11 @@ public class PopulationComponent extends JComponent {
 	}
 
 	public String handleGetTermination() {
-		return "" + this.population.getTermination();
+		return "" + this.evolutionParameters.getTermination();
 	}
 
 	public void handleTerminate() {
-		this.population.terminate();
+		this.evolutionParameters.terminate();
 	}
 
 }

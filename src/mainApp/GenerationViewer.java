@@ -3,7 +3,6 @@ package mainApp;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 /**
  * Class: GenerationViewer
@@ -12,9 +11,7 @@ import javax.swing.JPanel;
  * </br>Restrictions: None
  * </br> For example: GenerationViewer generationViewer = new GenerationViewer();
  */
-public class GenerationViewer {
-	private JFrame frame;
-	private JPanel panel = new JPanel();
+public class GenerationViewer extends Views{
 	private Generation gen = new Generation();
 	private ArrayList<OrganismComponent> components= new ArrayList<OrganismComponent>();
 	public GenerationViewer() {
@@ -31,15 +28,12 @@ public class GenerationViewer {
 	}
 	
 	public void setUpViewer() {
-		
+		super.setUpViewer();
 		final int frameWidth = 400;
 		final int frameHeight = 400;
 
-		this.frame = new JFrame();
 		this.frame.setTitle("GenerationViewer");
 		this.frame.setSize(frameWidth, frameHeight);
-		this.frame.setLocation(1125, 400);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.panel.setLayout(new GridLayout(gen.getRowNum(), gen.getColumnNum()));
 		
