@@ -9,6 +9,58 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+class EvolutionParameters {
+    private int mutationRate;
+    private int numOfGens;
+    private int genSize;
+    private int chromosomeLength;
+    private int elitismPercent;
+    private int terminationCondition;
+    private String selectionMethod;
+    private String fitnessMethod;
+    private boolean crossover;
+
+	public EvolutionParameters(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
+	String selectionMethod, String fitnessMethod, boolean crossover, int terminationCondition) {
+        this.mutationRate = mutationRate;
+		this.numOfGens = numOfGens;
+		this.genSize = genSize;
+		this.chromosomeLength = chromosomeLength;
+		this.elitismPercent = elitism;
+		this.selectionMethod = selectionMethod;
+		this.fitnessMethod = fitnessMethod;
+		this.crossover = crossover;
+		this.terminationCondition = terminationCondition;
+    }
+
+    public int getGenSize() {
+        return this.genSize;
+    }
+
+    public int getChromosomeLength() {
+       return this.chromosomeLength;
+    }
+
+    public String getSelectionMethod() {
+       return this.selectionMethod;
+    }
+
+    public int getNumbersOfGen() {
+        return this.numOfGens;
+    }
+}
+
+class GraphicsParameters {
+    private ArrayList<Integer> bestFitnesses = new ArrayList<>();
+    private ArrayList<Integer> avgFitnesses = new ArrayList<>();
+    private ArrayList<Integer> lowFitnesses = new ArrayList<>();
+    private ArrayList<Integer> avgNum1s = new ArrayList<>();
+    private ArrayList<Integer> avgNum0s = new ArrayList<>();
+    private ArrayList<Integer> avgNumQs = new ArrayList<>();
+
+    // Methods to manipulate graphics parameters
+}
+
 /**
  * 
  * Class: Population
@@ -33,16 +85,7 @@ public class Population {
 	// -- variables used for the evolution of the population
 	private ArrayList<Generation> generations = new ArrayList<>();
 	private boolean terminated = false;
-	private int genSize = 0;
-	private int mutationRate = 0;
-	private int numOfGens = 0;
-	private int chromosomeLength = 0;
-	private int elitismPercent = 0;
-	private int terminationCondition = 0;
-	private boolean crossover;
-	private String selectionMethod = "";
-	private String fitnessMethod = "";
-
+	
 	// -- variables used for graphics
 	private ArrayList<Integer> bestFitnesses = new ArrayList<>();
 	private ArrayList<Integer> avgFitnesses = new ArrayList<>();
@@ -50,6 +93,8 @@ public class Population {
 	private ArrayList<Integer> avgNum1s = new ArrayList<>();
 	private ArrayList<Integer> avgNum0s = new ArrayList<>();
 	private ArrayList<Integer> avgNumQs = new ArrayList<>();
+	private EvolutionParameters parameters;
+	
 
 	/**
 	 * ensures: constructs a population
@@ -76,24 +121,15 @@ public class Population {
 	 *                              achieved for the program and evolution of the
 	 *                              population to end
 	 */
-	public Population(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
-			String selectionMethod, String fitnessMethod, boolean crossover, int terminationCondition) {
-		this.numOfGens = numOfGens;
-		this.mutationRate = mutationRate;
-		this.genSize = genSize;
-		this.elitismPercent = elitism;
-		this.chromosomeLength = chromosomeLength;
-		this.selectionMethod = selectionMethod;
-		this.fitnessMethod = fitnessMethod;
-		this.crossover = crossover;
-		this.terminationCondition = terminationCondition;
+	public Population(EvolutionParameters evolutionParameters) {
+		this.parameters = evolutionParameters;
 	}
 
 	/**
 	 * ensures: constructs a population based on default values
 	 */
 	public Population() {
-		this(1, 500, 100, 100, 1, "Truncation", "Num. of 1s", true, 100);
+        this(new EvolutionParameters(1, 500, 100, 100, 1, "Truncation", "Num. of 1s", true, 100));
 	}
 
 	/**
@@ -111,7 +147,7 @@ public class Population {
 	 * ensures: starts the first generation of the population
 	 */
 	public void newGen() {
-		this.generations.add(new Generation(genSize, chromosomeLength, selectionMethod, fitnessMethod));
+		this.generations.add(new Generation(this.parameters.getGenSize(), this.parameters.getChromosomeLength(), this.parameters.getSelectionMethod(), this.parameters.getFitnessMethod()));
 	}
 
 	/**
@@ -136,7 +172,7 @@ public class Population {
 		if (!this.terminated) {
 			return generations.size();
 		} else {
-			return this.numOfGens;
+			return this.parameters.getNumbersOfGen();
 		}
 	}
 
