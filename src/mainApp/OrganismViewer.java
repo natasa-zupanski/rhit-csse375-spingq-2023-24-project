@@ -20,8 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 /**
  * Class: OrganismComponent
+ * 
  * @author R_003: Allyn Loyd and Natasa Zupanski
  * </br>Purpose: Used to view/load/save files representing an organism's genotype
  * </br>Restrictions: None
