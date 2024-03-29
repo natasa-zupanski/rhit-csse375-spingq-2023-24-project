@@ -3,12 +3,11 @@ package mainApp;
 public class FitnessProdConsecOnes implements FitnessStrategy {
 
     @Override
-    public int getFitness(Organism org) {
+    public int getFitness(String chromosome) {
         int prod = 1;
         int curCount = 0;
         boolean existsOne = false;
-        String chromosome = org.getChromosome();
-        for (int i = 0; i < org.length(); i++) {
+        for (int i = 0; i < chromosome.length(); i++) {
             char c = chromosome.charAt(i);
             if (c == '1') {
                 curCount++;
@@ -20,10 +19,18 @@ public class FitnessProdConsecOnes implements FitnessStrategy {
                 curCount = 0;
             }
         }
+        if (chromosome.charAt(chromosome.length() - 1) == '1') {
+            prod *= curCount;
+        }
         if (!existsOne) {
             return 0;
         }
         return prod;
+    }
+
+    @Override
+    public FitnessType getFitnessType() {
+        return FitnessType.PRODCONSECONES;
     }
 
 }

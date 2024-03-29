@@ -21,6 +21,7 @@ public class Organism implements Comparable<Organism> {
 	private int constantFitness = -1;
 	private String chromosome;
 	private String fitnessType = "Num. of 1s";
+	private FitnessStrategy fitness = null;
 
 	// constant fields
 	private final int HEIGHT = 300;
@@ -44,8 +45,8 @@ public class Organism implements Comparable<Organism> {
 	 *                       organism. If false, there will only be 0s and 1s in the
 	 *                       genetic code.
 	 */
-	public Organism(int length, String fitnessMethod, boolean someUnsure) {
-		this(length, fitnessMethod);
+	public Organism(int length, FitnessType type, boolean someUnsure) {
+		this(length, type);
 		if (someUnsure) {
 			Random r = new Random();
 			char[] randomChromosome = new char[length];
@@ -64,6 +65,52 @@ public class Organism implements Comparable<Organism> {
 			this.chromosome = String.valueOf(randomChromosome);
 			this.fitnessType = "";
 		}
+	}
+
+	/**
+	 * ensures: constructs an organism from the given genetic code as a String, with
+	 * each character being an allele, and the given fitness method.
+	 * 
+	 * @param chromosome,    the genetic code of the organism
+	 * @param fitnessMethod, the name of the process used to determine how fit an
+	 *                       organism is based on their genetic code
+	 */
+	public Organism(String chromosome, FitnessType type) {
+		this(chromosome);
+		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type);
+	}
+
+	/**
+	 * ensures: contructs an organism's genetic code from a string, each character
+	 * an allele.
+	 * 
+	 * @param chromosome, the string which the organisms genetic code will be set to
+	 */
+	public Organism(String chromosome) {
+		this.chromosome = chromosome;
+	}
+
+	/**
+	 * ensures: constructs an organism from the length of its chromosome, the number
+	 * of alleles in its randomly decided genetic code, and its fitness method, the
+	 * process which decides how fit it is based on its genetic code.
+	 * 
+	 * @param length,        the number of alleles in the genetic code
+	 * @param fitnessMethod, the process which decides how fit an organism is
+	 */
+	public Organism(int length, FitnessType type) {
+		char[] randomChromosome = new char[length];
+		Random r = new Random();
+		for (int i = 0; i < length; i++) {
+			int chance = r.nextInt(2);
+			if (chance == 1) {
+				randomChromosome[i] = '0';
+			} else {
+				randomChromosome[i] = '1';
+			}
+		}
+		this.chromosome = String.valueOf(randomChromosome);
+		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type);
 	}
 
 	/**
@@ -99,74 +146,28 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: constructs an organism from the given genetic code as a String, with
-	 * each character being an allele, and the given fitness method.
-	 * 
-	 * @param chromosome,    the genetic code of the organism
-	 * @param fitnessMethod, the name of the process used to determine how fit an
-	 *                       organism is based on their genetic code
-	 */
-	public Organism(String chromosome, String fitnessMethod) {
-		this(chromosome);
-		this.fitnessType = fitnessMethod;
-	}
-
-	/**
-	 * ensures: contructs an organism's genetic code from a string, each character
-	 * an allele.
-	 * 
-	 * @param chromosome, the string which the organisms genetic code will be set to
-	 */
-	public Organism(String chromosome) {
-		this.chromosome = chromosome;
-	}
-
-	/**
-	 * ensures: constructs an organism from the length of its chromosome, the number
-	 * of alleles in its randomly decided genetic code, and its fitness method, the
-	 * process which decides how fit it is based on its genetic code.
-	 * 
-	 * @param length,        the number of alleles in the genetic code
-	 * @param fitnessMethod, the process which decides how fit an organism is
-	 */
-	public Organism(int length, String fitnessMethod) {
-		char[] randomChromosome = new char[length];
-		Random r = new Random();
-		for (int i = 0; i < length; i++) {
-			int chance = r.nextInt(2);
-			if (chance == 1) {
-				randomChromosome[i] = '0';
-			} else {
-				randomChromosome[i] = '1';
-			}
-		}
-		this.chromosome = String.valueOf(randomChromosome);
-		this.fitnessType = fitnessMethod;
-	}
-
-	/**
 	 * ensures: runs a test of crossover when the file is run
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		String first = "";
-		for (int i = 0; i < 100; i++) {
-			first += "0";
-		}
+	// public static void main(String[] args) {
+	// String first = "";
+	// for (int i = 0; i < 100; i++) {
+	// first += "0";
+	// }
 
-		String second = "";
-		for (int i = 0; i < 100; i++) {
-			second += "1";
-		}
+	// String second = "";
+	// for (int i = 0; i < 100; i++) {
+	// second += "1";
+	// }
 
-		Organism one = new Organism(first, "");
-		Organism two = new Organism(second, "");
+	// Organism one = new Organism(first, "");
+	// Organism two = new Organism(second, "");
 
-		Organism result = one.newCrossover(two);
-		System.out.println(result.fitnessOf1s());
-		System.out.println(result.length());
-	}
+	// Organism result = one.newCrossover(two);
+	// System.out.println(result.fitnessOf1s());
+	// System.out.println(result.length());
+	// }
 
 	/**
 	 * ensures: gets and returns the length of the chromosome of the organism, the
@@ -429,12 +430,20 @@ public class Organism implements Comparable<Organism> {
 	public int fitness() {
 		if (this.constantFitness != -1) {
 			return this.constantFitness;
+		} else if (this.fitness != null) {
+			return fitness.getFitness(chromosome);
 		} else if (this.fitnessType.equals("Target Organism")) {
-			return this.fitnessTargetOrganism();
+			fitness = new FitnessTargetOrganism();
+			return fitness.getFitness(chromosome);
+			// return this.fitnessTargetOrganism();
 		} else if (this.fitnessType.equals("Num. of 1s")) {
-			return this.fitnessOf1s();
+			fitness = new FitnessNumOfOnes();
+			return fitness.getFitness(chromosome);
+			// return this.fitnessOf1s();
 		} else if (this.fitnessType.equals("Consec. num. of 1s")) {
-			return this.fitnessConsec1s();
+			fitness = new FitnessConsecOnes();
+			return fitness.getFitness(chromosome);
+			// return this.fitnessConsec1s();
 		}
 		return 0;
 	}
@@ -577,7 +586,7 @@ public class Organism implements Comparable<Organism> {
 		// System.out.println("called target");
 		Organism targetOrganism = new Organism(
 				"1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
-				this.fitnessType);
+				FitnessType.TARGETORG);
 		int sum = 0;
 		for (int i = 0; i < this.chromosome.length(); i++) {
 			if (this.chromosome.substring(i, i + 1).equals(targetOrganism.chromosome.substring(i, i + 1))) {
@@ -622,7 +631,7 @@ public class Organism implements Comparable<Organism> {
 			result += first.substring(0, crossoverPoint);
 			result += second.substring(crossoverPoint);
 
-			return new Organism(result, this.fitnessType);
+			return new Organism(result, this.fitness.getFitnessType());
 		} else {
 			return null;
 		}
@@ -670,5 +679,9 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public void setFitnessMethod(String method) {
 		this.fitnessType = method;
+	}
+
+	public FitnessType getFitnessType() {
+		return this.fitness.getFitnessType();
 	}
 }

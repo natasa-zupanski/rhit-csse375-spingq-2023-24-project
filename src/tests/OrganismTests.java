@@ -1,5 +1,6 @@
 package tests;
 
+import mainApp.FitnessType;
 import mainApp.Organism;
 
 import static org.junit.Assert.assertEquals;
@@ -17,11 +18,11 @@ public class OrganismTests {
         int length = twenty.length();
         assertEquals(20, length);
 
-        Organism hundred = new Organism(100, "Num. of 1s");
+        Organism hundred = new Organism(100, FitnessType.NUMONES);
         // assert length = 100
         assertEquals(100, hundred.length());
 
-        Organism thirteen = new Organism("0001111100000", "Num. of 1s");
+        Organism thirteen = new Organism("0001111100000", FitnessType.NUMONES);
         assertEquals(13, thirteen.length());
 
     }
@@ -35,11 +36,12 @@ public class OrganismTests {
         assertEquals(13, thirteen.numOf0s());
     }
 
-    public void numOf1sTest() {
-        Organism one = new Organism("001000000");
+    // public void numOf1sTest() {
+    // Organism one = new Organism("001000000");
 
-        Organism thirteen = new Organism("10100010010000000000001000010001000010010011000000110");
-    }
+    // Organism thirteen = new
+    // Organism("10100010010000000000001000010001000010010011000000110");
+    // }
 
     @Test
     public void flipAlleleTest() {
@@ -124,22 +126,22 @@ public class OrganismTests {
 
     @Test
     public void fitnessOf1sTest() {
-        Organism one = new Organism("0010000", "Num. of 1s");
+        Organism one = new Organism("0010000", FitnessType.NUMONES);
         assertEquals(1, one.fitnessOf1s());
         assertEquals(1, one.fitness());
 
-        Organism thirteen = new Organism("10100010010000000000001000010001000010010011000000110", "Num. of 1s");
+        Organism thirteen = new Organism("10100010010000000000001000010001000010010011000000110", FitnessType.NUMONES);
         assertEquals(13, thirteen.fitness());
         assertEquals(13, thirteen.fitnessOf1s());
     }
 
     @Test
     public void fitnessConsec1sTest() {
-        Organism one = new Organism("0101010101010101010101010101010", "Consec. num. 1s");
+        Organism one = new Organism("0101010101010101010101010101010", FitnessType.CONSECONES);
         assertEquals(1, one.fitness());
         assertEquals(1, one.fitnessConsec1s());
 
-        Organism five = new Organism("010010111011111001010100100001111000001101", "Consec. num. 1s");
+        Organism five = new Organism("010010111011111001010100100001111000001101", FitnessType.CONSECONES);
         assertEquals(5, five.fitness());
         assertEquals(5, five.fitnessConsec1s());
     }
@@ -148,21 +150,30 @@ public class OrganismTests {
     public void fitnessTargetOrganismtest() {
         Organism target = new Organism(
                 "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
-                "Target Organism");
+                FitnessType.TARGETORG);
         assertEquals(100, target.fitness());
         assertEquals(100, target.fitnessTargetOrganism());
 
         Organism oneOff = new Organism(
                 "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111111",
-                "Target Organism");
+                FitnessType.TARGETORG);
         assertEquals(99, oneOff.fitness());
         assertEquals(99, oneOff.fitnessTargetOrganism());
 
         Organism thirteenOff = new Organism(
                 "1010001000111000110101101010101101011101001101110110010110011101000010100011110100000000010011111110",
-                "Target Organism");
+                FitnessType.TARGETORG);
         assertEquals(100 - 13, thirteenOff.fitness());
         assertEquals(100 - 13, thirteenOff.fitnessTargetOrganism());
+    }
+
+    @Test
+    public void fitnessProdConsecOnesTest() {
+        Organism one = new Organism("010101010101", FitnessType.PRODCONSECONES);
+        assertEquals(1, one.fitness());
+
+        Organism six = new Organism("1100001000111", FitnessType.PRODCONSECONES);
+        assertEquals(6, six.fitness());
     }
 
 }

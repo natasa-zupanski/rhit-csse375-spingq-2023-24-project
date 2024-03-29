@@ -3,10 +3,10 @@ package mainApp;
 public class FitnessConsecOnes implements FitnessStrategy {
 
     @Override
-    public int getFitness(Organism org) {
+    public int getFitness(String chromosome) {
         int max = 0;
         int curCount = 0;
-        for (char c : org.getChromosome().toCharArray()) {
+        for (char c : chromosome.toCharArray()) {
             if (c == '1') {
                 curCount++;
                 if (curCount > max) {
@@ -17,6 +17,11 @@ public class FitnessConsecOnes implements FitnessStrategy {
             }
         }
         return max;
+    }
+
+    @Override
+    public FitnessType getFitnessType() {
+        return FitnessType.CONSECONES;
     }
 
 }
