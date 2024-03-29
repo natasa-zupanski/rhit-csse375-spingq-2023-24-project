@@ -20,6 +20,10 @@ class EvolutionParameters {
     private String selectionMethod;
     private String fitnessMethod;
     private boolean crossover;
+	private SelectionType selectionType;
+	private boolean isUnsure;
+	private FitnessType fitnessType;
+	private Organism[] currentGeneration;
 
 	public EvolutionParameters(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
 	String selectionMethod, String fitnessMethod, boolean crossover, int terminationCondition) {
@@ -32,6 +36,12 @@ class EvolutionParameters {
 		this.fitnessMethod = fitnessMethod;
 		this.crossover = crossover;
 		this.terminationCondition = terminationCondition;
+		this.selectionType = SelectionStrategyFactory.getSelectionTypeFromString(selectionMethod);
+		if (selectionType == SelectionType.LEARNINGCHANCE) {
+			isUnsure = true;
+		}
+		this.fitnessType = FitnessStrategyFactory.getTypeFromString(fitnessMethod);
+		this.currentGeneration = new Organism[genSize];
     }
 
     public int getGenSize() {
@@ -48,6 +58,70 @@ class EvolutionParameters {
 
     public int getNumbersOfGen() {
         return this.numOfGens;
+    }
+
+    public boolean getUnsure() {
+        return isUnsure;
+    }
+
+    public FitnessType getFitnessType() {
+        return fitnessType;
+    }
+
+    public int getElitismPercent() {
+        return elitismPercent;
+    }
+
+    public boolean getCrossover() {
+        return crossover;
+    }
+
+    public int getMutationRate() {
+        return mutationRate;
+    }
+
+    public String getFitnessMethod() {
+        return fitnessMethod;
+    }
+
+    public void setMutationRate(int r) {
+        mutationRate = r;
+    }
+
+    public void setGenSize(int s) {
+        genSize = s;
+    }
+
+    public void setNumGens(int g) {
+        chromosomeLength = g;
+    }
+
+    public void setGenomeLength(int l) {
+       this.chromosomeLength = l;
+    }
+
+    public void setElitism(int r) {
+        this.elitismPercent = r;
+    }
+
+    public void setCrossOver(boolean c) {
+        this.crossover = c;
+    }
+
+    public void setFitnessMethod(String fitnessMethod2) {
+        this.fitnessMethod = fitnessMethod2;
+    }
+
+    public void setTermination(int t) {
+        this.terminationCondition = t;
+    }
+
+    public int getTermination() {
+        return terminationCondition;
+    }
+
+    public void setSelection(String m) {
+        this.selectionMethod = m;
     }
 }
 
@@ -124,23 +198,8 @@ public class Population {
 	 *                              achieved for the program and evolution of the
 	 *                              population to end
 	 */
-	public Population(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
-			String selectionMethod, String fitnessMethod, boolean crossover, int terminationCondition) {
-		this.numOfGens = numOfGens;
-		this.mutationRate = mutationRate;
-		this.genSize = genSize;
-		this.elitismPercent = elitism;
-		this.chromosomeLength = chromosomeLength;
-		this.selectionMethod = selectionMethod;
-		this.selectionType = SelectionStrategyFactory.getSelectionTypeFromString(selectionMethod);
-		if (selectionType == SelectionType.LEARNINGCHANCE) {
-			isUnsure = true;
-		}
-		this.fitnessMethod = fitnessMethod;
-		this.fitnessType = FitnessStrategyFactory.getTypeFromString(fitnessMethod);
-		this.crossover = crossover;
-		this.terminationCondition = terminationCondition;
-		this.currGeneration = new Organism[genSize];
+	public Population(EvolutionParameters parameters) {
+		this.parameters = parameters;
 	}
 
 	/**
@@ -170,8 +229,8 @@ public class Population {
 	// }
 
 	public void spawnFirstGeneration() {
-		for (int i = 0; i < genSize; i++) {
-			currGeneration[i] = new Organism(chromosomeLength, fitnessType, isUnsure);
+		for (int i = 0; i < parameters.getGenSize(); i++) {
+			currGeneration[i] = new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(), parameters.getUnsure());
 		}
 	}
 
@@ -220,7 +279,7 @@ public class Population {
 		avgFitnesses.add(getAvgFitness());
 		lowFitnesses.add(getWorstFitness());
 
-		if (this.selectionMethod.equals("Learning Chance")) {
+		if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
 			this.avgNum1s.add(getAvg1s());
 			this.avgNum0s.add(getAvg0s());
 			this.avgNumQs.add(getAvgQs());
@@ -235,8 +294,9 @@ public class Population {
 
 		// gets the number of organisms that will be carried over as accoring to elitism
 		// get the number of organisms that will be mutated eventually
-		int elitismNum = (elitismPercent * genSize) / 100;
-		int mutateNum = this.genSize - elitismNum;
+		int genSize = this.parameters.getGenSize();
+		int elitismNum = (parameters.getElitismPercent() * genSize) / 100;
+		int mutateNum = genSize - elitismNum;
 
 		// gets the organisms of the last generation and sorts them
 		Organism[] orgs = Arrays.copyOfRange(currGeneration, 0, genSize);
@@ -259,28 +319,29 @@ public class Population {
 
 		// selects from the leftover organisms to decide which to mutate, all according
 		// to the selection method
-		if (this.selectionMethod.equals("Truncation")) {
+		String selectionMethod = parameters.getSelectionMethod();
+		if (selectionMethod.equals("Truncation")) {
 			toMutate = this.getToMutateTruncation(leftover);
 		}
-		if (this.selectionMethod.equals("Roulette Wheel")) {
+		if (selectionMethod.equals("Roulette Wheel")) {
 			toMutate = this.selectByChancePercents(leftover);
 		}
-		if (this.selectionMethod.equals("Rank")) {
+		if (selectionMethod.equals("Rank")) {
 			toMutate = this.selectByRank(leftover);
 		}
-		if (this.selectionMethod.equals("Stable State")) {
+		if (selectionMethod.equals("Stable State")) {
 			toMutate = this.selectByStableState(leftover);
 		}
-		if (this.selectionMethod.equals("Rank Roulette")) {
+		if (selectionMethod.equals("Rank Roulette")) {
 			toMutate = this.selectByRankRoulette(leftover);
 		}
-		if (this.selectionMethod.equals("Learning Chance")) {
+		if (selectionMethod.equals("Learning Chance")) {
 			resetConstantFitnesses();
 			toMutate = this.selectByLearningChances(leftover);
 		}
 
 		// applies crossover if crossover is turned on
-		if (this.crossover) {
+		if (parameters.getCrossover()) {
 			toMutate = this.applyCrossover(toMutate);
 		}
 
@@ -315,6 +376,7 @@ public class Population {
 	}
 
 	private Integer getAvgQs() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
 			sum += currGeneration[i].numOfQs();
@@ -323,6 +385,7 @@ public class Population {
 	}
 
 	private Integer getAvg0s() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
 			sum += currGeneration[i].numOf0s();
@@ -331,6 +394,7 @@ public class Population {
 	}
 
 	private Integer getAvg1s() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
 			sum += currGeneration[i].fitnessOf1s();
@@ -344,6 +408,7 @@ public class Population {
 	}
 
 	private Integer getAvgFitness() {
+		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
 			sum += currGeneration[i].fitness();
@@ -353,7 +418,7 @@ public class Population {
 
 	private Integer getBestFitness() {
 		sortCurr();
-		return currGeneration[genSize - 1].fitness();
+		return currGeneration[parameters.getGenSize() - 1].fitness();
 	}
 
 	/**
@@ -371,9 +436,9 @@ public class Population {
 
 		for (int index = 0; index < toMutate.length; index++) {
 			// creates a new organism from the one at the current index
-			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.fitnessType);
+			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.parameters.getFitnessType());
 			// mutates that new organism
-			intermediate.mutate(this.mutationRate);
+			intermediate.mutate(this.parameters.getMutationRate());
 			// adds it to the result
 			result[index] = intermediate;
 		}
@@ -449,7 +514,7 @@ public class Population {
 
 		// replaced the bottom with the top organisms
 		for (int index = 0; index < numToCopy; index++) {
-			temp[index] = new Organism(toCopy[index].getChromosome(), this.fitnessType);
+			temp[index] = new Organism(toCopy[index].getChromosome(), this.parameters.getFitnessType());
 		}
 
 		return temp;
@@ -530,7 +595,7 @@ public class Population {
 		HashMap<Organism, Integer> map = new HashMap<>();
 
 		for (int i = 0; i < orgs.length; i++) {
-			map.putIfAbsent(orgs[i], orgs[i].getFitnessAfterDays(this.numOfGens) + 1);
+			map.putIfAbsent(orgs[i], orgs[i].getFitnessAfterDays(this.parameters.getNumbersOfGen()) + 1);
 		}
 
 		Organism[] result = new Organism[orgs.length];
@@ -607,7 +672,7 @@ public class Population {
 
 		for (int i = 0; i < orgs.length; i++) {
 
-			orgs[i].setFitnessMethod(this.fitnessMethod);
+			orgs[i].setFitnessMethod(this.parameters.getFitnessMethod());
 			result[i] = orgs[i].fitness();
 		}
 
@@ -657,7 +722,7 @@ public class Population {
 			int lastSum = sum;
 			sum += fitnesses[index];
 			if (chance >= lastSum && chance <= sum) {
-				return new Organism(orgs[index].getChromosome(), this.fitnessType);
+				return new Organism(orgs[index].getChromosome(), this.parameters.getFitnessType());
 			}
 		}
 		return null;
@@ -794,7 +859,7 @@ public class Population {
 			int lastSum = sum;
 			sum += ranks[index];
 			if (chance >= lastSum && chance <= sum) {
-				return new Organism(orgs[index].getChromosome(), this.fitnessType);
+				return new Organism(orgs[index].getChromosome(), this.parameters.getFitnessType());
 			}
 		}
 
@@ -815,7 +880,7 @@ public class Population {
 		// this.newGen();
 		// this.sortFitness(0);
 
-		for (int count = 0; count < this.numOfGens; count++) {
+		for (int count = 0; count < this.parameters.getNumbersOfGen(); count++) {
 			this.nextGeneration();
 			// this.sortFitness(this.gensSoFar() - 1);
 			sortCurr();
@@ -834,13 +899,14 @@ public class Population {
 	 */
 	public void drawOn(Graphics2D g) {
 
-		int scale = 1000 / this.numOfGens;
+		int numOfGens = parameters.getNumbersOfGen();
+		int scale = 1000 / numOfGens;
 
 		g.setColor(Color.BLACK);
 
 		for (int i = 0; i <= 10; i++) {
-			g.drawLine(50 + i * scale * this.numOfGens / 10, 350 - 5, 50 + i * scale * this.numOfGens / 10, 350 + 5);
-			g.drawString("" + i * this.numOfGens / 10, 50 + (i * scale * this.numOfGens / 10) - 10, 350 + 20);
+			g.drawLine(50 + i * scale * numOfGens / 10, 350 - 5, 50 + i * scale * numOfGens / 10, 350 + 5);
+			g.drawString("" + i * numOfGens / 10, 50 + (i * scale * numOfGens / 10) - 10, 350 + 20);
 			g.drawLine(50 - 5, 350 - i * 30, 50 + 5, 350 - i * 30);
 			g.drawString("" + i * 10, 50 - 25, 350 - (i * 30) + 5);
 		}
@@ -873,7 +939,7 @@ public class Population {
 					350 - ((bestFitnesses.get(i + 1) - lowFitnesses.get(i + 1))));
 			g.setColor(Color.BLACK);
 			g.drawLine(50, 50 - bestFitnesses.get(i) * 3, 50 + (i + 1) * scale, 50 - bestFitnesses.get(i) * 3);
-			if (this.selectionMethod.equals("Learning Chance")) {
+			if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
 				g.setColor(Color.BLUE);
 				g.drawLine(50 + i * scale, 350 - avgNum1s.get(i) * 3, 50 + (i + 1) * scale,
 						350 - avgNum1s.get(i + 1) * 3);
@@ -896,7 +962,7 @@ public class Population {
 	 * @param r, the rate, as a percent, to set the mutation rate to
 	 */
 	public void setMutationRate(int r) {
-		this.mutationRate = r;
+		this.parameters.setMutationRate(r);
 	}
 
 	/**
@@ -906,7 +972,7 @@ public class Population {
 	 * @return
 	 */
 	public int getMutationRate() {
-		return this.mutationRate;
+		return this.parameters.getMutationRate();
 	}
 
 	/**
@@ -916,7 +982,7 @@ public class Population {
 	 * @param s, the integer to set the generation size to
 	 */
 	public void setGenSize(int s) {
-		this.genSize = s;
+		this.parameters.setGenSize(s);
 	}
 
 	/**
@@ -926,7 +992,7 @@ public class Population {
 	 * @return the generation size
 	 */
 	public int getGenSize() {
-		return this.genSize;
+		return this.parameters.getGenSize();
 	}
 
 	/**
@@ -936,7 +1002,7 @@ public class Population {
 	 * @param g, the integer to set the number of generations to run to
 	 */
 	public void setNumGens(int g) {
-		this.numOfGens = g;
+		this.parameters.setNumGens(g);
 	}
 
 	/**
@@ -946,7 +1012,7 @@ public class Population {
 	 * @return the number of generations to run
 	 */
 	public int getNumGens() {
-		return this.numOfGens;
+		return this.parameters.getNumbersOfGen();
 	}
 
 	/**
@@ -957,7 +1023,7 @@ public class Population {
 	 * @param l, the integer to set the chromosome length to
 	 */
 	public void setGenomeLength(int l) {
-		this.chromosomeLength = l;
+		this.parameters.setGenomeLength(l);
 	}
 
 	/**
@@ -968,7 +1034,7 @@ public class Population {
 	 * @return the current chromosome length
 	 */
 	public int getGenomeLength() {
-		return this.chromosomeLength;
+		return this.parameters.getChromosomeLength();
 	}
 
 	/**
@@ -979,7 +1045,7 @@ public class Population {
 	 * @param r, the percent given as an integer
 	 */
 	public void setElitism(int r) {
-		this.elitismPercent = r;
+		this.parameters.setElitism(r);
 	}
 
 	/**
@@ -990,7 +1056,7 @@ public class Population {
 	 * @return the elitism percent of the population
 	 */
 	public int getElitism() {
-		return this.elitismPercent;
+		return this.parameters.getElitismPercent();
 	}
 
 	/**
@@ -1001,7 +1067,7 @@ public class Population {
 	 * @param t, the integer value to set the termination condition to
 	 */
 	public void setTermination(int t) {
-		this.terminationCondition = t;
+		this.parameters.setTermination(t);
 	}
 
 	/**
@@ -1012,7 +1078,7 @@ public class Population {
 	 * @return, the current termination condition
 	 */
 	public int getTermination() {
-		return this.terminationCondition;
+		return this.parameters.getTermination();
 	}
 
 	/**
@@ -1024,7 +1090,7 @@ public class Population {
 	 * @param m, the name of the selection method to use
 	 */
 	public void setSelection(String m) {
-		this.selectionMethod = m;
+		this.parameters.setSelection(m);
 	}
 
 	/**
@@ -1035,7 +1101,7 @@ public class Population {
 	 * @return, the selection method in use
 	 */
 	public String getSelction() {
-		return this.selectionMethod;
+		return this.parameters.getSelectionMethod();
 	}
 
 	/**
@@ -1046,7 +1112,7 @@ public class Population {
 	 * @param c, the true or false boolean value to set the crossover to
 	 */
 	public void setCrossover(boolean c) {
-		this.crossover = c;
+		this.parameters.setCrossOver(c);
 	}
 
 	/**
@@ -1057,7 +1123,7 @@ public class Population {
 	 * @return, true if crossover is applied, false if not
 	 */
 	public boolean getCrossover() {
-		return this.crossover;
+		return this.parameters.getCrossover();
 	}
 
 	/**
@@ -1068,7 +1134,7 @@ public class Population {
 	 * @param fitnessMethod, the name of the method to be used
 	 */
 	public void setFitnessMethod(String fitnessMethod) {
-		this.fitnessMethod = fitnessMethod;
+		this.parameters.setFitnessMethod(fitnessMethod);
 	}
 
 	/**
@@ -1080,7 +1146,7 @@ public class Population {
 	public Organism getFittest() {
 		// return generations.get(gensSoFar() - 1).getFittest();
 		sortCurr();
-		return currGeneration[genSize - 1];
+		return currGeneration[parameters.getGenSize()- 1];
 	}
 
 	/**
@@ -1100,7 +1166,7 @@ public class Population {
 	 * @return, the latest generation
 	 */
 	public Generation getLatestGen() {
-		return new Generation(currGeneration, selectionMethod, fitnessMethod);
+		return new Generation(currGeneration, parameters.getSelectionMethod(), parameters.getFitnessMethod());
 		// return this.generations.get(generations.size() - 1);
 	}
 }
