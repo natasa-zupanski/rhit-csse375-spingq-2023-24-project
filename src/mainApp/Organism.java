@@ -21,7 +21,9 @@ public class Organism implements Comparable<Organism> {
 	private int constantFitness = -1;
 	private String chromosome;
 	private String fitnessType = "Num. of 1s";
+	private FitnessType type;
 	private FitnessStrategy fitness = null;
+	private int numGens = 0;
 
 	// constant fields
 	private final int HEIGHT = 300;
@@ -77,7 +79,6 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public Organism(String chromosome, FitnessType type) {
 		this(chromosome);
-		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type);
 	}
 
 	/**
@@ -110,7 +111,6 @@ public class Organism implements Comparable<Organism> {
 			}
 		}
 		this.chromosome = String.valueOf(randomChromosome);
-		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type);
 	}
 
 	/**
@@ -428,24 +428,29 @@ public class Organism implements Comparable<Organism> {
 	 * @return, the fitness of the organism
 	 */
 	public int fitness() {
-		if (this.constantFitness != -1) {
-			return this.constantFitness;
-		} else if (this.fitness != null) {
-			return fitness.getFitness(chromosome);
-		} else if (this.fitnessType.equals("Target Organism")) {
-			fitness = new FitnessTargetOrganism();
-			return fitness.getFitness(chromosome);
-			// return this.fitnessTargetOrganism();
-		} else if (this.fitnessType.equals("Num. of 1s")) {
-			fitness = new FitnessNumOfOnes();
-			return fitness.getFitness(chromosome);
-			// return this.fitnessOf1s();
-		} else if (this.fitnessType.equals("Consec. num. of 1s")) {
-			fitness = new FitnessConsecOnes();
-			return fitness.getFitness(chromosome);
-			// return this.fitnessConsec1s();
-		}
-		return 0;
+		FitnessType type = FitnessStrategyFactory.getTypeFromString(fitnessType);
+		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type, numGens, constantFitness);
+		int num = fitness.getFitness(chromosome);
+		this.constantFitness = num;
+		return num;
+		// if (this.constantFitness != -1) {
+		// return this.constantFitness;
+		// } else if (this.fitness != null) {
+		// return fitness.getFitness(chromosome);
+		// } else if (this.fitnessType.equals("Target Organism")) {
+		// fitness = new FitnessTargetOrganism();
+		// return fitness.getFitness(chromosome);
+		// // return this.fitnessTargetOrganism();
+		// } else if (this.fitnessType.equals("Num. of 1s")) {
+		// fitness = new FitnessNumOfOnes();
+		// return fitness.getFitness(chromosome);
+		// // return this.fitnessOf1s();
+		// } else if (this.fitnessType.equals("Consec. num. of 1s")) {
+		// fitness = new FitnessConsecOnes();
+		// return fitness.getFitness(chromosome);
+		// // return this.fitnessConsec1s();
+		// }
+		// return 0;
 	}
 
 	/**
@@ -683,5 +688,9 @@ public class Organism implements Comparable<Organism> {
 
 	public FitnessType getFitnessType() {
 		return this.fitness.getFitnessType();
+	}
+
+	public void setNumGens(int numGens) {
+		this.numGens = numGens;
 	}
 }
