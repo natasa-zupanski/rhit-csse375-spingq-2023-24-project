@@ -17,7 +17,7 @@ public class MainApp {
 		Views organismViewer = new OrganismViewer();
 		organismViewer.setUpViewer();
 		organismViewer.runApp();
-		
+
 		Views populationViewer = new PopulationViewer();
 		populationViewer.setUpViewer();
 		populationViewer.runApp();
