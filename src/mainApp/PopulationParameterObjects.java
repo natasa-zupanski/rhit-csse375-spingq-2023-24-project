@@ -181,7 +181,7 @@ class EvolutionParameters {
 	 * @param g, the integer to set the number of generations to run to
 	 */
     public void setNumGens(int g) {
-        chromosomeLength = g;
+        this.numOfGens = g;
     }
 
     /**

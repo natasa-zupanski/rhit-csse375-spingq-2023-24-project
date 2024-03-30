@@ -134,4 +134,8 @@ public class PopulationComponent extends JComponent {
 		this.evolutionParameters.terminate();
 	}
 
+	public Population getPopulation() {
+		return this.population;
+	}
+
 }
