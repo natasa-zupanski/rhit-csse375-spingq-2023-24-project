@@ -8,9 +8,9 @@ import mainApp.Population;
 import mainApp.PopulationComponent;
 
 public class PoppulationComponetTest {
-
+    // Testing all methods directly effected by refactoring
     @Test
-	public void testCreateNewPopulation () {
+    public void testCreateNewPopulation() {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation);
 
@@ -23,10 +23,10 @@ public class PoppulationComponetTest {
         assertEquals("1", pComponent.handleGetElitism());
         assertEquals(0, pComponent.handleGetGensSoFar());
         assertEquals("50", pComponent.handleGetTermination());
-	}
+    }
 
     @Test
-	public void testPopulationConstructor () {
+    public void testPopulationConstructor() {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation);
 
@@ -38,11 +38,10 @@ public class PoppulationComponetTest {
         assertEquals("1", pComponent.handleGetElitism());
         assertEquals(0, pComponent.handleGetGensSoFar());
         assertEquals("100", pComponent.handleGetTermination());
-	}
+    }
 
-    
     @Test
-	public void testPopulationSetFields () {
+    public void testPopulationSetFields() {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation);
 
@@ -65,7 +64,7 @@ public class PoppulationComponetTest {
         assertEquals("100", pComponent.handleGetGenomeLength());
         pComponent.handleSetGenomeLength(200);
         assertEquals("200", pComponent.handleGetGenomeLength());
-        
+
         assertEquals("1", pComponent.handleGetElitism());
         pComponent.handleSetElitism(2);
         assertEquals("2", pComponent.handleGetElitism());
@@ -73,17 +72,26 @@ public class PoppulationComponetTest {
         assertEquals("100", pComponent.handleGetTermination());
         pComponent.handleSetTermination(50);
         assertEquals("50", pComponent.handleGetTermination());
-	}
+
+        assertEquals("Num. of 1s", pComponent.getPopulation().getEvolutionParameters().getFitnessMethod());
+        pComponent.handleSetFitness("Target Organism");
+        assertEquals("Target Organism", pComponent.getPopulation().getEvolutionParameters().getFitnessMethod());
+
+        assertEquals("Truncation", pComponent.getPopulation().getEvolutionParameters().getSelectionMethod());
+        pComponent.handleSetSelection("Rank");
+        assertEquals("Rank", pComponent.getPopulation().getEvolutionParameters().getSelectionMethod());
+
+    }
 
     @Test
-    public void testGetGenSoFar () {
+    public void testGetGenSoFar() {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation);
 
         assertEquals(0, pComponent.handleGetGensSoFar());
 
         testPopulation.spawnFirstGeneration();
-		testPopulation.nextGeneration();
+        testPopulation.nextGeneration();
         assertEquals(1, pComponent.handleGetGensSoFar());
         assertEquals(10, pComponent.handleGetLatestGen().getColumnNum());
 
@@ -95,59 +103,5 @@ public class PoppulationComponetTest {
         assertEquals(3, pComponent.handleGetGensSoFar());
         assertEquals(10, pComponent.handleGetLatestGen().getColumnNum());
     }
-
 }
-
-// public class PopulationComponent extends JComponent {
-
-// 	private Population population;
-// 	private EvolutionParameters evolutionParameters;
-
-// 	public PopulationComponent(Population p) {
-// 		this.population = p;
-// 		this.evolutionParameters = p.getEvolutionParameters();
-// 	}
-
-// 	public void updateState() {
-// 		this.population.nextGeneration();
-
-// 	}
-
-// 	@Override
-// 	protected void paintComponent(Graphics g) {
-// 		Graphics2D g2d = (Graphics2D) g;
-// 		this.population.getPopulationVisualization().drawOn(g2d);
-
-// 	}
-
-// 	public void drawScreen() {
-// 		this.repaint();
-// 	}
 	
-
-// 	public void handleSetSelection(String selection) {
-// 		this.evolutionParameters.setSelection(selection);
-// 	}
-
-
-// 	public void handleRunPopulationEvol() {
-// 		this.population.spawnFirstGeneration();
-// 	}
-
-// 	public void handleSetFitness(String fitnessMethod) {
-// 		this.evolutionParameters.setFitnessMethod(fitnessMethod);
-// 	}
-
-// 	public Organism handleGetFittest() {
-// 		return this.population.getFittest();
-// 	}
-
-// 	public Generation handleGetLatestGen() {
-// 		return this.population.getLatestGen();
-// 	}
-
-// 	public void handleTerminate() {
-// 		this.evolutionParameters.terminate();
-// 	}
-
-// }
