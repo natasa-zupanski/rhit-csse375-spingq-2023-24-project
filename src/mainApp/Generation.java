@@ -78,7 +78,6 @@ public class Generation {
 	 */
 	public Generation(int genSize, int chromosomeLength, String selectionMethod, FitnessType type) {
 		this.selectionMethod = selectionMethod;
-		this.fitnessMethod = fitnessMethod;
 		this.organisms = new Organism[genSize];
 		boolean unsureChromosome = false;
 		if (this.selectionMethod.equals("Learning Chance")) {

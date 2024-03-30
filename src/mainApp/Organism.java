@@ -21,7 +21,6 @@ public class Organism implements Comparable<Organism> {
 	private int constantFitness = -1;
 	private String chromosome;
 	private String fitnessType = "Num. of 1s";
-	private FitnessType type;
 	private FitnessStrategy fitness = null;
 	private int numGens = 0;
 
