@@ -16,7 +16,8 @@ public class SelectionLearningChance implements SelectionStrategy {
         HashMap<Organism, Integer> map = new HashMap<>();
 
         for (int i = 0; i < orgs.length; i++) {
-            map.putIfAbsent(orgs[i], orgs[i].getFitnessAfterDays(numOfGens) + 1);
+            orgs[i].setNumGens(numOfGens);
+            map.putIfAbsent(orgs[i], orgs[i].fitness() + 1);
         }
 
         Organism[] result = new Organism[orgs.length];

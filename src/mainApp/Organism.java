@@ -21,7 +21,9 @@ public class Organism implements Comparable<Organism> {
 	private int constantFitness = -1;
 	private String chromosome;
 	private String fitnessType = "Num. of 1s";
+	private FitnessType type;
 	private FitnessStrategy fitness = null;
+	private int numGens = 0;
 
 	// constant fields
 	private final int HEIGHT = 300;
@@ -77,7 +79,6 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public Organism(String chromosome, FitnessType type) {
 		this(chromosome);
-		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type);
 	}
 
 	/**
@@ -110,7 +111,6 @@ public class Organism implements Comparable<Organism> {
 			}
 		}
 		this.chromosome = String.valueOf(randomChromosome);
-		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type);
 	}
 
 	/**
@@ -144,30 +144,6 @@ public class Organism implements Comparable<Organism> {
 		}
 		return total;
 	}
-
-	/**
-	 * ensures: runs a test of crossover when the file is run
-	 * 
-	 * @param args
-	 */
-	// public static void main(String[] args) {
-	// String first = "";
-	// for (int i = 0; i < 100; i++) {
-	// first += "0";
-	// }
-
-	// String second = "";
-	// for (int i = 0; i < 100; i++) {
-	// second += "1";
-	// }
-
-	// Organism one = new Organism(first, "");
-	// Organism two = new Organism(second, "");
-
-	// Organism result = one.newCrossover(two);
-	// System.out.println(result.fitnessOf1s());
-	// System.out.println(result.length());
-	// }
 
 	/**
 	 * ensures: gets and returns the length of the chromosome of the organism, the
@@ -264,11 +240,6 @@ public class Organism implements Comparable<Organism> {
 	 *              given rate of mutation
 	 */
 	public void mutate(int rate) {
-		// int percent = (rate * 100) / this.length();
-		// this.mutatePercent(percent);
-		// Random r = new Random();
-		// int index = r.nextInt(length());
-		// flipAllele(index);
 		Random r = new Random();
 		for (int i = 0; i < this.length(); i++) {
 			int chance = r.nextInt(this.length());
@@ -428,24 +399,11 @@ public class Organism implements Comparable<Organism> {
 	 * @return, the fitness of the organism
 	 */
 	public int fitness() {
-		if (this.constantFitness != -1) {
-			return this.constantFitness;
-		} else if (this.fitness != null) {
-			return fitness.getFitness(chromosome);
-		} else if (this.fitnessType.equals("Target Organism")) {
-			fitness = new FitnessTargetOrganism();
-			return fitness.getFitness(chromosome);
-			// return this.fitnessTargetOrganism();
-		} else if (this.fitnessType.equals("Num. of 1s")) {
-			fitness = new FitnessNumOfOnes();
-			return fitness.getFitness(chromosome);
-			// return this.fitnessOf1s();
-		} else if (this.fitnessType.equals("Consec. num. of 1s")) {
-			fitness = new FitnessConsecOnes();
-			return fitness.getFitness(chromosome);
-			// return this.fitnessConsec1s();
-		}
-		return 0;
+		FitnessType type = FitnessStrategyFactory.getTypeFromString(fitnessType);
+		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type, numGens, constantFitness);
+		int num = fitness.getFitness(chromosome);
+		this.constantFitness = num;
+		return num;
 	}
 
 	/**
@@ -469,131 +427,12 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: if there are ?s in the genetic code of the organism, this method
-	 * randomly decides to set them to 0 or 1 to aid in the calculation of the
-	 * constant fitness of the organism given that ?s are allowed to exist in the
-	 * genetic code. This method specifically returns the number of ?s which were
-	 * determined to hold the value of 1.
-	 * 
-	 * @return, the number of ?s in the genetic code of the organism that are deemed
-	 * to hold the value of 1.
-	 */
-	public int determineUnresolvedFitnesses() {
-		Random r = new Random();
-		int sum = 0;
-		for (char c : this.chromosome.toCharArray()) {
-			if (c == '?') {
-				int chance = r.nextInt(2);
-				if (chance == 1) {
-					sum += 1;
-				}
-			}
-		}
-		return sum;
-	}
-
-	/**
-	 * 
-	 * ensures: It returns the temporary number of 1s in the genetic code of the
-	 * organism, taking into account those ?s which were determined to hold values
-	 * of 1s.
-	 * 
-	 * @return, the temporary number of 1s in the organism which has ?s in its
-	 * genetic code.
-	 */
-	private int getFitnessForDay() {
-		return this.fitnessOf1s() + this.determineUnresolvedFitnesses();
-	}
-
-	/**
 	 * ensures: sets the constant fitness of the organism to -1, effectively
 	 * resetting it so it can be determined again.
 	 * 
 	 */
 	public void resetConstantFitness() {
 		this.constantFitness = -1;
-	}
-
-	/**
-	 * 
-	 * ensures: gets and sets the constant fitness, assuming it to be temporary for
-	 * a certain number of days during the organisms life. In this life, the
-	 * organism has the chance to reach perfect fitness, at which point the number
-	 * of days remaining will be recorded and the constant fitness set to this times
-	 * 19. This method returns that remaining number of days times 19 or the
-	 * constant fitness of the organism.
-	 * 
-	 * @param days, the number of days in which the organism can achieve perfect
-	 *              fitness before its fitness is set
-	 *              @return, 19 times the number of days remaining after the
-	 *              organism achieves perfect fitness, 0 if it never achieves
-	 *              perfect fitness. Additionally, if the constant fitness is
-	 *              already set, this returns the constant fitness.
-	 */
-	public int getFitnessAfterDays(int days) {
-		if (this.constantFitness == -1) {
-			int fitness = 0;
-			int count = 0;
-
-			while (fitness != this.length() && count != days) {
-				fitness = this.getFitnessForDay();
-				count += 1;
-			}
-
-			this.constantFitness = 19 * (days - count);
-			return 19 * (days - count);
-		} else {
-			return this.constantFitness;
-		}
-	}
-
-	/**
-	 * 
-	 * ensures: calculates and returns the number of consecutive 1s in the genetic
-	 * code of the organism. This is the method used to determine the fitness of the
-	 * organism if the fitness method is Consec. num. of 1s or the consecutive
-	 * number of 1s.
-	 * 
-	 * @return, the consecutive number of 1s in the genetic code
-	 */
-	public int fitnessConsec1s() {
-		int max = 0;
-		int curCount = 0;
-		for (char c : this.chromosome.toCharArray()) {
-			if (c == '1') {
-				curCount++;
-				if (curCount > max) {
-					max = curCount;
-				}
-			} else {
-				curCount = 0;
-			}
-		}
-		return max;
-	}
-
-	/**
-	 * 
-	 * ensures: calculates and returns the fitness of the organism if the fitness
-	 * method is Target Organism. This method finds the number of alleles in the
-	 * genetic code of the organisms that are the same as that of the target
-	 * organism.
-	 * 
-	 * @return, the number of alleles that are the same in this organism and the
-	 * target organism
-	 */
-	public int fitnessTargetOrganism() {
-		// System.out.println("called target");
-		Organism targetOrganism = new Organism(
-				"1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
-				FitnessType.TARGETORG);
-		int sum = 0;
-		for (int i = 0; i < this.chromosome.length(); i++) {
-			if (this.chromosome.substring(i, i + 1).equals(targetOrganism.chromosome.substring(i, i + 1))) {
-				sum++;
-			}
-		}
-		return sum;
 	}
 
 	/**
@@ -683,5 +522,9 @@ public class Organism implements Comparable<Organism> {
 
 	public FitnessType getFitnessType() {
 		return this.fitness.getFitnessType();
+	}
+
+	public void setNumGens(int numGens) {
+		this.numGens = numGens;
 	}
 }

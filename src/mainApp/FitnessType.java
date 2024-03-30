@@ -4,5 +4,6 @@ public enum FitnessType {
     NUMONES,
     CONSECONES,
     TARGETORG,
-    PRODCONSECONES
+    PRODCONSECONES,
+    LEARNINGCHANCE
 }

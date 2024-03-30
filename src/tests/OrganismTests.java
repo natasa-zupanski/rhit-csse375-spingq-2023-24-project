@@ -127,23 +127,23 @@ public class OrganismTests {
     @Test
     public void fitnessOf1sTest() {
         Organism one = new Organism("0010000", FitnessType.NUMONES);
-        assertEquals(1, one.fitnessOf1s());
+        // assertEquals(1, one.fitnessOf1s());
         assertEquals(1, one.fitness());
 
         Organism thirteen = new Organism("10100010010000000000001000010001000010010011000000110", FitnessType.NUMONES);
         assertEquals(13, thirteen.fitness());
-        assertEquals(13, thirteen.fitnessOf1s());
+        // assertEquals(13, thirteen.fitnessOf1s());
     }
 
     @Test
     public void fitnessConsec1sTest() {
         Organism one = new Organism("0101010101010101010101010101010", FitnessType.CONSECONES);
         assertEquals(1, one.fitness());
-        assertEquals(1, one.fitnessConsec1s());
+        // assertEquals(1, one.fitnessConsec1s());
 
         Organism five = new Organism("010010111011111001010100100001111000001101", FitnessType.CONSECONES);
         assertEquals(5, five.fitness());
-        assertEquals(5, five.fitnessConsec1s());
+        // assertEquals(5, five.fitnessConsec1s());
     }
 
     @Test
@@ -152,19 +152,19 @@ public class OrganismTests {
                 "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
                 FitnessType.TARGETORG);
         assertEquals(100, target.fitness());
-        assertEquals(100, target.fitnessTargetOrganism());
+        // assertEquals(100, target.fitnessTargetOrganism());
 
         Organism oneOff = new Organism(
                 "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111111",
                 FitnessType.TARGETORG);
         assertEquals(99, oneOff.fitness());
-        assertEquals(99, oneOff.fitnessTargetOrganism());
+        // assertEquals(99, oneOff.fitnessTargetOrganism());
 
         Organism thirteenOff = new Organism(
                 "1010001000111000110101101010101101011101001101110110010110011101000010100011110100000000010011111110",
                 FitnessType.TARGETORG);
         assertEquals(100 - 13, thirteenOff.fitness());
-        assertEquals(100 - 13, thirteenOff.fitnessTargetOrganism());
+        // assertEquals(100 - 13, thirteenOff.fitnessTargetOrganism());
     }
 
     @Test

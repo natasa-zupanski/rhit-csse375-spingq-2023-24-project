@@ -1,7 +1,7 @@
 package mainApp;
 
 public class FitnessStrategyFactory {
-    public static FitnessStrategy getFitnessStrategyOfType(FitnessType type) {
+    public static FitnessStrategy getFitnessStrategyOfType(FitnessType type, Integer numGens, Integer constantFitness) {
         switch (type) {
             case NUMONES:
                 return new FitnessNumOfOnes();
@@ -11,6 +11,8 @@ public class FitnessStrategyFactory {
                 return new FitnessTargetOrganism();
             case PRODCONSECONES:
                 return new FitnessProdConsecOnes();
+            case LEARNINGCHANCE:
+                return new FitnessLearningChance(numGens, constantFitness);
             default:
                 return null; // this should never happen unless the change isn't made here ; would be best to
                              // replace this with an exception
@@ -25,6 +27,8 @@ public class FitnessStrategyFactory {
                 return FitnessType.NUMONES;
             case "Consec. num. of 1s":
                 return FitnessType.CONSECONES;
+            case "":
+                return FitnessType.LEARNINGCHANCE;
             default:
                 return FitnessType.NUMONES;
         }
