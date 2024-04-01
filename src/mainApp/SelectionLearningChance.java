@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class SelectionLearningChance implements SelectionStrategy {
     private int numOfGens;
+    private RandomInterface r = new WrappedRandom();
 
     public SelectionLearningChance(int numOfGens) {
         this.numOfGens = numOfGens;
@@ -44,7 +45,7 @@ public class SelectionLearningChance implements SelectionStrategy {
         }
 
         int total = this.totalLearningFitnesses(values);
-        Random r = new Random();
+        // Random r = new Random();
         int chance = r.nextInt(total);
 
         for (Organism o : map.keySet()) {

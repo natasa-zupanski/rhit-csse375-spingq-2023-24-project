@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SelectionRankRoulette implements SelectionStrategy {
+    private RandomInterface r = new WrappedRandom();
 
     @Override
     public Organism[] selectFrom(Organism[] orgs) {
@@ -26,7 +27,7 @@ public class SelectionRankRoulette implements SelectionStrategy {
 
         int[] ranks = this.getRanks(orgs);
 
-        Random r = new Random();
+        // Random r = new Random();
         int chance = r.nextInt(total);
 
         int sum = 0;
