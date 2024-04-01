@@ -24,6 +24,8 @@ public class Organism implements Comparable<Organism> {
 	private FitnessStrategy fitness = null;
 	private int numGens = 0;
 
+	private RandomInterface r = new WrappedRandom();
+
 	// constant fields
 	private final int HEIGHT = 300;
 	private Color[] colors = { new Color(255, 8, 1), new Color(255, 95, 1), new Color(255, 166, 1),
@@ -49,7 +51,7 @@ public class Organism implements Comparable<Organism> {
 	public Organism(int length, FitnessType type, boolean someUnsure) {
 		this(length, type);
 		if (someUnsure) {
-			Random r = new Random();
+			// Random r = new Random();
 			char[] randomChromosome = new char[length];
 			for (int index = 0; index < length; index++) {
 				int chance = r.nextInt(4);
@@ -100,7 +102,7 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public Organism(int length, FitnessType type) {
 		char[] randomChromosome = new char[length];
-		Random r = new Random();
+		// Random r = new Random();
 		for (int i = 0; i < length; i++) {
 			int chance = r.nextInt(2);
 			if (chance == 1) {
@@ -215,7 +217,7 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public void mutatePercent(int rate) {
 		char[] arr = chromosome.toCharArray();
-		Random r = new Random();
+		// Random r = new Random();
 		for (int index = 0; index < this.length(); index++) {
 			int chance = r.nextInt(100);
 			if (chance < rate) {
@@ -239,7 +241,7 @@ public class Organism implements Comparable<Organism> {
 	 *              given rate of mutation
 	 */
 	public void mutate(int rate) {
-		Random r = new Random();
+		// Random r = new Random();
 		for (int i = 0; i < this.length(); i++) {
 			int chance = r.nextInt(this.length());
 			if (chance < rate) {
@@ -450,7 +452,7 @@ public class Organism implements Comparable<Organism> {
 	public Organism newCrossover(Organism other) {
 		if (other.length() == this.length()) {
 
-			Random r = new Random();
+			// Random r = new Random();
 			int crossoverPoint = r.nextInt(this.length());
 			int whichFirst = r.nextInt(2);
 
