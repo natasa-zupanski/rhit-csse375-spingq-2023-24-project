@@ -5,7 +5,7 @@ public class GenerationHistory {
     private int averageFitness;
     private int worstFitness;
 
-    public void GenerationHistory(int best, int avg, int worst) {
+    public GenerationHistory(int best, int avg, int worst) {
         this.bestFitness = best;
         this.averageFitness = avg;
         this.worstFitness = worst;
