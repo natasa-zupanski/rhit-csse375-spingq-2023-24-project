@@ -39,4 +39,24 @@ public class SelectionStrategyFactory {
                 return SelectionType.TRUNCATION;
         }
     }
+
+    public static String getSelectionStringFromType(SelectionType type) {
+        switch (type) {
+            case TRUNCATION:
+                return "Truncation";
+            case ROULETTEWHEEL:
+                return "Roulette Wheel";
+            case RANK:
+                return "Rank";
+            case RANKROULETTE:
+                return "Rank Roulette";
+            case STABLESTATE:
+                return "Stable State";
+            case LEARNINGCHANCE:
+                return "Learning Chance";
+            default:
+                return "";
+        }
+
+    }
 }
