@@ -325,16 +325,4 @@ public class Population {
 		sortCurr();
 		return parameters.getCurrentGeneration(parameters.getGenSize() - 1);
 	}
-
-	/**
-	 * 
-	 * ensures: gets and returns the lastest generation to be made
-	 * 
-	 * @return, the latest generation
-	 */
-	public Generation getLatestGen() {
-		return new Generation(parameters.getCurrentGeneration(), parameters.getSelectionMethod(),
-				parameters.getFitnessMethod());
-		// return this.generations.get(generations.size() - 1);
-	}
 }

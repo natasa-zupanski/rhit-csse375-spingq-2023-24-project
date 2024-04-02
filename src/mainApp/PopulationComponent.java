@@ -124,8 +124,8 @@ public class PopulationComponent extends JComponent {
 		this.evolutionParameters.setTermination(t);
 	}
 
-	public Generation handleGetLatestGen() {
-		return this.population.getLatestGen();
+	public Organism[] handleGetLatestGen() {
+		return population.getEvolutionParameters().getCurrentGeneration();
 	}
 
 	public String handleGetTermination() {
