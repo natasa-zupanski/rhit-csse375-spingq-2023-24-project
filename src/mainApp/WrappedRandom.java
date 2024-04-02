@@ -18,4 +18,9 @@ public class WrappedRandom implements RandomInterface {
         r = new Random();
     }
 
+    @Override
+    public RandomType getType() {
+        return RandomType.TRUE;
+    }
+
 }
