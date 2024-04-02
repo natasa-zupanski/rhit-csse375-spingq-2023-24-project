@@ -25,6 +25,9 @@ public class GenerationViewer extends Views {
 
 	public GenerationViewer() {
 		this.orgs = new Organism[100];
+		for (int i = 0; i < 100; i++) {
+			this.orgs[i] = new Organism(100, FitnessType.NUMONES);
+		}
 	}
 
 	/**
