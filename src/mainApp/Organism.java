@@ -48,7 +48,7 @@ public class Organism implements Comparable<Organism> {
 	 *                       organism. If false, there will only be 0s and 1s in the
 	 *                       genetic code.
 	 */
-	public Organism(int length, FitnessType type, boolean someUnsure) {
+	public Organism(int length, FitnessType type, boolean someUnsure, RandomType random) {
 		this(length, type);
 		if (someUnsure) {
 			// Random r = new Random();
@@ -66,6 +66,7 @@ public class Organism implements Comparable<Organism> {
 				}
 			}
 			this.chromosome = String.valueOf(randomChromosome);
+			r = RandomFactory.getRandomOfType(random);
 			this.fitnessType = "";
 		}
 	}
@@ -112,6 +113,11 @@ public class Organism implements Comparable<Organism> {
 			}
 		}
 		this.chromosome = String.valueOf(randomChromosome);
+	}
+
+	public Organism(String chromosome2, FitnessType fitnessType2, RandomType randomType) {
+		this(chromosome2, fitnessType2);
+		r = RandomFactory.getRandomOfType(randomType);
 	}
 
 	/**
@@ -471,7 +477,7 @@ public class Organism implements Comparable<Organism> {
 			result += first.substring(0, crossoverPoint);
 			result += second.substring(crossoverPoint);
 
-			return new Organism(result, this.fitness.getFitnessType());
+			return new Organism(result, this.fitness.getFitnessType(), r.getType());
 		} else {
 			return null;
 		}

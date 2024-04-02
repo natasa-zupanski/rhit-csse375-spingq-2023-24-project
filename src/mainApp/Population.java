@@ -69,7 +69,7 @@ public class Population {
 	public void spawnFirstGeneration() {
 		for (int i = 0; i < parameters.getGenSize(); i++) {
 			this.parameters.setCurrGen(i, new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(),
-					parameters.getUnsure()));
+					parameters.getUnsure(), parameters.getRandomType()));
 		}
 	}
 
@@ -232,7 +232,8 @@ public class Population {
 
 		for (int index = 0; index < toMutate.length; index++) {
 			// creates a new organism from the one at the current index
-			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.parameters.getFitnessType());
+			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.parameters.getFitnessType(),
+					parameters.getRandomType());
 			// mutates that new organism
 			intermediate.mutate(this.parameters.getMutationRate());
 			// adds it to the result

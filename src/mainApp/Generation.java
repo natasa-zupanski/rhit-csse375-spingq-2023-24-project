@@ -76,7 +76,7 @@ public class Generation {
 	 * @param fitnessMethod,    the name of the method used to calculate the fitness
 	 *                          of an organism from their genetic code or chromosome
 	 */
-	public Generation(int genSize, int chromosomeLength, String selectionMethod, FitnessType type) {
+	public Generation(int genSize, int chromosomeLength, String selectionMethod, FitnessType type, RandomType random) {
 		this.selectionMethod = selectionMethod;
 		this.organisms = new Organism[genSize];
 		boolean unsureChromosome = false;
@@ -84,7 +84,7 @@ public class Generation {
 			unsureChromosome = true;
 		}
 		for (int i = 0; i < genSize; i++) {
-			this.organisms[i] = new Organism(chromosomeLength, type, unsureChromosome);
+			this.organisms[i] = new Organism(chromosomeLength, type, unsureChromosome, random);
 			this.organisms[i].setFitnessMethod(fitnessMethod);
 		}
 	}

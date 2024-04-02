@@ -2,6 +2,7 @@ package tests;
 
 import mainApp.FitnessType;
 import mainApp.Organism;
+import mainApp.RandomType;
 
 import static org.junit.Assert.assertEquals;
 
