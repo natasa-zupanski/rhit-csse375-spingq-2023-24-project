@@ -93,15 +93,14 @@ public class PoppulationComponetTest {
         testPopulation.spawnFirstGeneration();
         testPopulation.nextGeneration();
         assertEquals(1, pComponent.handleGetGensSoFar());
-        assertEquals(10, pComponent.handleGetLatestGen().getColumnNum());
+        assertEquals(10, pComponent.getColumnNum());
 
         testPopulation.nextGeneration();
         assertEquals(2, pComponent.handleGetGensSoFar());
-        assertEquals(10, pComponent.handleGetLatestGen().getColumnNum());
+        assertEquals(10, pComponent.getColumnNum());
 
         testPopulation.nextGeneration();
         assertEquals(3, pComponent.handleGetGensSoFar());
-        assertEquals(10, pComponent.handleGetLatestGen().getColumnNum());
+        assertEquals(10, pComponent.getColumnNum());
     }
 }
-	

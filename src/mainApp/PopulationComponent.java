@@ -43,9 +43,11 @@ public class PopulationComponent extends JComponent {
 	public void drawScreen() {
 		this.repaint();
 	}
-	
-	public void createNewPopulation(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitismPercent, String selectionMethod, String fitnessMethod, boolean crossover, int termination) {
-		EvolutionParameters parameters = new EvolutionParameters(mutationRate, numOfGens, genSize, chromosomeLength, elitismPercent, selectionMethod, fitnessMethod, crossover, termination);
+
+	public void createNewPopulation(int mutationRate, int numOfGens, int genSize, int chromosomeLength,
+			int elitismPercent, String selectionMethod, String fitnessMethod, boolean crossover, int termination) {
+		EvolutionParameters parameters = new EvolutionParameters(mutationRate, numOfGens, genSize, chromosomeLength,
+				elitismPercent, selectionMethod, fitnessMethod, crossover, termination);
 		this.population = new Population(parameters);
 		this.evolutionParameters = population.getEvolutionParameters();
 	}
@@ -136,6 +138,10 @@ public class PopulationComponent extends JComponent {
 
 	public Population getPopulation() {
 		return this.population;
+	}
+
+	public int getColumnNum() {
+		return (int) Math.sqrt(population.getEvolutionParameters().getChromosomeLength());
 	}
 
 }
