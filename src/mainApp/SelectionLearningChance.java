@@ -5,10 +5,11 @@ import java.util.Random;
 
 public class SelectionLearningChance implements SelectionStrategy {
     private int numOfGens;
-    private RandomInterface r = new WrappedRandom();
+    private RandomInterface r;
 
-    public SelectionLearningChance(int numOfGens) {
+    public SelectionLearningChance(int numOfGens, RandomType randomType) {
         this.numOfGens = numOfGens;
+        r = RandomFactory.getRandomOfType(randomType);
     }
 
     @Override

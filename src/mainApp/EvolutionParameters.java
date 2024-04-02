@@ -1,6 +1,5 @@
 package mainApp;
 
-
 public class EvolutionParameters {
     private int mutationRate;
     private int numOfGens;
@@ -16,6 +15,7 @@ public class EvolutionParameters {
     private FitnessType fitnessType;
     private Organism[] currentGeneration;
     private boolean termination;
+    private RandomType random = RandomType.TRUE;
 
     /**
      * ensures: constructs a populations parameters
@@ -290,5 +290,9 @@ public class EvolutionParameters {
      */
     public void terminate() {
         this.termination = true;
+    }
+
+    public RandomType getRandomType() {
+        return this.random;
     }
 }

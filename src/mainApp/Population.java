@@ -2,6 +2,7 @@ package mainApp;
 
 //import java.awt.Stroke;
 import java.util.Arrays;
+
 /**
  * 
  * Class: Population
@@ -133,7 +134,7 @@ public class Population {
 		// to the selection method
 		SelectionType type = parameters.getSelectionType();
 		SelectionStrategy strategy = SelectionStrategyFactory.getSelectionStrategyOfType(type, STABLE_PERCENT,
-				parameters.getNumbersOfGen());
+				parameters.getNumbersOfGen(), parameters.getRandomType());
 		toMutate = strategy.selectFrom(leftover);
 
 		// applies crossover if crossover is turned on

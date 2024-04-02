@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SelectionRankRoulette implements SelectionStrategy {
-    private RandomInterface r = new WrappedRandom();
+    private RandomInterface r;
+
+    public SelectionRankRoulette(RandomType randomType) {
+        r = RandomFactory.getRandomOfType(randomType);
+    }
 
     @Override
     public Organism[] selectFrom(Organism[] orgs) {

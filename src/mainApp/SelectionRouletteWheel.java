@@ -3,7 +3,11 @@ package mainApp;
 import java.util.Arrays;
 
 public class SelectionRouletteWheel implements SelectionStrategy {
-    private RandomInterface r = new WrappedRandom();
+    private RandomInterface r;
+
+    public SelectionRouletteWheel(RandomType randomType) {
+        r = RandomFactory.getRandomOfType(randomType);
+    }
 
     @Override
     public Organism[] selectFrom(Organism[] orgs) {
