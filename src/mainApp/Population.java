@@ -101,7 +101,7 @@ public class Population {
 
 		this.populationVisualization.populateData(getBestFitness(), getAvgFitness(), getWorstFitness(), getAvg1s(),
 				getAvg0s(), getAvgQs());
-		if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
+		if (this.parameters.getSelectionType() == SelectionType.LEARNINGCHANCE) {
 			resetConstantFitnesses();
 		}
 

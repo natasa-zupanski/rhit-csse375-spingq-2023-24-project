@@ -2,7 +2,8 @@ package mainApp;
 
 public class SelectionStrategyFactory {
 
-    public static SelectionStrategy getSelectionStrategyOfType(SelectionType type, int percent, int numGens, RandomType randomType) {
+    public static SelectionStrategy getSelectionStrategyOfType(SelectionType type, int percent, int numGens,
+            RandomType randomType) {
         switch (type) {
             case STABLESTATE:
                 return new SelectionStableState(percent);
@@ -58,5 +59,11 @@ public class SelectionStrategyFactory {
                 return "";
         }
 
+    }
+
+    public static String[] getStrings() {
+        String[] methods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State",
+                "Learning Chance" };
+        return methods;
     }
 }

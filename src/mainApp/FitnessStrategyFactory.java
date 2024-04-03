@@ -33,4 +33,9 @@ public class FitnessStrategyFactory {
                 return FitnessType.NUMONES;
         }
     }
+
+    public static String[] getStrings() {
+        String[] methods = { "Target Organism", "Num. of 1s", "Consec. num. of 1s" };
+        return methods;
+    }
 }

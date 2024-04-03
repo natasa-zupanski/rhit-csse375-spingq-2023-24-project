@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import mainApp.FitnessType;
 import mainApp.Population;
 import mainApp.PopulationComponent;
+import mainApp.SelectionType;
 
 public class PoppulationComponetTest {
     // Testing all methods directly effected by refactoring
@@ -73,13 +75,13 @@ public class PoppulationComponetTest {
         pComponent.handleSetTermination(50);
         assertEquals("50", pComponent.handleGetTermination());
 
-        assertEquals("Num. of 1s", pComponent.getPopulation().getEvolutionParameters().getFitnessMethod());
-        pComponent.handleSetFitness("Target Organism");
-        assertEquals("Target Organism", pComponent.getPopulation().getEvolutionParameters().getFitnessMethod());
+        assertEquals(FitnessType.NUMONES, pComponent.getPopulation().getEvolutionParameters().getFitnessType());
+        pComponent.handleSetFitness(FitnessType.TARGETORG);
+        assertEquals(FitnessType.TARGETORG, pComponent.getPopulation().getEvolutionParameters().getFitnessType());
 
-        assertEquals("Truncation", pComponent.getPopulation().getEvolutionParameters().getSelectionMethod());
-        pComponent.handleSetSelection("Rank");
-        assertEquals("Rank", pComponent.getPopulation().getEvolutionParameters().getSelectionMethod());
+        assertEquals(SelectionType.TRUNCATION, pComponent.getPopulation().getEvolutionParameters().getSelectionType());
+        pComponent.handleSetSelection(SelectionType.RANK);
+        assertEquals(SelectionType.RANK, pComponent.getPopulation().getEvolutionParameters().getSelectionType());
 
     }
 

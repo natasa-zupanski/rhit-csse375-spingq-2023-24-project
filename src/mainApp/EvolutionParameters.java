@@ -90,9 +90,6 @@ public class EvolutionParameters {
      * 
      * @return, the selection method in use
      */
-    public String getSelectionMethod() {
-        return this.selectionMethod;
-    }
 
     public SelectionType getSelectionType() {
         return this.selectionType;
@@ -146,10 +143,6 @@ public class EvolutionParameters {
      */
     public int getMutationRate() {
         return mutationRate;
-    }
-
-    public String getFitnessMethod() {
-        return fitnessMethod;
     }
 
     /**
@@ -224,8 +217,8 @@ public class EvolutionParameters {
     // *
     // * @param fitnessMethod, the name of the method to be used
     // */
-    public void setFitnessMethod(String fitnessMethod2) {
-        this.fitnessMethod = fitnessMethod2;
+    public void setFitnessMethod(FitnessType type) {
+        this.fitnessType = type;
     }
 
     /**
@@ -258,8 +251,8 @@ public class EvolutionParameters {
      * 
      * @param m, the name of the selection method to use
      */
-    public void setSelection(String m) {
-        this.selectionMethod = m;
+    public void setSelection(SelectionType type) {
+        this.selectionType = type;
     }
 
     public void setCurrGen(int i, Organism organism) {

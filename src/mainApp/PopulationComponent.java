@@ -60,7 +60,7 @@ public class PopulationComponent extends JComponent {
 		this.evolutionParameters.setMutationRate(r);
 	}
 
-	public void handleSetSelection(String selection) {
+	public void handleSetSelection(SelectionType selection) {
 		this.evolutionParameters.setSelection(selection);
 	}
 
@@ -112,7 +112,7 @@ public class PopulationComponent extends JComponent {
 		this.population.spawnFirstGeneration();
 	}
 
-	public void handleSetFitness(String fitnessMethod) {
+	public void handleSetFitness(FitnessType fitnessMethod) {
 		this.evolutionParameters.setFitnessMethod(fitnessMethod);
 	}
 

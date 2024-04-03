@@ -5,15 +5,15 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 
 public class PopulationVisualization {
-    private GraphicsParameters graphicParam;
-    private EvolutionParameters parameters;
+	private GraphicsParameters graphicParam;
+	private EvolutionParameters parameters;
 
-    public PopulationVisualization(EvolutionParameters parameters) {
-        this.graphicParam = new GraphicsParameters();
-        this.parameters = parameters;
-    }
+	public PopulationVisualization(EvolutionParameters parameters) {
+		this.graphicParam = new GraphicsParameters();
+		this.parameters = parameters;
+	}
 
-    /**
+	/**
 	 * TODO inner comments
 	 * ensures: draws the population at a point and time, the line of best fitness,
 	 * that of average fitness, that of worst fitness and, if the research results
@@ -60,11 +60,13 @@ public class PopulationVisualization {
 			g.drawLine(50 + i * scale, 350 - graphicParam.getLowFitness(i) * 3, 50 + (i + 1) * scale,
 					350 - graphicParam.getLowFitness(i + 1) * 3);
 			g.setColor(Color.MAGENTA);
-			g.drawLine(50 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)), 50 + (i + 1) * scale,
+			g.drawLine(50 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)),
+					50 + (i + 1) * scale,
 					350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1))));
 			g.setColor(Color.BLACK);
-			g.drawLine(50, 50 - graphicParam.getBestFitness(i) * 3, 50 + (i + 1) * scale, 50 - graphicParam.getBestFitness(i) * 3);
-			if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
+			g.drawLine(50, 50 - graphicParam.getBestFitness(i) * 3, 50 + (i + 1) * scale,
+					50 - graphicParam.getBestFitness(i) * 3);
+			if (this.parameters.getSelectionType() == SelectionType.LEARNINGCHANCE) {
 				g.setColor(Color.BLUE);
 				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum1s(i) * 3, 50 + (i + 1) * scale,
 						350 - graphicParam.getAvgNum1s(i + 1) * 3);
@@ -79,7 +81,7 @@ public class PopulationVisualization {
 		}
 	}
 
-    /**
+	/**
 	 * 
 	 * ensures: returns the amount of generations completed if the population is not
 	 * terminated. A terminated generation returns the max gens to complete
@@ -93,24 +95,25 @@ public class PopulationVisualization {
 		} else {
 			return this.parameters.getNumbersOfGen();
 		}
-    }
+	}
 
-    public void populateData(Integer bestFitness, Integer avgFitness, Integer worstFitness, Integer avg1s,
-            Integer avg0s, Integer avgQs) {
-                this.graphicParam.addBestFitnesses(bestFitness);
-                this.graphicParam.addAvgFitnesses(avgFitness);
-                this.graphicParam.addLowFitnesses(worstFitness);
-        
-                if (this.parameters.getSelectionMethod().equals("Learning Chance")) {
-                    this.graphicParam.addAvgNum1s(avg1s);
-                    this.graphicParam.addAvgNum0s(avg0s);
-                    this.graphicParam.addAvgNumQs(avgQs);
-                }
-    }
+	public void populateData(Integer bestFitness, Integer avgFitness, Integer worstFitness, Integer avg1s,
+			Integer avg0s, Integer avgQs) {
+		this.graphicParam.addBestFitnesses(bestFitness);
+		this.graphicParam.addAvgFitnesses(avgFitness);
+		this.graphicParam.addLowFitnesses(worstFitness);
 
-    public void printBestFitness() {
-        System.out.println(
-				"Created gen #" + this.gensSoFar() + " Best fitness: " +  this.graphicParam.getBestFitness(graphicParam.bestFitSize()-1));
-    }
+		if (this.parameters.getSelectionType() == SelectionType.LEARNINGCHANCE) {
+			this.graphicParam.addAvgNum1s(avg1s);
+			this.graphicParam.addAvgNum0s(avg0s);
+			this.graphicParam.addAvgNumQs(avgQs);
+		}
+	}
+
+	public void printBestFitness() {
+		System.out.println(
+				"Created gen #" + this.gensSoFar() + " Best fitness: "
+						+ this.graphicParam.getBestFitness(graphicParam.bestFitSize() - 1));
+	}
 
 }

@@ -28,7 +28,7 @@ import javax.swing.Timer;
  *         For example: PopulationViewer populationViewer = new
  *         PopulationViewer();
  */
-public class PopulationViewer extends Views{
+public class PopulationViewer extends Views {
 	private PopulationComponent pop = new PopulationComponent(new Population());
 	private String status = "Stopped";
 	private Timer timer;
@@ -54,22 +54,27 @@ public class PopulationViewer extends Views{
 		frame.add(pop);
 
 		JLabel selectionLabel = new JLabel("Selection Method", SwingConstants.CENTER);
-		String[] selectionMethods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State" , "Learning Chance"};
+		String[] selectionMethods = SelectionStrategyFactory.getStrings();// { "Truncation", "Roulette Wheel", "Rank",
+																			// "Rank Roulette", "Stable State" ,
+																			// "Learning Chance"};
 		JComboBox<String> selectionOptions = new JComboBox<String>(selectionMethods);
 		selectionOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				pop.handleSetSelection((String) selectionOptions.getSelectedItem());
+				pop.handleSetSelection(SelectionStrategyFactory
+						.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()));
 			}
 		});
 
 		JLabel fitnessLabel = new JLabel("Fitness Method", SwingConstants.CENTER);
-		String[] fitnessMethods = { "Num. of 1s", "Target Organism", "Consec. num. of 1s" };
+		String[] fitnessMethods = FitnessStrategyFactory.getStrings();// { "Num. of 1s", "Target Organism", "Consec.
+																		// num. of 1s" };
 		JComboBox<String> fitnessOptions = new JComboBox<String>(fitnessMethods);
 		selectionOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				pop.handleSetFitness((String) fitnessOptions.getSelectedItem());
+				pop.handleSetFitness(
+						FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()));
 			}
 		});
 
