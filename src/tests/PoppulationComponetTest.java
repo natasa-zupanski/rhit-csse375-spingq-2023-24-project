@@ -16,7 +16,7 @@ public class PoppulationComponetTest {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation);
 
-        pComponent.createNewPopulation(2, 200, 105, 200, 1, "Rank", "Target Organism", false, 50);
+        pComponent.createNewPopulation(2, 200, 105, 200, 1, SelectionType.RANK, FitnessType.TARGETORG, false, 50);
         assertEquals("2", pComponent.handleGetMutationRate());
         assertEquals("200", pComponent.handleGetNumGens());
         assertEquals("105", pComponent.handleGetGenSize());

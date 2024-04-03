@@ -7,8 +7,6 @@ public class EvolutionParameters {
     private int chromosomeLength;
     private int elitismPercent;
     private int terminationCondition;
-    private String selectionMethod;
-    private String fitnessMethod;
     private boolean crossover;
     private SelectionType selectionType;
     private boolean isUnsure;
@@ -43,22 +41,20 @@ public class EvolutionParameters {
      *                              population to end
      */
     public EvolutionParameters(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
-            String selectionMethod, String fitnessMethod, boolean crossover, int terminationCondition) {
+            SelectionType selectionType, FitnessType fitnessType, boolean crossover, int terminationCondition) {
         this.mutationRate = mutationRate;
         this.numOfGens = numOfGens;
         this.genSize = genSize;
         this.chromosomeLength = chromosomeLength;
         this.elitismPercent = elitism;
-        this.selectionMethod = selectionMethod;
-        this.fitnessMethod = fitnessMethod;
         this.crossover = crossover;
         this.termination = false;
         this.terminationCondition = terminationCondition;
-        this.selectionType = SelectionStrategyFactory.getSelectionTypeFromString(selectionMethod);
+        this.selectionType = selectionType;
         if (selectionType == SelectionType.LEARNINGCHANCE) {
             isUnsure = true;
         }
-        this.fitnessType = FitnessStrategyFactory.getTypeFromString(fitnessMethod);
+        this.fitnessType = fitnessType;
         this.currentGeneration = new Organism[genSize];
     }
 

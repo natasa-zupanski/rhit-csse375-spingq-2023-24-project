@@ -44,7 +44,7 @@ public class Population {
 	 * ensures: constructs a population based on default values
 	 */
 	public Population() {
-		this(new EvolutionParameters(1, 500, 100, 100, 1, "Truncation", "Num. of 1s", true, 100));
+		this(new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.NUMONES, true, 100));
 	}
 
 	/**

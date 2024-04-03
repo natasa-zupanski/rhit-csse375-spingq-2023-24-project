@@ -158,7 +158,9 @@ public class PopulationViewer extends Views {
 					pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
 							Integer.parseInt(numGensText.getText()), Integer.parseInt(genSizeText.getText()),
 							Integer.parseInt(genomeLengthText.getText()), Integer.parseInt(elitismText.getText()),
-							(String) selectionOptions.getSelectedItem(), (String) fitnessOptions.getSelectedItem(),
+							SelectionStrategyFactory
+									.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
+							FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()),
 							crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()));
 					// System.out.println((String) fitnessOptions.getSelectedItem());
 					pop.handleRunPopulationEvol();
@@ -187,7 +189,9 @@ public class PopulationViewer extends Views {
 				pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
 						Integer.parseInt(numGensText.getText()), Integer.parseInt(genSizeText.getText()),
 						Integer.parseInt(genomeLengthText.getText()), Integer.parseInt(elitismText.getText()),
-						(String) selectionOptions.getSelectedItem(), (String) fitnessOptions.getSelectedItem(),
+						SelectionStrategyFactory
+								.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
+						FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()),
 						crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()));
 				pop.repaint();
 				status = "Stopped";
