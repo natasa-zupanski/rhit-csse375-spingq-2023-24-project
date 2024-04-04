@@ -106,17 +106,6 @@ public class OrganismTests {
     }
 
     @Test
-    public void setChromosomeTest() {
-        Organism one = new Organism("0000");
-        one.setChromosome("1000");
-        assertEquals("1000", one.getChromosome());
-
-        Organism two = new Organism("100101");
-        two.setChromosome("0");
-        assertEquals("0", two.getChromosome());
-    }
-
-    @Test
     public void getChromosomeTest() {
         Organism one = new Organism("0000");
         assertEquals("0000", one.getChromosome());

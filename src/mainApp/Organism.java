@@ -259,16 +259,6 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
-	 * ensures: sets the chromosome based on a given string which represents the
-	 * genetic code
-	 * 
-	 * @param chrom, the given genetic code as a string
-	 */
-	public void setChromosome(String chrom) {
-		this.chromosome = chrom;
-	}
-
-	/**
 	 * ensures: gets and returns the chromosme of the organism, its genetic code
 	 * 
 	 * @return, the chromosome
