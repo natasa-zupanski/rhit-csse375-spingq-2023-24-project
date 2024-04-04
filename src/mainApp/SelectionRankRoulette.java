@@ -27,9 +27,9 @@ public class SelectionRankRoulette implements SelectionStrategy {
 
     private Organism selectedByRank(Organism[] orgs) {
         Arrays.sort(orgs);
-        int total = this.totalRank(orgs);
+        int total = RankLibrary.totalRank(orgs.length); // this.totalRank(orgs);
 
-        int[] ranks = this.getRanks(orgs);
+        int[] ranks = RankLibrary.getRanks(orgs.length); // this.getRanks(orgs);
 
         // Random r = new Random();
         int chance = r.nextInt(total);
@@ -45,28 +45,6 @@ public class SelectionRankRoulette implements SelectionStrategy {
 
         return null;
 
-    }
-
-    private int totalRank(Organism[] orgs) {
-        int[] ranks = this.getRanks(orgs);
-
-        int sum = 0;
-        for (int i : ranks) {
-            sum += i;
-        }
-        return sum;
-    }
-
-    private int[] getRanks(Organism[] orgs) {
-        int[] result = new int[orgs.length];
-
-        int cur = 1;
-        for (int index = 0; index < orgs.length; index++) {
-            result[index] = cur;
-            cur += 1;
-        }
-
-        return result;
     }
 
     @Override

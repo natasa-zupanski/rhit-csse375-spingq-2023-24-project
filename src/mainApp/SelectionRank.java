@@ -9,8 +9,8 @@ public class SelectionRank implements SelectionStrategy {
         Organism[] result = new Organism[orgs.length];
         Organism[] temp = orgs;
         Arrays.sort(temp);
-        int[] ranks = this.getRanks(orgs);
-        int total = this.totalRank(orgs);
+        int[] ranks = RankLibrary.getRanks(orgs.length); // this.getRanks(orgs);
+        int total = RankLibrary.totalRank(orgs.length);// this.totalRank(orgs);
         int fill = 0;
         int index = 0;
 
@@ -35,28 +35,6 @@ public class SelectionRank implements SelectionStrategy {
             }
             index += 1;
 
-        }
-
-        return result;
-    }
-
-    private int totalRank(Organism[] orgs) {
-        int[] ranks = this.getRanks(orgs);
-
-        int sum = 0;
-        for (int i : ranks) {
-            sum += i;
-        }
-        return sum;
-    }
-
-    private int[] getRanks(Organism[] orgs) {
-        int[] result = new int[orgs.length];
-
-        int cur = 1;
-        for (int index = 0; index < orgs.length; index++) {
-            result[index] = cur;
-            cur += 1;
         }
 
         return result;
