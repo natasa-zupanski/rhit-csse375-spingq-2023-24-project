@@ -49,7 +49,7 @@ public class Organism implements Comparable<Organism> {
 	 *                       genetic code.
 	 */
 	public Organism(int length, FitnessType type, boolean someUnsure, RandomType random) {
-		this(length, type);
+		this(length, type, random);
 		if (someUnsure) {
 			// Random r = new Random();
 			char[] randomChromosome = new char[length];
@@ -66,7 +66,6 @@ public class Organism implements Comparable<Organism> {
 				}
 			}
 			this.chromosome = String.valueOf(randomChromosome);
-			r = RandomFactory.getRandomOfType(random);
 			this.fitnessType = type;
 		}
 	}
@@ -116,11 +115,6 @@ public class Organism implements Comparable<Organism> {
 		}
 		this.fitnessType = type;
 		this.chromosome = String.valueOf(randomChromosome);
-	}
-
-	public Organism(String chromosome2, FitnessType fitnessType2, RandomType randomType) {
-		this(chromosome2, fitnessType2);
-		r = RandomFactory.getRandomOfType(randomType);
 	}
 
 	/**
