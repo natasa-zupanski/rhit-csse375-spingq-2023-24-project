@@ -30,6 +30,11 @@ import javax.swing.Timer;
  */
 public class PopulationViewer extends Views {
 
+	private static final int MAX_GEN_SIZE = 10000;
+	private static final int MAX_MUTATE_RATE = 100;
+	private static final int MAX_NUM_GENS = 10000;
+	private static final int MAX_LENGTH = 1000;
+
 	protected enum Status {
 		STOPPED,
 		RUNNING,
@@ -99,7 +104,11 @@ public class PopulationViewer extends Views {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int size = Integer.parseInt(genSizeText.getText());
-				pop.handleSetGenSize(size);
+				if (size > 0 && size <= MAX_GEN_SIZE) {
+					pop.handleSetGenSize(size);
+				} else {
+					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX GEN SIZE");
+				}
 			}
 		});
 
@@ -109,7 +118,8 @@ public class PopulationViewer extends Views {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int rate = Integer.parseInt(mutationRateText.getText());
-				if (rate < 0 || rate > 100) {
+				if (rate < 0 || rate > MAX_MUTATE_RATE) {
+					System.out.println("NOT YET IMPLEMENTED - NEG OR OVER MAX MUTATE RATE");
 				} else {
 					pop.handleSetMutationRate(rate);
 				}
@@ -122,7 +132,11 @@ public class PopulationViewer extends Views {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.parseInt(numGensText.getText());
-				pop.handleSetNumGens(num);
+				if (num > 0 && num <= MAX_NUM_GENS) {
+					pop.handleSetNumGens(num);
+				} else {
+					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX NUM OF GENS");
+				}
 			}
 		});
 
@@ -132,7 +146,11 @@ public class PopulationViewer extends Views {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int length = Integer.parseInt(genomeLengthText.getText());
-				pop.handleSetGenomeLength(length);
+				if (length > 0 && length <= MAX_LENGTH) {
+					pop.handleSetGenomeLength(length);
+				} else {
+					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX LENGTH");
+				}
 			}
 		});
 
@@ -143,7 +161,11 @@ public class PopulationViewer extends Views {
 			public void actionPerformed(ActionEvent e) {
 				int rate = Integer.parseInt(elitismText.getText());
 				System.out.println("Elitism: " + rate);
-				pop.handleSetElitism(rate);
+				if (rate >= 0 && rate <= 100) {
+					pop.handleSetElitism(rate);
+				} else {
+					System.out.println("NOT YET IMPLEMENTED - NEG OR OVER 100 PERCENT ELITISM");
+				}
 			}
 		});
 
