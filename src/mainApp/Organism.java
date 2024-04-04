@@ -20,7 +20,7 @@ public class Organism implements Comparable<Organism> {
 	// mutable/changing fields
 	private int constantFitness = -1;
 	private String chromosome;
-	private String fitnessType = "Num. of 1s";
+	private FitnessType fitnessType;
 	private FitnessStrategy fitness = null;
 	private int numGens = 0;
 
@@ -67,7 +67,7 @@ public class Organism implements Comparable<Organism> {
 			}
 			this.chromosome = String.valueOf(randomChromosome);
 			r = RandomFactory.getRandomOfType(random);
-			this.fitnessType = "";
+			this.fitnessType = type;
 		}
 	}
 
@@ -81,6 +81,7 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public Organism(String chromosome, FitnessType type) {
 		this(chromosome);
+		this.fitnessType = type;
 	}
 
 	/**
@@ -112,6 +113,7 @@ public class Organism implements Comparable<Organism> {
 				randomChromosome[i] = '1';
 			}
 		}
+		this.fitnessType = type;
 		this.chromosome = String.valueOf(randomChromosome);
 	}
 
@@ -406,8 +408,7 @@ public class Organism implements Comparable<Organism> {
 	 * @return, the fitness of the organism
 	 */
 	public int fitness() {
-		FitnessType type = FitnessStrategyFactory.getTypeFromString(fitnessType);
-		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type, numGens, constantFitness);
+		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(fitnessType, numGens, constantFitness);
 		int num = fitness.getFitness(chromosome);
 		this.constantFitness = num;
 		return num;
@@ -523,7 +524,7 @@ public class Organism implements Comparable<Organism> {
 	 * 
 	 * @param method, the name of the fitness method to set
 	 */
-	public void setFitnessMethod(String method) {
+	public void setFitnessMethod(FitnessType method) {
 		this.fitnessType = method;
 	}
 

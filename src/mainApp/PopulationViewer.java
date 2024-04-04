@@ -70,7 +70,7 @@ public class PopulationViewer extends Views {
 		String[] fitnessMethods = FitnessStrategyFactory.getStrings();// { "Num. of 1s", "Target Organism", "Consec.
 																		// num. of 1s" };
 		JComboBox<String> fitnessOptions = new JComboBox<String>(fitnessMethods);
-		selectionOptions.addActionListener(new ActionListener() {
+		fitnessOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				pop.handleSetFitness(

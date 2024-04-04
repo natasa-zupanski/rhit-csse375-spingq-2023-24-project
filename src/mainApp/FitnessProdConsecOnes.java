@@ -25,6 +25,7 @@ public class FitnessProdConsecOnes implements FitnessStrategy {
         if (!existsOne) {
             return 0;
         }
+        System.out.println(prod);
         return prod;
     }
 

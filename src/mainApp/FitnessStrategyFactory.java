@@ -13,13 +13,15 @@ public class FitnessStrategyFactory {
                 return new FitnessProdConsecOnes();
             case LEARNINGCHANCE:
                 return new FitnessLearningChance(numGens, constantFitness);
+            case FIFTYFIFTY:
+                return new FitnessFiftyFifty();
             default:
                 return null; // this should never happen unless the change isn't made here ; would be best to
                              // replace this with an exception
         }
     }
 
-    public static FitnessType getTypeFromString(String type) {
+    public static FitnessType getTypeFromString(String type) throws IllegalArgumentException {
         switch (type) {
             case "Target Organism":
                 return FitnessType.TARGETORG;
@@ -29,15 +31,18 @@ public class FitnessStrategyFactory {
                 return FitnessType.CONSECONES;
             case "Prod. consec. num. of 1s":
                 return FitnessType.PRODCONSECONES;
+            case "Fifty Fifty":
+                return FitnessType.FIFTYFIFTY;
             case "":
                 return FitnessType.LEARNINGCHANCE;
             default:
-                return FitnessType.NUMONES;
+                throw new IllegalArgumentException();
         }
     }
 
     public static String[] getStrings() {
-        String[] methods = { "Target Organism", "Num. of 1s", "Consec. num. of 1s", "Prod. consec. num. of 1s" };
+        String[] methods = { "Target Organism", "Num. of 1s", "Consec. num. of 1s",
+                "Fifty Fifty" };
         return methods;
     }
 }
