@@ -24,7 +24,8 @@ public class SelectionStableState implements SelectionStrategy {
 
         // replaced the bottom with the top organisms
         for (int index = 0; index < numToCopy; index++) {
-            temp[index] = new Organism(toCopy[index].getChromosome(), orgs[index].getFitnessType());
+            temp[index] = new Organism(toCopy[index].getChromosome(), orgs[index].getFitnessType(),
+                    orgs[index].getRandomType());
         }
 
         return temp;

@@ -26,12 +26,12 @@ public class GenerationViewer extends Views {
 	public GenerationViewer() {
 		this.orgs = new Organism[100];
 		for (int i = 0; i < 100; i++) {
-			this.orgs[i] = new Organism(100, FitnessType.NUMONES);
+			this.orgs[i] = new Organism(100, FitnessType.NUMONES, RandomType.FAKE);
 		}
 	}
 
 	/**
-	 * ensures: initializes the generation to be displayed
+	 * ensures: initializes the generation to be displayeds
 	 * 
 	 * @param g: Generation being displayed
 	 *           <br>

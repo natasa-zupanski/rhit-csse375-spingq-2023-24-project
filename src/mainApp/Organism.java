@@ -79,9 +79,10 @@ public class Organism implements Comparable<Organism> {
 	 * @param fitnessMethod, the name of the process used to determine how fit an
 	 *                       organism is based on their genetic code
 	 */
-	public Organism(String chromosome, FitnessType type) {
+	public Organism(String chromosome, FitnessType type, RandomType randomType) {
 		this(chromosome);
 		this.fitnessType = type;
+		this.r = RandomFactory.getRandomOfType(randomType);
 	}
 
 	/**
@@ -102,9 +103,9 @@ public class Organism implements Comparable<Organism> {
 	 * @param length,        the number of alleles in the genetic code
 	 * @param fitnessMethod, the process which decides how fit an organism is
 	 */
-	public Organism(int length, FitnessType type) {
+	public Organism(int length, FitnessType type, RandomType randomType) {
 		char[] randomChromosome = new char[length];
-		// Random r = new Random();
+		r = RandomFactory.getRandomOfType(randomType);
 		for (int i = 0; i < length; i++) {
 			int chance = r.nextInt(2);
 			if (chance == 1) {
@@ -525,5 +526,9 @@ public class Organism implements Comparable<Organism> {
 
 	public void setNumGens(int numGens) {
 		this.numGens = numGens;
+	}
+
+	public RandomType getRandomType() {
+		return r.getType();
 	}
 }

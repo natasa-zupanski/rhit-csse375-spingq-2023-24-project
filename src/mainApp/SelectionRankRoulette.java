@@ -39,7 +39,8 @@ public class SelectionRankRoulette implements SelectionStrategy {
             int lastSum = sum;
             sum += ranks[index];
             if (chance >= lastSum && chance <= sum) {
-                return new Organism(orgs[index].getChromosome(), orgs[index].getFitnessType());
+                return new Organism(orgs[index].getChromosome(), orgs[index].getFitnessType(),
+                        orgs[index].getRandomType());
             }
         }
 

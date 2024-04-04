@@ -2,6 +2,8 @@ package mainApp;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Random;
+
 import javax.swing.JComponent;
 
 /**
@@ -28,7 +30,7 @@ public class OrganismComponent extends JComponent {
 	 *          requires: h>0
 	 */
 	public OrganismComponent(int h) {
-		this.organism = new Organism(100, FitnessStrategyFactory.getTypeFromString(""));
+		this.organism = new Organism(100, FitnessStrategyFactory.getTypeFromString(""), RandomType.FAKE);
 		this.height = h;
 	}
 

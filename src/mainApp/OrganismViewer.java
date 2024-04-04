@@ -138,7 +138,8 @@ public class OrganismViewer extends Views {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						component.setOrganism(new Organism(genotype, FitnessStrategyFactory.getTypeFromString("")));
+						component.setOrganism(
+								new Organism(genotype, FitnessStrategyFactory.getTypeFromString(""), RandomType.FAKE));
 						fileTitle.setText(file.getName());
 						frame.repaint();
 						fileChooserFrame.setVisible(false);
