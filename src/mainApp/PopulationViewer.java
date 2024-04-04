@@ -29,8 +29,15 @@ import javax.swing.Timer;
  *         PopulationViewer();
  */
 public class PopulationViewer extends Views {
+
+	protected enum Status {
+		STOPPED,
+		RUNNING,
+		PAUSED
+	}
+
 	private PopulationComponent pop = new PopulationComponent(new Population());
-	private String status = "Stopped";
+	private Status status = Status.STOPPED;
 	private Timer timer;
 	FittestOrganismViewer fittestOrganism = new FittestOrganismViewer();
 	GenerationViewer generationViewer = new GenerationViewer();
@@ -154,7 +161,7 @@ public class PopulationViewer extends Views {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (status.equals("Stopped")) {
+				if (status == Status.STOPPED) {
 					pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
 							Integer.parseInt(numGensText.getText()), Integer.parseInt(genSizeText.getText()),
 							Integer.parseInt(genomeLengthText.getText()), Integer.parseInt(elitismText.getText()),
@@ -165,15 +172,15 @@ public class PopulationViewer extends Views {
 					// System.out.println((String) fitnessOptions.getSelectedItem());
 					pop.handleRunPopulationEvol();
 					timer.restart();
-					status = "Running";
+					status = Status.RUNNING;
 					startButton.setText("Pause");
-				} else if (status.equals("Paused")) {
+				} else if (status == Status.PAUSED) {
 					timer.start();
-					status = "Running";
+					status = Status.RUNNING;
 					startButton.setText("Pause");
 				} else { // status should be "Running" here
 					timer.stop();
-					status = "Paused";
+					status = Status.PAUSED;
 					startButton.setText("Start");
 				}
 			}
@@ -194,7 +201,7 @@ public class PopulationViewer extends Views {
 						FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()),
 						crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()));
 				pop.repaint();
-				status = "Stopped";
+				status = Status.STOPPED;
 			}
 		});
 
@@ -232,15 +239,11 @@ public class PopulationViewer extends Views {
 			pop.handleTerminate();
 			timer.restart(); // doesn't throw null pointer at terminate
 			timer.stop(); // doesn't throw it either
-			status = "Stopped";
+			status = Status.STOPPED;
 		} catch (NullPointerException e) {
 
 		}
 
-	}
-
-	public String getStatus() {
-		return this.status;
 	}
 
 }
