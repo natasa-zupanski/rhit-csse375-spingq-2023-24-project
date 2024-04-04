@@ -413,7 +413,7 @@ public class Organism implements Comparable<Organism> {
 	 * @return, the number of ones in the chromosome of the organism, the fitness if
 	 * the fitness method is Num. of 1s
 	 */
-	public int fitnessOf1s() {
+	public int numOf1s() {
 		int sum = 0;
 
 		for (char c : this.chromosome.toCharArray()) {

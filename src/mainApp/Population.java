@@ -191,7 +191,7 @@ public class Population {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += parameters.getCurrentGeneration(i).fitnessOf1s();
+			sum += parameters.getCurrentGeneration(i).numOf1s();
 		}
 		return sum / genSize;
 	}
