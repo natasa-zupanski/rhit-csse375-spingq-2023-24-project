@@ -14,14 +14,12 @@ public class SelectionRank implements SelectionStrategy {
         int fill = 0;
         int index = 0;
 
-        double multiplier = (double) total / (double) 4 * ranks[0]; // example: 10 organisms, each fitness. 1 fitness
-                                                                    // 100. 1 fitness 1. rest fitness 50. Mult =
-                                                                    // 100+400+0=500/4*100 = 500/4 = 125?
+        double multiplier = (double) total / (double) 4 * ranks[0];
 
         while (fill < orgs.length) {
-            int rank = ranks[orgs.length - 1 - index]; // The 100?
-            int numToRun = (int) (rank * multiplier); // 100 * 125 = 12,500 -- would completely fill with the fitness
-                                                      // 100.
+            int rank = ranks[orgs.length - 1 - index];
+            int numToRun = (int) (rank * multiplier);
+
             numToRun /= total;
             numToRun /= (index + 1);
             if (numToRun == 0) { // 1
@@ -31,7 +29,7 @@ public class SelectionRank implements SelectionStrategy {
                 if (fill == orgs.length) {
                     break;
                 } else {
-                    result[fill] = temp[orgs.length - 1 - index]; // add 0...,
+                    result[fill] = temp[orgs.length - 1 - index];
                     fill += 1;
                 }
             }

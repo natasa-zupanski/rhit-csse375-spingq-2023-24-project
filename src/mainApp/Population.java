@@ -156,8 +156,6 @@ public class Population {
 		}
 
 		// adds the new generation to the generations
-		// this.generations.add(new Generation(result, this.selectionMethod,
-		// this.fitnessMethod));
 		parameters.setCurrentGeneration(result);
 
 		// prints out the generation number and the best fitness of that generation as a
@@ -295,12 +293,8 @@ public class Population {
 	public void runPopulationEvol() {
 		spawnFirstGeneration();
 		sortCurr();
-		// this.newGen();
-		// this.sortFitness(0);
-
 		for (int count = 0; count < this.parameters.getNumbersOfGen(); count++) {
 			this.nextGeneration();
-			// this.sortFitness(this.gensSoFar() - 1);
 			sortCurr();
 		}
 
@@ -321,7 +315,6 @@ public class Population {
 	 * @return, the fittest organism of the last generation
 	 */
 	public Organism getFittest() {
-		// return generations.get(gensSoFar() - 1).getFittest();
 		sortCurr();
 		return parameters.getCurrentGeneration(parameters.getGenSize() - 1);
 	}
