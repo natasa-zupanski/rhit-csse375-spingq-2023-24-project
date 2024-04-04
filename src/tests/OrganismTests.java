@@ -54,20 +54,20 @@ public class OrganismTests {
             flipAllele.invoke(one, integerOne);
             assertEquals('0', one.getChromosome().charAt(1));
         } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            assertEquals(true, false);
         } catch (SecurityException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            assertEquals(true, false);
         } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            assertEquals(true, false);
         } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            assertEquals(true, false);
         } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            assertEquals(true, false);
         }
     }
 
