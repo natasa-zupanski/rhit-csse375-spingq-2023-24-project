@@ -25,10 +25,14 @@ import javax.swing.SwingConstants;
  * Class: OrganismComponent
  * 
  * @author R_003: Allyn Loyd and Natasa Zupanski
- * </br>Purpose: Used to view/load/save files representing an organism's genotype
- * </br>Restrictions: None
- * </br> For example: OrganismViewer organismViewer = new OrganismViewer();
- */ 
+ *         </br>
+ *         Purpose: Used to view/load/save files representing an organism's
+ *         genotype
+ *         </br>
+ *         Restrictions: None
+ *         </br>
+ *         For example: OrganismViewer organismViewer = new OrganismViewer();
+ */
 public class OrganismViewer extends Views {
 
 	@Override
@@ -40,7 +44,6 @@ public class OrganismViewer extends Views {
 		this.frame.setTitle("ChromosomeViewer");
 		this.frame.setSize(frameWidth, frameHeight);
 		this.frame.setLocation(1100, 100);
-		
 
 		JLabel fileTitle = new JLabel("");
 		this.frame.add(fileTitle, BorderLayout.NORTH);

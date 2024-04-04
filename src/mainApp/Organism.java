@@ -191,14 +191,15 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public int[][] toIntAr() {
 		int length = this.length();
-		int rows = (int) Math.sqrt(length);
-		int cols = this.length() / rows;
+		int rows = (int) Math.floor(Math.sqrt(length)); // should round down, ex: 20 -- r: 4, c: 5; 21 -- r: 4, c: 6, if
+														// 25 -- r: 5, c: 5
+		int cols = (int) Math.ceil((double) this.length() / (double) rows); // should round up
 		int[][] result = new int[rows][cols];
 		char[] chromArr = chromosome.toCharArray();
 
 		for (int index = 0; index < length; index++) {
-			int row = this.indexToRowCol(index, cols)[0];
-			int col = this.indexToRowCol(index, cols)[1];
+			int row = this.indexToRowCol(index, rows, cols)[0]; // -- 0 --
+			int col = this.indexToRowCol(index, rows, cols)[1];
 
 			int num = -1;
 			if (chromArr[index] == '0') {
@@ -314,6 +315,22 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	/**
+	 * ensures: takes the index of an allele in the chromosome and returns the row
+	 * and column it should be in.
+	 * 
+	 * @param index, the index of the allele.
+	 * @param cols,  the number of columns in a 2D representation of the chromosome.
+	 *               @return, the row and column pair at which the allele can be
+	 *               found in a 2D representation of the chromosome.
+	 */
+	private int[] indexToRowCol(int index, int rows, int cols) {
+		int row = index / cols;
+		int col = (index - (row * cols));
+		return new int[] { row, col };
+
+	}
+
+	/**
 	 * ensures: gets the index of an allele in the genetic code based on the row and
 	 * column given
 	 * 
@@ -322,8 +339,8 @@ public class Organism implements Comparable<Organism> {
 	 *             @return, the index of the allele in the chromosome
 	 */
 	private int rowColToIndex(int row, int col) {
-		int rows = (int) Math.sqrt(this.length());
-		int cols = this.length() / rows;
+		int rows = (int) Math.floor(Math.sqrt(chromosome.length()));
+		int cols = (int) Math.ceil(chromosome.length() / rows);
 		return row * cols + col;
 	}
 
@@ -350,22 +367,6 @@ public class Organism implements Comparable<Organism> {
 
 		}
 		return new Color[] {};
-	}
-
-	/**
-	 * ensures: takes the index of an allele in the chromosome and returns the row
-	 * and column it should be in.
-	 * 
-	 * @param index, the index of the allele.
-	 * @param cols,  the number of columns in a 2D representation of the chromosome.
-	 *               @return, the row and column pair at which the allele can be
-	 *               found in a 2D representation of the chromosome.
-	 */
-	private int[] indexToRowCol(int index, int cols) {
-		int col = index % cols;
-		int row = index / cols;
-		return new int[] { row, col };
-
 	}
 
 	/**
