@@ -27,6 +27,8 @@ public class FitnessStrategyFactory {
                 return FitnessType.NUMONES;
             case "Consec. num. of 1s":
                 return FitnessType.CONSECONES;
+            case "Prod. consec. num. of 1s":
+                return FitnessType.PRODCONSECONES;
             case "":
                 return FitnessType.LEARNINGCHANCE;
             default:
@@ -35,7 +37,7 @@ public class FitnessStrategyFactory {
     }
 
     public static String[] getStrings() {
-        String[] methods = { "Target Organism", "Num. of 1s", "Consec. num. of 1s" };
+        String[] methods = { "Target Organism", "Num. of 1s", "Consec. num. of 1s", "Prod. consec. num. of 1s" };
         return methods;
     }
 }
