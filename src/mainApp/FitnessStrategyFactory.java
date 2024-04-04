@@ -15,6 +15,8 @@ public class FitnessStrategyFactory {
                 return new FitnessLearningChance(numGens, constantFitness);
             case FIFTYFIFTY:
                 return new FitnessFiftyFifty();
+            case ONESMINUSZEROS:
+                return new FitnessOnesMinusZeros();
             default:
                 return null; // this should never happen unless the change isn't made here ; would be best to
                              // replace this with an exception
@@ -33,6 +35,8 @@ public class FitnessStrategyFactory {
                 return FitnessType.PRODCONSECONES;
             case "Fifty Fifty":
                 return FitnessType.FIFTYFIFTY;
+            case "1s minus 0s":
+                return FitnessType.ONESMINUSZEROS;
             case "":
                 return FitnessType.LEARNINGCHANCE;
             default:
@@ -42,7 +46,7 @@ public class FitnessStrategyFactory {
 
     public static String[] getStrings() {
         String[] methods = { "Target Organism", "Num. of 1s", "Consec. num. of 1s",
-                "Fifty Fifty" };
+                "Fifty Fifty", "1s minus 0s" };
         return methods;
     }
 }

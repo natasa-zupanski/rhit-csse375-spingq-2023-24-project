@@ -6,5 +6,6 @@ public enum FitnessType {
     TARGETORG,
     PRODCONSECONES,
     LEARNINGCHANCE,
-    FIFTYFIFTY
+    FIFTYFIFTY,
+    ONESMINUSZEROS
 }
