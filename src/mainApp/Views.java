@@ -9,7 +9,7 @@ abstract class Views{
     protected JFrame frame = new JFrame();
     protected JPanel panel = new JPanel();
     void setUpViewer() {
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.frame.setLayout(new BorderLayout());
     }
     void runApp() {
