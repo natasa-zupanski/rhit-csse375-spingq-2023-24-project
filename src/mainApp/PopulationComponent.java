@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 /**
  * Class: PopulationComponent
@@ -22,10 +23,12 @@ public class PopulationComponent extends JComponent {
 
 	private Population population;
 	private EvolutionParameters evolutionParameters;
+	private JFrame frame;
 
-	public PopulationComponent(Population p) {
+	public PopulationComponent(Population p, JFrame frame) {
 		this.population = p;
 		this.evolutionParameters = p.getEvolutionParameters();
+		this.frame = frame;
 	}
 
 	public void updateState() {
@@ -36,8 +39,7 @@ public class PopulationComponent extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		this.population.getPopulationVisualization().drawOn(g2d);
-
+		this.population.getPopulationVisualization().drawOn(g2d, frame);
 	}
 
 	public void drawScreen() {

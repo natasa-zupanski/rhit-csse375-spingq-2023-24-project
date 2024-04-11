@@ -41,7 +41,7 @@ public class PopulationViewer extends Views {
 		PAUSED
 	}
 
-	private PopulationComponent pop = new PopulationComponent(new Population());
+	private PopulationComponent pop = new PopulationComponent(new Population(), this.frame);
 	private Status status = Status.STOPPED;
 	private Timer timer;
 	FittestOrganismViewer fittestOrganism = new FittestOrganismViewer();

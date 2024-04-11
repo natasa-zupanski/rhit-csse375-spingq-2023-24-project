@@ -2,30 +2,45 @@ package mainApp;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+
+import javax.swing.JFrame;
+
 import java.awt.Color;
 
 public class PopulationVisualization {
 	private GraphicsParameters graphicParam;
 	private EvolutionParameters parameters;
+	private double scaleFactorX;
+	private double scaleFactorY;
 
 	public PopulationVisualization(EvolutionParameters parameters) {
 		this.graphicParam = new GraphicsParameters();
 		this.parameters = parameters;
 	}
+	
+	private void calculateScaleFactors(JFrame frame) {
+        int screenWidth = (int) frame.getSize().getWidth();
+        int screenHeight = (int) frame.getSize().getHeight();
 
+        scaleFactorX = (double) screenWidth / 1100; 
+        scaleFactorY = (double) screenHeight / 500;
+    }
 	/**
 	 * TODO inner comments
 	 * ensures: draws the population at a point and time, the line of best fitness,
 	 * that of average fitness, that of worst fitness and, if the research results
 	 * are attempting to be replicated, the average number of 1s, 0s, and ?s as they
 	 * change in the population over time.
+	 * @param frame 
 	 * 
 	 * @param g, the 2D graphics on which to draw these lines
 	 */
-	public void drawOn(Graphics2D g) {
-
+	public void drawOn(Graphics2D g, JFrame frame) {
+		calculateScaleFactors(frame);
+	
 		int numOfGens = parameters.getNumbersOfGen();
 		int scale = 1000 / numOfGens;
+		g.scale(scaleFactorX, scaleFactorY);
 
 		g.setColor(Color.BLACK);
 
