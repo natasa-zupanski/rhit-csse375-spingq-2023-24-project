@@ -1,6 +1,7 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +53,7 @@ public class PopulationViewer extends Views {
 		fittestOrganism.setUpViewer();
 		generationViewer.setUpViewer();
 
-		final int frameWidth = 1100;
+		final int frameWidth = 1313;
 		final int frameHeight = 500;
 
 		this.frame.setTitle("EvolutionViewer");
@@ -231,6 +232,9 @@ public class PopulationViewer extends Views {
 
 		JPanel panel = new JPanel(new GridLayout(2, 1));
 		JPanel top = new JPanel(new GridLayout(1, 9));
+		System.out.println(frame.getSize().getHeight());
+		Dimension panelSize = new Dimension(100, 70); 
+        panel.setPreferredSize(panelSize);
 		top.add(selectionLabel);
 		top.add(selectionOptions);
 		top.add(fitnessLabel);
