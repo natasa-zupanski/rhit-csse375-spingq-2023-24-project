@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.swing.JFrame;
+
 import org.junit.Test;
 
 import mainApp.FitnessType;
@@ -14,7 +16,7 @@ public class PoppulationComponetTest {
     @Test
     public void testCreateNewPopulation() {
         Population testPopulation = new Population();
-        PopulationComponent pComponent = new PopulationComponent(testPopulation);
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
 
         pComponent.createNewPopulation(2, 200, 105, 200, 1, SelectionType.RANK, FitnessType.TARGETORG, false, 50);
         assertEquals("2", pComponent.handleGetMutationRate());
@@ -30,7 +32,7 @@ public class PoppulationComponetTest {
     @Test
     public void testPopulationConstructor() {
         Population testPopulation = new Population();
-        PopulationComponent pComponent = new PopulationComponent(testPopulation);
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
 
         assertEquals("1", pComponent.handleGetMutationRate());
         assertEquals("500", pComponent.handleGetNumGens());
@@ -45,7 +47,7 @@ public class PoppulationComponetTest {
     @Test
     public void testPopulationSetFields() {
         Population testPopulation = new Population();
-        PopulationComponent pComponent = new PopulationComponent(testPopulation);
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
 
         assertEquals("1", pComponent.handleGetMutationRate());
         pComponent.handleSetMutationRate(2);
@@ -88,7 +90,7 @@ public class PoppulationComponetTest {
     @Test
     public void testGetGenSoFar() {
         Population testPopulation = new Population();
-        PopulationComponent pComponent = new PopulationComponent(testPopulation);
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
 
         assertEquals(0, pComponent.handleGetGensSoFar());
 
