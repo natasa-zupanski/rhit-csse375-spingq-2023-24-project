@@ -1,5 +1,5 @@
 package tests;
-import org.junit.*;
+import org.junit.*; 
 
 public class PopulationTest {
 

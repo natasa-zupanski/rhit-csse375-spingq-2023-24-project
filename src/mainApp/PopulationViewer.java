@@ -54,10 +54,11 @@ public class PopulationViewer extends Views {
 	public void setUpViewer() {
 		super.setUpViewer();
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fittestOrganism.setUpViewer();
-		generationViewer.setUpViewer();
 		organismViewer.setUpViewer();
 		organismViewer.runApp();
+		fittestOrganism.setUpViewer();
+		generationViewer.setUpViewer();
+		
 
 		final int frameWidth = 1313;
 		final int frameHeight = 600;
