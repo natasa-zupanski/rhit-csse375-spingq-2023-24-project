@@ -48,7 +48,7 @@ public class OrganismViewer extends Views {
 		JLabel fileTitle = new JLabel("");
 		this.frame.add(fileTitle, BorderLayout.NORTH);
 
-		OrganismComponent component = new OrganismComponent(300);
+		OrganismComponent component = new OrganismComponent(0,frame);
 		this.frame.add(component, BorderLayout.CENTER);
 
 		class ClickListener implements MouseListener {

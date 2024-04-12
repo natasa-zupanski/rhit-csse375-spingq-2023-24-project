@@ -3,6 +3,8 @@ package mainApp;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import javax.swing.JFrame;
+
 /**
  * Class: Organism
  * 
@@ -269,16 +271,29 @@ public class Organism implements Comparable<Organism> {
 	 * represented as black boxes, and ?s being represented as white boxes.
 	 * Sometimes the index of the allele is shown in the corner of this box that
 	 * represents it.
+	 * @param setHeight 
 	 * 
 	 * @param g,      the graphics the organism is drawn on
 	 * @param height, the height given in which the drawn organism will fit
 	 */
-	public void drawOn(Graphics2D g, int height) {
+	public void drawOn(Graphics2D g, int setHeight, JFrame frame) {
 		// calculate side size
+		int width = 0;
+		int height = setHeight;
+		if(height == 0)
+		{
+			width = (int) frame.getSize().getWidth() - 10;
+			height = (int) frame.getSize().getHeight() - 100;
+		}
 		int rows = (int) Math.sqrt(this.length());
 		int cols = this.length() / rows;
 
 		int boxSide = height / rows;
+		int boxSideWidth = height / rows;
+		if(width != 0)
+		{
+			boxSideWidth = width / cols;
+		}
 
 		// draw
 		int[][] arr = this.toIntAr();
@@ -289,10 +304,10 @@ public class Organism implements Comparable<Organism> {
 				g.setColor(palette[0]);
 
 				// translate
-				g.translate(col * boxSide, row * boxSide);
+				g.translate(col * boxSideWidth, row * boxSide);
 
 				// draw box
-				g.fillRect(0, 0, boxSide, boxSide);
+				g.fillRect(0, 0, boxSideWidth, boxSide);
 
 				// set index
 				int index = rowColToIndex(row, col); // potentially -1
@@ -302,7 +317,7 @@ public class Organism implements Comparable<Organism> {
 				if (height > 30) {
 					g.drawString(indexText, 5, boxSide - 5);
 				}
-				g.translate(-col * boxSide, -row * boxSide);
+				g.translate(-col * boxSideWidth, -row * boxSide);
 			}
 		}
 

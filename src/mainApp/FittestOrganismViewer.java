@@ -11,7 +11,7 @@ import javax.swing.JLabel;
  * </br> For example: FittestOrganismViewer fittestOrganism = new FittestOrganismViewer();
  */
 public class FittestOrganismViewer extends Views{
-	private OrganismComponent component = new OrganismComponent(300);
+	private OrganismComponent component;
 	private int genIndex = 0;
 	private JLabel genNum;
 	private JLabel fitnessText;
@@ -21,8 +21,9 @@ public class FittestOrganismViewer extends Views{
 	public void setUpViewer() {
 		super.setUpViewer();
 		this.frame.setTitle("FittestOrganismViewer");
-		this.frame.setSize(360, 360);
+		this.frame.setSize(360, 420);
 		this.frame.setLocation(1125, 25);
+		component = new OrganismComponent(0,frame);
 	
 		this.frame.add(component, BorderLayout.CENTER);
 		
@@ -34,7 +35,7 @@ public class FittestOrganismViewer extends Views{
 		
 		this.frame.add(panel,BorderLayout.SOUTH);
 	
-		super.runApp();
+		this.runApp();
 	}
 	
 	public void updateOrganism(Organism o) {

@@ -55,7 +55,7 @@ public class GenerationViewer extends Views {
 			panel.add(o);
 		}
 
-		frame.setVisible(true);
+		this.runApp();
 	}
 
 	public void setGen(Organism[] orgs) {
@@ -67,7 +67,7 @@ public class GenerationViewer extends Views {
 		this.panel = new JPanel(new GridLayout(getGraphSize(), getGraphSize()));
 		components = new ArrayList<OrganismComponent>();
 		for (int i = 0; i < orgs.length; i++) {
-			OrganismComponent component = new OrganismComponent(30);
+			OrganismComponent component = new OrganismComponent(30, frame);
 			component.setOrganism(orgs[i]);
 			components.add(component);
 		}

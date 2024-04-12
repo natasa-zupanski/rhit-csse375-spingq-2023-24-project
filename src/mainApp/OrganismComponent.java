@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 /**
  * Class: OrganismComponent
@@ -19,18 +20,21 @@ import javax.swing.JComponent;
  */
 public class OrganismComponent extends JComponent {
 	private Organism organism;
-	private int height;
+	private JFrame frame;
+	private int setHeight;
 
 	/**
 	 * ensures: initializes the component height to h
+	 * @param i 
 	 * 
 	 * @param h used to initialize the height
 	 *          <br>
 	 *          requires: h>0
 	 */
-	public OrganismComponent(int h) {
+	public OrganismComponent(int setHeight, JFrame frame) {
 		this.organism = new Organism(100, FitnessStrategyFactory.getTypeFromString(""), RandomType.FAKE);
-		this.height = h;
+		this.frame = frame;
+		this.setHeight = setHeight;
 	}
 
 	public void flipAllele(int x, int y) {
@@ -45,7 +49,7 @@ public class OrganismComponent extends JComponent {
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		this.organism.drawOn(g2d, this.height);
+		this.organism.drawOn(g2d, this.setHeight, this.frame);
 	}
 
 	public void setOrganism(Organism o) {
