@@ -41,30 +41,20 @@ public class GenerationViewer extends Views {
 		this.orgs = orgs;
 	}
 
-	private int getRowNum() {
-		return (int) Math.sqrt(orgs[0].length());
-	}
-
-	private int getColNum() {
-		return (int) Math.sqrt(orgs[0].length());
+	private int getGraphSize() {
+		return (int) Math.sqrt(orgs.length);
 	}
 
 	public void setUpViewer() {
 		super.setUpViewer();
-		final int frameWidth = 400;
-		final int frameHeight = 400;
 
 		this.frame.setTitle("GenerationViewer");
-		this.frame.setSize(frameWidth, frameHeight);
-
-		this.panel.setLayout(new GridLayout(getRowNum(), getColNum()));
 
 		this.drawScreen();
 		for (OrganismComponent o : components) {
 			panel.add(o);
 		}
 
-		this.frame.add(this.panel);
 		frame.setVisible(true);
 	}
 
@@ -74,7 +64,7 @@ public class GenerationViewer extends Views {
 
 	public void drawScreen() {
 		this.frame.remove(panel);
-		this.panel = new JPanel(new GridLayout(getRowNum(), getColNum()));
+		this.panel = new JPanel(new GridLayout(getGraphSize(), getGraphSize()));
 		components = new ArrayList<OrganismComponent>();
 		for (int i = 0; i < orgs.length; i++) {
 			OrganismComponent component = new OrganismComponent(30);
@@ -85,8 +75,8 @@ public class GenerationViewer extends Views {
 			panel.add(o);
 		}
 		this.frame.add(this.panel);
+		this.frame.setSize(40*getGraphSize(),34*getGraphSize());
 		this.frame.revalidate();
-
 	}
 
 }

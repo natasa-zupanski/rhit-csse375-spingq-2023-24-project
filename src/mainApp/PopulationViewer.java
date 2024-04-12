@@ -232,7 +232,6 @@ public class PopulationViewer extends Views {
 
 		JPanel panel = new JPanel(new GridLayout(2, 1));
 		JPanel top = new JPanel(new GridLayout(1, 9));
-		System.out.println(frame.getSize().getHeight());
 		Dimension panelSize = new Dimension(100, 70); 
         panel.setPreferredSize(panelSize);
 		top.add(selectionLabel);
