@@ -1,7 +1,6 @@
 package mainApp;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class SelectionRankRoulette implements SelectionStrategy {
     private RandomInterface r;

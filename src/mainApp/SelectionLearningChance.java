@@ -1,7 +1,6 @@
 package mainApp;
 
 import java.util.HashMap;
-import java.util.Random;
 
 public class SelectionLearningChance implements SelectionStrategy {
     private int numOfGens;
