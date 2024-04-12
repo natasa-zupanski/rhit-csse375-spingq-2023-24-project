@@ -23,7 +23,7 @@ public class PopulationVisualization {
         int screenHeight = (int) frame.getSize().getHeight();
 
         scaleFactorX = (double) screenWidth / 1100; 
-        scaleFactorY = (double) screenHeight / 500;
+        scaleFactorY = (double) screenHeight / 600;
     }
 	/**
 	 * TODO inner comments

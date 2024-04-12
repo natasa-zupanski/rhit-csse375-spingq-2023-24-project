@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -45,20 +46,25 @@ public class PopulationViewer extends Views {
 	private PopulationComponent pop = new PopulationComponent(new Population(), this.frame);
 	private Status status = Status.STOPPED;
 	private Timer timer;
+	
 	FittestOrganismViewer fittestOrganism = new FittestOrganismViewer();
 	GenerationViewer generationViewer = new GenerationViewer();
+	Views organismViewer = new OrganismViewer();
 
 	public void setUpViewer() {
 		super.setUpViewer();
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fittestOrganism.setUpViewer();
 		generationViewer.setUpViewer();
+		organismViewer.setUpViewer();
+		organismViewer.runApp();
 
 		final int frameWidth = 1313;
-		final int frameHeight = 500;
+		final int frameHeight = 600;
 
 		this.frame.setTitle("EvolutionViewer");
 		this.frame.setSize(frameWidth, frameHeight);
-		this.frame.setLocation(25, 75);
+		this.frame.setLocation(25, 175);
 
 		PopulationAdvanceListener advanceListener = new PopulationAdvanceListener(pop, fittestOrganism, this,
 				generationViewer);
@@ -228,6 +234,40 @@ public class PopulationViewer extends Views {
 			}
 		});
 
+		JButton openFitnessButton = new JButton("Open Fittest Organism Viewer");
+        openFitnessButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fittestOrganism.runApp();
+            }
+        });
+
+		JButton openGenerationButton = new JButton("Open Generation Viewer");
+        openGenerationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generationViewer.runApp();
+            }
+        });
+
+		JButton openOrganismButton = new JButton("Open Chromosome Viewer");
+        openOrganismButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                organismViewer.runApp();
+            }
+        });
+
+		JPanel buttonPanel = new JPanel();
+		Dimension buttonPanelSize = new Dimension(100, 30); 
+		JLabel menuLabel = new JLabel("Views Manager:", SwingConstants.CENTER);
+		buttonPanel.add(menuLabel);
+        buttonPanel.add(openFitnessButton);
+		buttonPanel.add(openGenerationButton);
+		buttonPanel.add(openOrganismButton);
+		buttonPanel.setPreferredSize(buttonPanelSize);
+        this.frame.add(buttonPanel, BorderLayout.NORTH);
+
 		frame.add(pop);
 
 		JPanel panel = new JPanel(new GridLayout(2, 1));
@@ -268,7 +308,5 @@ public class PopulationViewer extends Views {
 		} catch (NullPointerException e) {
 
 		}
-
 	}
-
 }

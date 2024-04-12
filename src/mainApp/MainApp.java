@@ -14,9 +14,9 @@ public class MainApp {
 	 * ensures: sets up viewers
 	 */
 	private void runApp() {
-		Views organismViewer = new OrganismViewer();
-		organismViewer.setUpViewer();
-		organismViewer.runApp();
+		// Views organismViewer = new OrganismViewer();
+		// organismViewer.setUpViewer();
+		// organismViewer.runApp();
 
 		Views populationViewer = new PopulationViewer();
 		populationViewer.setUpViewer();

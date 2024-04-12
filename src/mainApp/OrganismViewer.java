@@ -115,7 +115,7 @@ public class OrganismViewer extends Views {
 				fileChooserFrame.setTitle("File Chooser");
 				fileChooserFrame.setSize(500, 400);
 				fileChooserFrame.setLocation(600, 400);
-				fileChooserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				fileChooserFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				fileChooserFrame.setLayout(new BorderLayout());
 				JFileChooser fileChooser = new JFileChooser("OrganismFiles/");
 				fileChooser.addActionListener(new ActionListener() {
