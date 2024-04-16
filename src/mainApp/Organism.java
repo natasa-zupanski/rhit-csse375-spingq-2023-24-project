@@ -539,4 +539,9 @@ public class Organism implements Comparable<Organism> {
 	public RandomType getRandomType() {
 		return r.getType();
 	}
+
+	public void setChromosome(String chromosome)
+	{
+		this.chromosome = chromosome;
+	}
 }
