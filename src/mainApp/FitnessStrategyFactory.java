@@ -17,6 +17,8 @@ public class FitnessStrategyFactory {
                 return new FitnessFiftyFifty();
             case ONESMINUSZEROS:
                 return new FitnessOnesMinusZeros();
+            case FAKECONSTANTFIVE:
+                return new FitnessFakeConstantFive();
             default:
                 return null; // this should never happen unless the change isn't made here ; would be best to
                              // replace this with an exception
@@ -37,6 +39,8 @@ public class FitnessStrategyFactory {
                 return FitnessType.FIFTYFIFTY;
             case "1s minus 0s":
                 return FitnessType.ONESMINUSZEROS;
+            case "Fake Five":
+                return FitnessType.FAKECONSTANTFIVE;
             case "":
                 return FitnessType.LEARNINGCHANCE;
             default:

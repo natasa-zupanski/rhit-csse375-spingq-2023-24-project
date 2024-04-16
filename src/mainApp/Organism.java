@@ -82,6 +82,7 @@ public class Organism implements Comparable<Organism> {
 	public Organism(String chromosome, FitnessType type, RandomType randomType) {
 		this(chromosome);
 		this.fitnessType = type;
+		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type, null, null);
 		this.r = RandomFactory.getRandomOfType(randomType);
 	}
 
@@ -116,6 +117,10 @@ public class Organism implements Comparable<Organism> {
 		}
 		this.fitnessType = type;
 		this.chromosome = String.valueOf(randomChromosome);
+	}
+
+	public Organism(Organism organism) {
+		this(organism.getChromosome(), organism.getFitnessType(), organism.getRandomType());
 	}
 
 	/**
@@ -271,17 +276,17 @@ public class Organism implements Comparable<Organism> {
 	 * represented as black boxes, and ?s being represented as white boxes.
 	 * Sometimes the index of the allele is shown in the corner of this box that
 	 * represents it.
-	 * @param setHeight 
 	 * 
-	 * @param g,      the graphics the organism is drawn on
-	 * @param height, the height given in which the drawn organism will fit
+	 * @param setHeight
+	 * 
+	 * @param g,        the graphics the organism is drawn on
+	 * @param height,   the height given in which the drawn organism will fit
 	 */
 	public void drawOn(Graphics2D g, int setHeight, JFrame frame) {
 		// calculate side size
 		int width = 0;
 		int height = setHeight;
-		if(height == 0)
-		{
+		if (height == 0) {
 			width = (int) frame.getSize().getWidth() - 10;
 			height = (int) frame.getSize().getHeight() - 100;
 		}
@@ -290,8 +295,7 @@ public class Organism implements Comparable<Organism> {
 
 		int boxSide = height / rows;
 		int boxSideWidth = height / rows;
-		if(width != 0)
-		{
+		if (width != 0) {
 			boxSideWidth = width / cols;
 		}
 

@@ -2,5 +2,7 @@ package mainApp;
 
 public enum RandomType {
     TRUE,
-    FAKE
+    FAKE,
+    FAKECONTSANTTEN,
+    FAKEFLIP01
 }
