@@ -27,11 +27,11 @@ public class SelectionTruncation implements SelectionStrategy {
         // }
         // }
         for (int i = 0; i < mutateNum / 2; i++) {
-            result[i] = orgs[mutateNum - i - 1];
-            result[mutateNum / 2 + i] = orgs[mutateNum - i - 1];
+            result[i] = new Organism(orgs[mutateNum - i - 1]);
+            result[mutateNum / 2 + i] = new Organism(orgs[mutateNum - i - 1]);
         }
         if (mutateNum % 2 != 0) {
-            result[mutateNum - 1] = orgs[mutateNum - 1];
+            result[mutateNum - 1] = new Organism(orgs[mutateNum - 1]);
         }
 
         return result;

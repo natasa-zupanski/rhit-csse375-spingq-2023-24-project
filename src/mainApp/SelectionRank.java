@@ -29,7 +29,7 @@ public class SelectionRank implements SelectionStrategy {
                 if (fill == orgs.length) {
                     break;
                 } else {
-                    result[fill] = temp[orgs.length - 1 - index];
+                    result[fill] = new Organism(temp[orgs.length - 1 - index]);
                     fill += 1;
                 }
             }
