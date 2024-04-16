@@ -11,6 +11,8 @@ public class RandomFactory {
                 return new FakeConstantTenRandom();
             case FAKEFLIP01:
                 return new FakeFlipZeroOne();
+            case FAKEPOPULATION:
+                return new FakePopulationRandom();
             default:
                 return null;
         }

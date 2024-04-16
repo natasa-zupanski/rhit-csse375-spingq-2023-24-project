@@ -1,7 +1,7 @@
 package mainApp;
 
-public class FakeRandom implements RandomInterface {
-    private static int DEFAULT_START = 0;
+public class FakePopulationRandom implements RandomInterface {
+    private static int DEFAULT_START = 1;
 
     @Override
     public int nextInt(int bound) {

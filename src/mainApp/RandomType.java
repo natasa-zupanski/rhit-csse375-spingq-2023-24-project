@@ -4,5 +4,6 @@ public enum RandomType {
     TRUE,
     FAKE,
     FAKECONTSANTTEN,
-    FAKEFLIP01
+    FAKEFLIP01,
+    FAKEPOPULATION
 }
