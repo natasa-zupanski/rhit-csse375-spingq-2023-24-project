@@ -7,6 +7,8 @@ public class RandomFactory {
                 return new FakeRandom();
             case TRUE:
                 return new WrappedRandom();
+            case FAKECONTSANTTEN:
+                return new FakeConstantTenRandom();
             default:
                 return null;
         }
