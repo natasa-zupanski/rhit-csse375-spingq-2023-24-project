@@ -82,6 +82,7 @@ public class Organism implements Comparable<Organism> {
 	public Organism(String chromosome, FitnessType type, RandomType randomType) {
 		this(chromosome);
 		this.fitnessType = type;
+		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type, null, null);
 		this.r = RandomFactory.getRandomOfType(randomType);
 	}
 
