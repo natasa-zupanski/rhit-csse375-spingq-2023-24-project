@@ -17,27 +17,29 @@ public class PopulationVisualization {
 		this.graphicParam = new GraphicsParameters();
 		this.parameters = parameters;
 	}
-	
-	private void calculateScaleFactors(JFrame frame) {
-        int screenWidth = (int) frame.getSize().getWidth();
-        int screenHeight = (int) frame.getSize().getHeight();
 
-        scaleFactorX = (double) screenWidth / 1100; 
-        scaleFactorY = (double) screenHeight / 600;
-    }
+	private void calculateScaleFactors(JFrame frame) {
+		int screenWidth = (int) frame.getSize().getWidth();
+		int screenHeight = (int) frame.getSize().getHeight();
+
+		scaleFactorX = (double) screenWidth / 1100;
+		scaleFactorY = (double) screenHeight / 600;
+	}
+
 	/**
 	 * TODO inner comments
 	 * ensures: draws the population at a point and time, the line of best fitness,
 	 * that of average fitness, that of worst fitness and, if the research results
 	 * are attempting to be replicated, the average number of 1s, 0s, and ?s as they
 	 * change in the population over time.
-	 * @param frame 
 	 * 
-	 * @param g, the 2D graphics on which to draw these lines
+	 * @param frame
+	 * 
+	 * @param g,    the 2D graphics on which to draw these lines
 	 */
 	public void drawOn(Graphics2D g, JFrame frame) {
 		calculateScaleFactors(frame);
-	
+
 		int numOfGens = parameters.getNumbersOfGen();
 		int scale = 1000 / numOfGens;
 		g.scale(scaleFactorX, scaleFactorY);
@@ -129,6 +131,11 @@ public class PopulationVisualization {
 		System.out.println(
 				"Created gen #" + this.gensSoFar() + " Best fitness: "
 						+ this.graphicParam.getBestFitness(graphicParam.bestFitSize() - 1));
+	}
+
+	public void terminate() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'terminate'");
 	}
 
 }

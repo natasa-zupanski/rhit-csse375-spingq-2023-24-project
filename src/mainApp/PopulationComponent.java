@@ -137,6 +137,11 @@ public class PopulationComponent extends JComponent {
 
 	public void handleTerminate() {
 		this.evolutionParameters.terminate();
+		// here we have access to the population and current generation and
+		// visualization
+		PopulationVisualization vis = population.getPopulationVisualization();
+		population.nextGeneration();
+		vis.terminate();
 	}
 
 	public Population getPopulation() {
