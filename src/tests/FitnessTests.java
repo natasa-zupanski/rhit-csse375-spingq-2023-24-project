@@ -10,8 +10,6 @@ import mainApp.FitnessProdConsecOnes;
 import mainApp.FitnessStrategy;
 import mainApp.FitnessTargetOrganism;
 import mainApp.FitnessType;
-import mainApp.Organism;
-import mainApp.RandomType;
 
 import static org.junit.Assert.assertEquals;
 
