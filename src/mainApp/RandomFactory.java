@@ -9,6 +9,8 @@ public class RandomFactory {
                 return new WrappedRandom();
             case FAKECONTSANTTEN:
                 return new FakeConstantTenRandom();
+            case FAKEFLIP01:
+                return new FakeFlipZeroOne();
             default:
                 return null;
         }

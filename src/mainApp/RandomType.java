@@ -3,5 +3,6 @@ package mainApp;
 public enum RandomType {
     TRUE,
     FAKE,
-    FAKECONTSANTTEN
+    FAKECONTSANTTEN,
+    FAKEFLIP01
 }
