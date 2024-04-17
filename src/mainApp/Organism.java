@@ -52,7 +52,6 @@ public class Organism implements Comparable<Organism> {
 	public Organism(int length, FitnessType type, boolean someUnsure, RandomType random) {
 		this(length, type, random);
 		if (someUnsure) {
-			// Random r = new Random();
 			char[] randomChromosome = new char[length];
 			for (int index = 0; index < length; index++) {
 				int chance = r.nextInt(4);

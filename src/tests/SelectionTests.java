@@ -6,9 +6,11 @@ import java.util.Arrays;
 
 import org.junit.*;
 
+import mainApp.FakeSelectionLearningChance;
 import mainApp.FitnessType;
 import mainApp.Organism;
 import mainApp.RandomType;
+import mainApp.SelectionLearningChance;
 import mainApp.SelectionRank;
 import mainApp.SelectionRankRoulette;
 import mainApp.SelectionRouletteWheel;
@@ -271,4 +273,37 @@ public class SelectionTests {
             assertEquals(selected[k].getChromosome(), orgs[k].getChromosome());
         }
     }
+
+    @Test
+    public void selectionLearningChanceTest() {
+        int genSize = 100;
+        // int chromSize = 10;
+        String chromOne = "11111111??";
+        String chromTwo = "00000000??";
+        Organism[] orgs = new Organism[genSize];
+        for (int i = 0; i < genSize / 2; i++) {
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE);
+        }
+        for (int j = genSize / 2; j < genSize; j++) {
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE);
+        }
+        Arrays.sort(orgs);
+        SelectionStrategy selection = new FakeSelectionLearningChance(1, RandomType.FAKE); // the original learning
+                                                                                           // chance loops through a
+                                                                                           // hashmap which has no
+                                                                                           // apparent predictable
+                                                                                           // order. To test what we
+                                                                                           // get, we need to create a
+                                                                                           // fake selection method that
+                                                                                           // simply orders the keySet
+                                                                                           // of that hastmap by the
+                                                                                           // organism fitness.
+        assertEquals(SelectionType.LEARNINGCHANCE, selection.getSelectionType());
+        Organism[] selected = selection.selectFrom(orgs);
+        for (int k = 0; k < genSize; k++) {
+            assertEquals(0, selected[k].fitness());
+            assertEquals(chromTwo, selected[k].getChromosome());
+        }
+    }
+
 }

@@ -1,0 +1,80 @@
+package mainApp;
+
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class FakeSelectionLearningChance implements SelectionStrategy {
+    private int numOfGens;
+    private RandomInterface r;
+
+    public FakeSelectionLearningChance(int numOfGens, RandomType randomType) {
+        this.numOfGens = numOfGens;
+        r = RandomFactory.getRandomOfType(randomType);
+    }
+
+    @Override
+    public Organism[] selectFrom(Organism[] orgs) {
+        resetConstantFitnesses(orgs);
+        HashMap<Organism, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < orgs.length; i++) {
+            orgs[i].setNumGens(numOfGens);
+            map.putIfAbsent(orgs[i], orgs[i].fitness() + 1);
+        }
+
+        Organism[] result = new Organism[orgs.length];
+        for (int i = 0; i < orgs.length; i++) {
+            result[i] = this.selectedByLearningChances(map);
+        }
+
+        return result;
+    }
+
+    private void resetConstantFitnesses(Organism[] orgs) {
+        for (Organism o : orgs) {
+            o.resetConstantFitness();
+        }
+    }
+
+    private Organism selectedByLearningChances(HashMap<Organism, Integer> map) {
+        int sum = 0;
+        Integer[] values = new Integer[map.size()];
+        int index = 0;
+        for (Organism o : map.keySet()) {
+            values[index] = map.get(o);
+            index += 1;
+        }
+
+        int total = this.totalLearningFitnesses(values);
+        int chance = r.nextInt(total);
+
+        Organism[] orgs = map.keySet().stream().toArray(Organism[]::new);
+        Arrays.sort(orgs);
+        for (int i = 0; i < orgs.length; i++) {
+            int lastSum = sum;
+            Organism o = orgs[i];
+            sum += map.get(o);
+
+            if (chance <= sum && chance >= lastSum) {
+                return o;
+            }
+        }
+
+        return null;
+
+    }
+
+    private int totalLearningFitnesses(Integer[] fitnesses) {
+        int sum = 0;
+        for (int i : fitnesses) {
+            sum += i;
+        }
+        return sum;
+    }
+
+    @Override
+    public SelectionType getSelectionType() {
+        return SelectionType.LEARNINGCHANCE;
+    }
+
+}
