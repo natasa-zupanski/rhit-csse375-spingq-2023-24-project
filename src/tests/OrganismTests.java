@@ -15,7 +15,7 @@ public class OrganismTests {
 
     @Test
     public void lengthTest() {
-        Organism twenty = new Organism("00000000001111111111");
+        Organism twenty = new Organism("00000000001111111111", FitnessType.NUMONES, RandomType.FAKE);
         int length = twenty.length();
         assertEquals(20, length);
 
@@ -30,10 +30,11 @@ public class OrganismTests {
 
     @Test
     public void numOf0sTest() {
-        Organism one = new Organism("101111");
+        Organism one = new Organism("101111", FitnessType.NUMONES, RandomType.FAKE);
         assertEquals(1, one.numOf0s());
 
-        Organism thirteen = new Organism("111010011111001110101011111010110010111");
+        Organism thirteen = new Organism("111010011111001110101011111010110010111", FitnessType.NUMONES,
+                RandomType.FAKE);
         assertEquals(13, thirteen.numOf0s());
     }
 
@@ -49,7 +50,7 @@ public class OrganismTests {
         try {
             Method flipAllele = Organism.class.getDeclaredMethod("flipAllele", Integer.class);
             flipAllele.setAccessible(true);
-            Organism one = new Organism("111111111");
+            Organism one = new Organism("111111111", FitnessType.NUMONES, RandomType.FAKE);
             Integer integerOne = 1;
             flipAllele.invoke(one, integerOne);
             assertEquals('0', one.getChromosome().charAt(1));
@@ -73,7 +74,7 @@ public class OrganismTests {
 
     @Test
     public void toIntArrTest() {
-        Organism four = new Organism("0101");
+        Organism four = new Organism("0101", FitnessType.NUMONES, RandomType.FAKE);
         int[][] expected = { { 0, 1 }, { 0, 1 } };
         int[][] fourArr = four.toIntAr();
         for (int i = 0; i < 2; i++) {
@@ -107,10 +108,10 @@ public class OrganismTests {
 
     @Test
     public void getChromosomeTest() {
-        Organism one = new Organism("0000");
+        Organism one = new Organism("0000", FitnessType.NUMONES, RandomType.FAKE);
         assertEquals("0000", one.getChromosome());
 
-        Organism two = new Organism("100101");
+        Organism two = new Organism("100101", FitnessType.NUMONES, RandomType.FAKE);
         assertEquals("100101", two.getChromosome());
     }
 
