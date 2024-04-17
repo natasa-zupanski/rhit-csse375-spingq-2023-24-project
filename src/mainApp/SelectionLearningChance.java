@@ -45,7 +45,6 @@ public class SelectionLearningChance implements SelectionStrategy {
         }
 
         int total = this.totalLearningFitnesses(values);
-        // Random r = new Random();
         int chance = r.nextInt(total);
 
         for (Organism o : map.keySet()) {
