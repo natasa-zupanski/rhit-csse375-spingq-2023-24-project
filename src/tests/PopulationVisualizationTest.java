@@ -114,7 +114,27 @@ public class PopulationVisualizationTest {
         assertEquals("Created gen #3 Best fitness: 30", populationVisualization.getBestFitnessString());
     }
 
-    
+    @Test
+    public void TestDrawOn ()
+    {
+        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 10, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100);
+        FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
+        populationVisualization.populateData(50, 10, 5, 50, 50, 5);
+        populationVisualization.populateData(40, 20, 10, 48, 52, 0);
+        populationVisualization.populateData(30, 40, 20, 48, 52, 0);
+        populationVisualization.populateData(50, 10, 5, 50, 50, 5);
+        populationVisualization.populateData(40, 20, 10, 48, 52, 0);
+        populationVisualization.populateData(30, 40, 20, 48, 52, 0);
+        populationVisualization.populateData(50, 10, 5, 50, 50, 5);
+        populationVisualization.populateData(40, 20, 10, 48, 52, 0);
+        populationVisualization.populateData(30, 40, 20, 48, 52, 0);
+        populationVisualization.populateData(40, 20, 10, 48, 52, 0);
+        JFrame frame = new JFrame();
+        frame.setSize(1313, 600);
+        populationVisualization.drawOn(null, frame);
+        assertEquals("", populationVisualization.getDrawValueString());
+    }
+
 
 
 }
