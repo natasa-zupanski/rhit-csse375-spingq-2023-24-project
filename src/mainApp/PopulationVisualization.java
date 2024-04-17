@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import java.awt.Color;
 
-public class PopulationVisualization {
+public class PopulationVisualization implements PopulationVisualizationInterface{
 	private GraphicsParameters graphicParam;
 	private EvolutionParameters parameters;
 	private double scaleFactorX;
