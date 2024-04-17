@@ -114,5 +114,7 @@ public class PopulationVisualizationTest {
         assertEquals("Created gen #3 Best fitness: 30", populationVisualization.getBestFitnessString());
     }
 
+    
+
 
 }
