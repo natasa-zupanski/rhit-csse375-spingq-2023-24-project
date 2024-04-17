@@ -226,5 +226,49 @@ public class SelectionTests {
             assertEquals(0, selected[k].fitness());
             assertEquals(chromTwo, selected[k].getChromosome());
         }
+        for (int j = 0; j < 50; j++) {
+            assertEquals(selected[j].fitness(), selected[50 + j].fitness());
+            assertEquals(selected[j].getChromosome(), selected[50 + j].getChromosome());
+        }
+    }
+
+    @Test
+    public void selectionStableStateTestThree() {
+        int genSize = 100;
+        // int chromSize = 10;
+        Organism[] orgs = new Organism[genSize];
+        for (int i = 0; i < genSize; i++) {
+            orgs[i] = new Organism(10, FitnessType.NUMONES, RandomType.FAKE);
+        }
+        Arrays.sort(orgs);
+        SelectionStrategy selection = new SelectionStableState(50);
+        assertEquals(SelectionType.STABLESTATE, selection.getSelectionType());
+        Organism[] selected = selection.selectFrom(orgs);
+        for (int j = 0; j < 50; j++) {
+            assertEquals(selected[j].fitness(), selected[50 + j].fitness());
+            assertEquals(selected[j].getChromosome(), selected[50 + j].getChromosome());
+        }
+    }
+
+    @Test
+    public void selectionStableStateTestFour() {
+        int genSize = 100;
+        // int chromSize = 10;
+        Organism[] orgs = new Organism[genSize];
+        for (int i = 0; i < genSize; i++) {
+            orgs[i] = new Organism(10, FitnessType.NUMONES, RandomType.FAKE);
+        }
+        Arrays.sort(orgs);
+        SelectionStrategy selection = new SelectionStableState(10);
+        assertEquals(SelectionType.STABLESTATE, selection.getSelectionType());
+        Organism[] selected = selection.selectFrom(orgs);
+        for (int j = 0; j < 10; j++) {
+            assertEquals(selected[j].fitness(), selected[90 + j].fitness());
+            assertEquals(selected[j].getChromosome(), selected[90 + j].getChromosome());
+        }
+        for (int k = 10; k < 90; k++) {
+            assertEquals(selected[k].fitness(), orgs[k].fitness());
+            assertEquals(selected[k].getChromosome(), orgs[k].getChromosome());
+        }
     }
 }
