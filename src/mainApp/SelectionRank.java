@@ -14,13 +14,14 @@ public class SelectionRank implements SelectionStrategy {
         int fill = 0;
         int index = 0;
 
-        double multiplier = (double) total / (double) 4 * ranks[0];
+        double multiplier = (double) total / (double) 4 * ranks[0]; // ranks[0] will always be 1.
 
         while (fill < orgs.length) {
             int rank = ranks[orgs.length - 1 - index];
             int numToRun = (int) (rank * multiplier);
 
-            numToRun /= total;
+            numToRun /= total; // we will always have total in the numerator, why divide when we can cancel it
+                               // out?
             numToRun /= (index + 1);
             if (numToRun == 0) { // 1
                 numToRun += 1;
