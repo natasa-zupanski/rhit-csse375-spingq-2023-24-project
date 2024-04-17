@@ -43,8 +43,12 @@ public class FakePopulationVisualization implements PopulationVisualizationInter
 
     @Override
     public int gensSoFar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gensSoFar'");
+        if (!this.parameters.getTerminated()) {
+			// return generations.size();
+			return this.graphicParam.bestFitSize();
+		} else {
+			return this.parameters.getNumbersOfGen();
+		}
     }
 
     @Override
@@ -69,6 +73,10 @@ public class FakePopulationVisualization implements PopulationVisualizationInter
     public void printBestFitness() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'printBestFitness'");
+    }
+
+    public EvolutionParameters getEvolutionParameters() {
+        return this.parameters;
     }
     
 }

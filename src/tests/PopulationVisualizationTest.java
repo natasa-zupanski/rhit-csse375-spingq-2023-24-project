@@ -51,13 +51,46 @@ public class PopulationVisualizationTest {
         EvolutionParameters evolutionParameters = new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.NUMONES, true, 100);
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         populationVisualization.populateData(50, 10, 5, 50, 50, 5);
+        populationVisualization.populateData(40, 20, 10, 50, 50, 5);
         assertEquals(50, populationVisualization.getGraphicParam().getBestFitness(0));
-        assertEquals(50, populationVisualization.getGraphicParam().getBestFitness(0));
-        assertEquals(50, populationVisualization.getGraphicParam().getBestFitness(0));
-        assertTrue(50, populationVisualization.getGraphicParam().getBestFitness(0));
-        assertTrue(50, populationVisualization.getGraphicParam().getBestFitness(0));
-        assertTrue(50, populationVisualization.getGraphicParam().getBestFitness(0));
-    
-       
+        assertEquals(10, populationVisualization.getGraphicParam().getAvgFitness(0));
+        assertEquals(5, populationVisualization.getGraphicParam().getLowFitness(0));
+        assertEquals(40, populationVisualization.getGraphicParam().getBestFitness(1));
+        assertEquals(20, populationVisualization.getGraphicParam().getAvgFitness(1));
+        assertEquals(10, populationVisualization.getGraphicParam().getLowFitness(1));
     }
+
+    @Test
+    public void TestPopulationData_SelectionTypeLearningChange() {
+        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100);
+        FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
+        populationVisualization.populateData(50, 10, 5, 50, 50, 5);
+        populationVisualization.populateData(40, 20, 10, 48, 52, 0);
+        assertEquals(50, populationVisualization.getGraphicParam().getBestFitness(0));
+        assertEquals(10, populationVisualization.getGraphicParam().getAvgFitness(0));
+        assertEquals(5, populationVisualization.getGraphicParam().getLowFitness(0));
+        assertEquals(50, populationVisualization.getGraphicParam().getAvgNum0s(0));
+        assertEquals(50, populationVisualization.getGraphicParam().getAvgNum1s(0));
+        assertEquals(5, populationVisualization.getGraphicParam().getAvgNumQs(0));
+        assertEquals(40, populationVisualization.getGraphicParam().getBestFitness(1));
+        assertEquals(20, populationVisualization.getGraphicParam().getAvgFitness(1));
+        assertEquals(10, populationVisualization.getGraphicParam().getLowFitness(1));
+        assertEquals(52, populationVisualization.getGraphicParam().getAvgNum0s(1));
+        assertEquals(48, populationVisualization.getGraphicParam().getAvgNum1s(1));
+        assertEquals(0, populationVisualization.getGraphicParam().getAvgNumQs(1));
+    }
+
+    @Test
+    public void TestGensSoFar()
+    {
+        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 3, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100);
+        FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
+        populationVisualization.populateData(50, 10, 5, 50, 50, 5);
+        populationVisualization.populateData(40, 20, 10, 48, 52, 0);
+        assertEquals(2, populationVisualization.gensSoFar());
+        populationVisualization.getEvolutionParameters().terminate();
+        assertEquals(3, populationVisualization.gensSoFar());
+    }
+
+
 }
