@@ -134,7 +134,8 @@ public class PopulationVisualization {
 	}
 
 	public void terminate() {
-		// TODO Auto-generated method stub
+		Saver saver = new Saver();
+		// saver.addDataLine();
 		throw new UnsupportedOperationException("Unimplemented method 'terminate'");
 	}
 
