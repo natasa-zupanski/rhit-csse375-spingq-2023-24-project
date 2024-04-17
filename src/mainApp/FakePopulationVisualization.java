@@ -9,6 +9,7 @@ public class FakePopulationVisualization implements PopulationVisualizationInter
 	private EvolutionParameters parameters;
 	private double scaleFactorX;
 	private double scaleFactorY;
+    private String bestFitnessString;
 
 	public FakePopulationVisualization(EvolutionParameters parameters) {
 		this.graphicParam = new GraphicsParameters();
@@ -71,12 +72,16 @@ public class FakePopulationVisualization implements PopulationVisualizationInter
 
     @Override
     public void printBestFitness() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'printBestFitness'");
+        this.bestFitnessString = "Created gen #" + this.gensSoFar() + " Best fitness: "
+                    + this.graphicParam.getBestFitness(graphicParam.bestFitSize() - 1);
     }
 
     public EvolutionParameters getEvolutionParameters() {
         return this.parameters;
+    }
+
+    public String getBestFitnessString() {
+       return this.bestFitnessString;
     }
     
 }
