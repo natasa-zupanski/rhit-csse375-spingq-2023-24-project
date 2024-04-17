@@ -1,7 +1,5 @@
 package mainApp;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
@@ -47,7 +45,7 @@ public class FakePopulationVisualization implements PopulationVisualizationInter
 		int numOfGens = parameters.getNumbersOfGen();
 		int scale = 1000 / numOfGens;
         sb.append("SetScale: x:" + scaleFactorX + " y:" + scaleFactorY + "\n");
-        sb.append("SetColor: " + Color.BLACK + "\n");
+        sb.append("SetColor: BLACK\n");
 
 		for (int i = 0; i <= 10; i++) {
             sb.append("DrawLine: x1:" + (50 + i * scale * numOfGens / 10) + " y1:" + (350 - 5) + " x2:" + (50 + i * scale * numOfGens / 10) + "y2:" + (350 + 5) + "\n");
@@ -58,46 +56,47 @@ public class FakePopulationVisualization implements PopulationVisualizationInter
 
         sb.append("SetStroke: BasicStroke Width: 2\n");
 
-		g.drawLine(50, 350, 50 + 1000, 350);
-		g.drawLine(50, 50, 50, 350);
+        sb.append("DrawLine: x1:" + 50 + " y1:" + 350 + " x2:" + (50 + 1000) + "y2:" + 350 + "\n");
+        sb.append("DrawLine: x1:" + 50 + " y1:" + 50 + " x2:" + 50 + "y2:" + 350 + "\n");
+		
+        sb.append("SetColor: GRAY\n");
 
-		g.setColor(Color.GRAY);
-		g.setStroke(new BasicStroke(1));
+        sb.append("SetStroke: BasicStroke Width: 1\n");
+
 		if (gensSoFar() > 2) {
-			g.drawLine(50, 350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3, 50 + (gensSoFar() - 2) * scale,
-					350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3);
+            sb.append("DrawLine: x1:" + 50 + " y1:" + (350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3) + " x2:" + (50 + (gensSoFar() - 2) * scale) 
+            + "y2:" + (350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3) + "\n");
 		}
 
-		g.setStroke(new BasicStroke(2));
+		sb.append("SetStroke: BasicStroke Width: 2\n");
 		for (int i = 0; i < gensSoFar() - 2; i++) {
-			g.setColor(Color.GREEN);
-			g.drawLine(50 + i * scale, (350 - graphicParam.getBestFitness(i) * 3), 50 + (i + 1) * scale,
-					(350 - graphicParam.getBestFitness(i + 1) * 3));
-			g.setColor(Color.ORANGE);
-			g.drawLine(50 + i * scale, 350 - graphicParam.getAvgFitness(i) * 3, 50 + (i + 1) * scale,
-					350 - graphicParam.getAvgFitness(i + 1) * 3);
-			g.setColor(Color.RED);
-			g.drawLine(50 + i * scale, 350 - graphicParam.getLowFitness(i) * 3, 50 + (i + 1) * scale,
-					350 - graphicParam.getLowFitness(i + 1) * 3);
-			g.setColor(Color.MAGENTA);
-			g.drawLine(50 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)),
-					50 + (i + 1) * scale,
-					350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1))));
-			g.setColor(Color.BLACK);
-			g.drawLine(50, 50 - graphicParam.getBestFitness(i) * 3, 50 + (i + 1) * scale,
-					50 - graphicParam.getBestFitness(i) * 3);
+            sb.append("SetColor: GREEN\n");
+            sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + ((350 - graphicParam.getBestFitness(i) * 3)) + " x2:" + (50 + (i + 1) * scale) 
+            + "y2:" + (350 - graphicParam.getBestFitness(i + 1) * 3) + "\n");
+            sb.append("SetColor: ORANGE\n");
+            sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - graphicParam.getAvgFitness(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
+            + "y2:" + (350 - graphicParam.getAvgFitness(i + 1) * 3) + "\n");
+			sb.append("SetColor: RED\n");
+            sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - graphicParam.getLowFitness(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
+            + "y2:" + (350 - graphicParam.getLowFitness(i + 1) * 3) + "\n");
+            sb.append("SetColor: MAGENTA\n");
+            sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i))) + " x2:" + (50 + (i + 1) * scale) 
+            + "y2:" + (350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1)))) + "\n");
+            sb.append("SetColor: BLACK\n");
+            sb.append("DrawLine: x1:" + 50 + " y1:" + (50 - graphicParam.getBestFitness(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
+            + "y2:" + (50 - graphicParam.getBestFitness(i + 1) * 3) + "\n");
 			if (this.parameters.getSelectionType() == SelectionType.LEARNINGCHANCE) {
-				g.setColor(Color.BLUE);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum1s(i) * 3, 50 + (i + 1) * scale,
-						350 - graphicParam.getAvgNum1s(i + 1) * 3);
-				g.setColor(Color.CYAN);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum0s(i) * 3, 50 + (i + 1) * scale,
-						350 - graphicParam.getAvgNum0s(i + 1) * 3);
-				g.setColor(Color.LIGHT_GRAY);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNumQs(i) * 3, 50 + (i + 1) * scale,
-						350 - graphicParam.getAvgNumQs(i + 1) * 3);
-
+				sb.append("SetColor: BLUE\n");
+                sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - graphicParam.getAvgNum1s(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
+                + "y2:" + (350 - graphicParam.getAvgNum1s(i + 1) * 3) + "\n");
+                sb.append("SetColor: CYAN\n");
+                sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - graphicParam.getAvgNum0s(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
+                + "y2:" + (350 - graphicParam.getAvgNum0s(i + 1) * 3) + "\n");
+                sb.append("SetColor: LIGHT_GRAY\n");
+                sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - graphicParam.getAvgNumQs(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
+                + "y2:" + (350 - graphicParam.getAvgNumQs(i + 1) * 3) + "\n");
 			}
+            this.drawValueString = sb.toString();
 		}
     }
 
