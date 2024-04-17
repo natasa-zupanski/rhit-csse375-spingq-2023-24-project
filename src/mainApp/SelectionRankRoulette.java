@@ -26,11 +26,10 @@ public class SelectionRankRoulette implements SelectionStrategy {
 
     private Organism selectedByRank(Organism[] orgs) {
         Arrays.sort(orgs);
-        int total = RankLibrary.totalRank(orgs.length); // this.totalRank(orgs);
+        int total = RankLibrary.totalRank(orgs.length);
 
-        int[] ranks = RankLibrary.getRanks(orgs.length); // this.getRanks(orgs);
+        int[] ranks = RankLibrary.getRanks(orgs.length);
 
-        // Random r = new Random();
         int chance = r.nextInt(total);
 
         int sum = 0;
