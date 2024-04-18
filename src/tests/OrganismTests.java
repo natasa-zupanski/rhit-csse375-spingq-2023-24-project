@@ -48,10 +48,10 @@ public class OrganismTests {
     @Test
     public void flipAlleleTest() {
         try {
-            Method flipAllele = Organism.class.getDeclaredMethod("flipAllele", Integer.class);
+            Method flipAllele = Organism.class.getDeclaredMethod("flipAllele", int.class);
             flipAllele.setAccessible(true);
             Organism one = new Organism("111111111", FitnessType.NUMONES, RandomType.FAKE);
-            Integer integerOne = 1;
+            int integerOne = 1;
             flipAllele.invoke(one, integerOne);
             assertEquals('0', one.getChromosome().charAt(1));
         } catch (NoSuchMethodException e) {

@@ -10,7 +10,6 @@ import mainApp.FakeSelectionLearningChance;
 import mainApp.FitnessType;
 import mainApp.Organism;
 import mainApp.RandomType;
-import mainApp.SelectionLearningChance;
 import mainApp.SelectionRank;
 import mainApp.SelectionRankRoulette;
 import mainApp.SelectionRouletteWheel;
