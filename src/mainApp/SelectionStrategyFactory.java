@@ -17,6 +17,8 @@ public class SelectionStrategyFactory {
                 return new SelectionRouletteWheel(randomType);
             case RANK:
                 return new SelectionRank();
+            case ALTERNATE:
+                return new SelectionAlternate();
             default:
                 return null;
         }
@@ -36,6 +38,8 @@ public class SelectionStrategyFactory {
                 return SelectionType.RANKROULETTE;
             case "Learning Chance":
                 return SelectionType.LEARNINGCHANCE;
+            case "Alternate":
+                return SelectionType.ALTERNATE;
             default:
                 return SelectionType.TRUNCATION;
         }
@@ -55,6 +59,8 @@ public class SelectionStrategyFactory {
                 return "Stable State";
             case LEARNINGCHANCE:
                 return "Learning Chance";
+            case ALTERNATE:
+                return "Alternate";
             default:
                 return "";
         }
@@ -63,7 +69,7 @@ public class SelectionStrategyFactory {
 
     public static String[] getStrings() {
         String[] methods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State",
-                "Learning Chance" };
+                "Learning Chance", "Alternate" };
         return methods;
     }
 }

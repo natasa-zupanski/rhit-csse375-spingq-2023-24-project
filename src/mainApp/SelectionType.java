@@ -6,5 +6,6 @@ public enum SelectionType {
     RANKROULETTE,
     ROULETTEWHEEL,
     STABLESTATE,
-    LEARNINGCHANCE
+    LEARNINGCHANCE,
+    ALTERNATE
 }
