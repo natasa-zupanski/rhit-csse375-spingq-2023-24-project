@@ -196,4 +196,11 @@ public class OrganismTests {
             assertEquals("011101111", one.getChromosome());
     }
 
+    @Test
+    public void length() {
+            Organism one = new Organism("111111111", FitnessType.NUMONES, RandomType.FAKE);
+            assertEquals(9, one.length());
+            one.setChromosome("0000111110110");
+            assertEquals(13, one.length());
+    }
 }
