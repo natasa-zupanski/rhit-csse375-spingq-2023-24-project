@@ -38,12 +38,15 @@ public class OrganismTests {
         assertEquals(13, thirteen.numOf0s());
     }
 
-    // public void numOf1sTest() {
-    // Organism one = new Organism("001000000");
+    @Test
+    public void numOf1sTest() {
+        Organism one = new Organism("001000", FitnessType.NUMONES, RandomType.FAKE);
+        assertEquals(1, one.numOf1s());
 
-    // Organism thirteen = new
-    // Organism("10100010010000000000001000010001000010010011000000110");
-    // }
+        Organism thirteen = new Organism("000010010011001010101010000010000010101", FitnessType.NUMONES,
+                RandomType.FAKE);
+        assertEquals(13, thirteen.numOf1s());
+    }
 
     @Test
     public void flipAlleleTest() {
@@ -84,26 +87,41 @@ public class OrganismTests {
         }
     }
 
+    @Test
     public void mutatePercentTest() {
-        // untestable as it is below...
+        Organism organism = new Organism("0101", FitnessType.NUMONES, RandomType.FAKE);
+        organism.mutatePercent(1);
+        assertEquals("1010", organism.getChromosome());
+        Organism organism2 = new Organism("0101", FitnessType.NUMONES, RandomType.FAKEPOPULATION);
+        organism2.mutatePercent(1);
+        assertEquals("0101", organism2.getChromosome());
+        Organism organism3 = new Organism("1111", FitnessType.NUMONES, RandomType.FAKE);
+        organism3.mutatePercent(1);
+        assertEquals("0000", organism3.getChromosome());
     }
 
+    @Test
     public void mutateTest() {
-        // the rate is the chance to flip at each index. So, we cannot know how many
-        // will be flipped. we only have that value on average of all mutate calls with
-        // the same rate.
 
-        // Organism one = new Organism("1111");
-        // String before = one.getChromosome();
-        // one.mutate(1);
-        // String after = one.getChromosome();
-        // assertEquals(1, getNumDiffsForStrings(before, after));
+        Organism one = new Organism("1111", FitnessType.NUMONES, RandomType.FAKEPOPULATION);
+        one.mutate(1);
+        String after = one.getChromosome();
+        assertEquals("1111", after);
 
-        // Organism four = new Organism("1111");
-        // before = four.getChromosome();
-        // four.mutate(4);
-        // after = four.getChromosome();
-        // assertEquals(4, getNumDiffsForStrings(before, after));
+        Organism one2 = new Organism("1001", FitnessType.NUMONES, RandomType.FAKEPOPULATION);
+        one2.mutate(1);
+        after = one2.getChromosome();
+        assertEquals("1001", after);
+
+        Organism four = new Organism("1111", FitnessType.NUMONES, RandomType.FAKEPOPULATION) ;
+        four.mutate(4);
+        after = four.getChromosome();
+        assertEquals("0000", after);
+
+        Organism four2 = new Organism("1001", FitnessType.NUMONES, RandomType.FAKEPOPULATION) ;
+        four2.mutate(4);
+        after = four2.getChromosome();
+        assertEquals("0110", after);
     }
 
     @Test

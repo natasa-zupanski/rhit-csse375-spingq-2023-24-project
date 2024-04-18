@@ -216,11 +216,9 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public void mutatePercent(int rate) {
 		char[] arr = chromosome.toCharArray();
-		// Random r = new Random();
 		for (int index = 0; index < this.length(); index++) {
 			int chance = r.nextInt(100);
 			if (chance < rate) {
-				// flipAllele(index);
 				if (arr[index] == '0') {
 					arr[index] = '1';
 				} else if (arr[index] == '1') {
