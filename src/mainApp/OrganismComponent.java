@@ -49,7 +49,7 @@ public class OrganismComponent extends JComponent {
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		this.organism.drawOn(g2d, this.setHeight, this.frame);
+		this.organism.geOrganismVisualization().drawOn(g2d, this.setHeight, this.frame);
 	}
 
 	public void setOrganism(Organism o) {
