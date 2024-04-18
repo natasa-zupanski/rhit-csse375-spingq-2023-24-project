@@ -1,14 +1,14 @@
 package mainApp;
 
-import java.util.Random;
-
 public class FitnessLearningChance implements FitnessStrategy {
     private int days;
     private int constantFitness;
+    private RandomInterface r;
 
-    public FitnessLearningChance(int days, int constantFitness) {
+    public FitnessLearningChance(int days, int constantFitness, RandomType randomType) {
         this.days = days;
         this.constantFitness = constantFitness;
+        r = RandomFactory.getRandomOfType(randomType);
     }
 
     @Override
@@ -46,7 +46,6 @@ public class FitnessLearningChance implements FitnessStrategy {
     }
 
     private int determineUnresolvedFitnesses(String chromosome) {
-        Random r = new Random();
         int sum = 0;
         for (char c : chromosome.toCharArray()) {
             if (c == '?') {

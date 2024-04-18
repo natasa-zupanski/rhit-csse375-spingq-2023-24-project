@@ -1,12 +1,13 @@
 package mainApp;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
-public class SelectionLearningChance implements SelectionStrategy {
+public class FakeSelectionLearningChance implements SelectionStrategy {
     private int numOfGens;
     private RandomInterface r;
 
-    public SelectionLearningChance(int numOfGens, RandomType randomType) {
+    public FakeSelectionLearningChance(int numOfGens, RandomType randomType) {
         this.numOfGens = numOfGens;
         r = RandomFactory.getRandomOfType(randomType);
     }
@@ -47,8 +48,11 @@ public class SelectionLearningChance implements SelectionStrategy {
         int total = this.totalLearningFitnesses(values);
         int chance = r.nextInt(total);
 
-        for (Organism o : map.keySet()) {
+        Organism[] orgs = map.keySet().stream().toArray(Organism[]::new);
+        Arrays.sort(orgs);
+        for (int i = 0; i < orgs.length; i++) {
             int lastSum = sum;
+            Organism o = orgs[i];
             sum += map.get(o);
 
             if (chance <= sum && chance >= lastSum) {

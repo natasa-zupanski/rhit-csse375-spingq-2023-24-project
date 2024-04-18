@@ -10,6 +10,7 @@ import mainApp.FitnessProdConsecOnes;
 import mainApp.FitnessStrategy;
 import mainApp.FitnessTargetOrganism;
 import mainApp.FitnessType;
+import mainApp.RandomType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -70,12 +71,13 @@ public class FitnessTests {
 
     @Test
     public void fitnessLearningChanceTest() throws Exception {
-        FitnessStrategy fitness = new FitnessLearningChance(10, 1);
+        FitnessStrategy fitness = new FitnessLearningChance(2, -1, RandomType.FAKE);
         assertEquals(FitnessType.LEARNINGCHANCE, fitness.getFitnessType());
-        // assertEquals(3, fitness.getFitness("111000000"));
-        // assertEquals(3, fitness.getFitness("00110001000000"));
-        // assertEquals(4, fitness.getFitness("111000010"));
-        throw new Exception("Not yet implemented");
+        assertEquals(0, fitness.getFitness("111000??"));
+        fitness = new FitnessLearningChance(2, -1, RandomType.FAKE);
+        assertEquals(0, fitness.getFitness("???111111"));
+        fitness = new FitnessLearningChance(2, -1, RandomType.FAKE);
+        assertEquals(19, fitness.getFitness("1111"));
     }
 
     @Test

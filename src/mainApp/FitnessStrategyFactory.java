@@ -1,7 +1,8 @@
 package mainApp;
 
 public class FitnessStrategyFactory {
-    public static FitnessStrategy getFitnessStrategyOfType(FitnessType type, Integer numGens, Integer constantFitness) {
+    public static FitnessStrategy getFitnessStrategyOfType(RandomType random, FitnessType type, Integer numGens,
+            Integer constantFitness) {
         switch (type) {
             case NUMONES:
                 return new FitnessNumOfOnes();
@@ -12,7 +13,7 @@ public class FitnessStrategyFactory {
             case PRODCONSECONES:
                 return new FitnessProdConsecOnes();
             case LEARNINGCHANCE:
-                return new FitnessLearningChance(numGens, constantFitness);
+                return new FitnessLearningChance(numGens, constantFitness, random);
             case FIFTYFIFTY:
                 return new FitnessFiftyFifty();
             case ONESMINUSZEROS:

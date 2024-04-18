@@ -52,7 +52,6 @@ public class Organism implements Comparable<Organism> {
 	public Organism(int length, FitnessType type, boolean someUnsure, RandomType random) {
 		this(length, type, random);
 		if (someUnsure) {
-			// Random r = new Random();
 			char[] randomChromosome = new char[length];
 			for (int index = 0; index < length; index++) {
 				int chance = r.nextInt(4);
@@ -80,20 +79,10 @@ public class Organism implements Comparable<Organism> {
 	 *                       organism is based on their genetic code
 	 */
 	public Organism(String chromosome, FitnessType type, RandomType randomType) {
-		this(chromosome);
-		this.fitnessType = type;
-		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(type, null, null);
-		this.r = RandomFactory.getRandomOfType(randomType);
-	}
-
-	/**
-	 * ensures: contructs an organism's genetic code from a string, each character
-	 * an allele.
-	 * 
-	 * @param chromosome, the string which the organisms genetic code will be set to
-	 */
-	public Organism(String chromosome) {
 		this.chromosome = chromosome;
+		this.fitnessType = type;
+		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(randomType, type, null, null);
+		this.r = RandomFactory.getRandomOfType(randomType);
 	}
 
 	/**
@@ -412,7 +401,7 @@ public class Organism implements Comparable<Organism> {
 	 * @return, the fitness of the organism
 	 */
 	public int fitness() {
-		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(fitnessType, numGens, constantFitness);
+		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(r.getType(), fitnessType, numGens, constantFitness);
 		int num = fitness.getFitness(chromosome);
 		this.constantFitness = num;
 		return num;
