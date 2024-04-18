@@ -187,4 +187,13 @@ public class OrganismTests {
         assertEquals(6, six.fitness());
     }
 
+    @Test
+    public void flipAlleleCoordTest() {
+            Organism one = new Organism("111111111", FitnessType.NUMONES, RandomType.FAKE);
+            one.flipAlleleCoord(2, 1);
+            assertEquals("011111111", one.getChromosome());
+            one.flipAlleleCoord(100, 100);
+            assertEquals("011101111", one.getChromosome());
+    }
+
 }
