@@ -79,7 +79,7 @@ public class OrganismTests {
     public void toIntArrTest() {
         Organism four = new Organism("0101", FitnessType.NUMONES, RandomType.FAKE);
         int[][] expected = { { 0, 1 }, { 0, 1 } };
-        int[][] fourArr = four.toIntAr();
+        int[][] fourArr = four.geOrganismVisualization().toIntAr();
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 assertEquals(expected[i][j], fourArr[i][j]);
