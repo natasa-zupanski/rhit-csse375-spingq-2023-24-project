@@ -173,7 +173,7 @@ public class Population {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += parameters.getCurrentGeneration(i).numOfQs();
+			sum += parameters.getCurrentGeneration(i).getOrganismUtilites().numOfQs();
 		}
 		return sum / genSize;
 	}
@@ -182,7 +182,7 @@ public class Population {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += parameters.getCurrentGeneration(i).numOf0s();
+			sum += parameters.getCurrentGeneration(i).getOrganismUtilites().numOf0s();
 		}
 		return sum / genSize;
 	}
@@ -191,7 +191,7 @@ public class Population {
 		int genSize = parameters.getGenSize();
 		int sum = 0;
 		for (int i = 0; i < genSize; i++) {
-			sum += parameters.getCurrentGeneration(i).numOf1s();
+			sum += parameters.getCurrentGeneration(i).getOrganismUtilites().numOf1s();
 		}
 		return sum / genSize;
 	}

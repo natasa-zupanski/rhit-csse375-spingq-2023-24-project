@@ -20,6 +20,7 @@ public class Organism implements Comparable<Organism> {
 	private FitnessStrategy fitness = null;
 	private int numGens = 0;
 	private OrganismVisualization organismVisualization;
+	private OrganismUtilites organismUtilites;
 
 	private RandomInterface r = new WrappedRandom();
 
@@ -61,6 +62,7 @@ public class Organism implements Comparable<Organism> {
 			this.chromosome = String.valueOf(randomChromosome);
 			this.fitnessType = type;
 			this.organismVisualization = new OrganismVisualization(chromosome);
+			this.organismUtilites = new OrganismUtilites(chromosome);
 		}
 	}
 
@@ -78,6 +80,7 @@ public class Organism implements Comparable<Organism> {
 		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(randomType, type, null, null);
 		this.r = RandomFactory.getRandomOfType(randomType);
 		this.organismVisualization = new OrganismVisualization(chromosome);
+		this.organismUtilites = new OrganismUtilites(chromosome);
 	}
 
 	/**
@@ -102,44 +105,14 @@ public class Organism implements Comparable<Organism> {
 		this.fitnessType = type;
 		this.chromosome = String.valueOf(randomChromosome);
 		this.organismVisualization = new OrganismVisualization(chromosome);
+		this.organismUtilites = new OrganismUtilites(chromosome);
 	}
 
 	public Organism(Organism organism) {
 		this(organism.getChromosome(), organism.getFitnessType(), organism.getRandomType());
 	}
 
-	/**
-	 * ensures: counts and returns the number of 0s in the genetic code of the
-	 * organism.
-	 * 
-	 * @return, the number of 0s in the genetic code of the organism.
-	 */
-	public int numOf0s() {
-		int total = 0;
-		for (char c : this.chromosome.toCharArray()) {
-			if (c == '0') {
-				total += 1;
-			}
-		}
-		return total;
-	}
-
-	/**
-	 * ensures: counts and returns the number of ?s in the genetic code of the
-	 * organism.
-	 * 
-	 * @return, the number of ?s in the genetic code of the organism
-	 */
-	public int numOfQs() {
-		int total = 0;
-		for (char c : this.chromosome.toCharArray()) {
-			if (c == '?') {
-				total += 1;
-			}
-		}
-		return total;
-	}
-
+	
 	/**
 	 * ensures: gets and returns the length of the chromosome of the organism, the
 	 * number of alleles in its genetic code
@@ -167,6 +140,7 @@ public class Organism implements Comparable<Organism> {
 		result[index] = c;
 		this.chromosome = String.valueOf(result);
 		this.organismVisualization.setChromosome(chromosome);
+		this.organismUtilites.setChromosome(chromosome);
 	}
 
 	/**
@@ -190,6 +164,7 @@ public class Organism implements Comparable<Organism> {
 		}
 		this.chromosome = String.valueOf(arr);
 		this.organismVisualization.setChromosome(chromosome);
+		this.organismUtilites.setChromosome(chromosome);
 	}
 
 	/**
@@ -254,26 +229,6 @@ public class Organism implements Comparable<Organism> {
 		int num = fitness.getFitness(chromosome);
 		this.constantFitness = num;
 		return num;
-	}
-
-	/**
-	 * ensures: calculates the number of ones in the organism's genetic code which
-	 * is the fitness of the organism if the fitness method is Num. of 1s or the
-	 * number of 1s in the genetic code.
-	 * 
-	 * @return, the number of ones in the chromosome of the organism, the fitness if
-	 * the fitness method is Num. of 1s
-	 */
-	public int numOf1s() {
-		int sum = 0;
-
-		for (char c : this.chromosome.toCharArray()) {
-			if (c == '1') {
-				sum += 1;
-			}
-		}
-
-		return sum;
 	}
 
 	/**
@@ -386,10 +341,16 @@ public class Organism implements Comparable<Organism> {
 	{
 		this.chromosome = chromosome;
 		this.organismVisualization.setChromosome(chromosome);
+		this.organismUtilites.setChromosome(chromosome);
 	}
 
-	public OrganismVisualization geOrganismVisualization()
+	public OrganismVisualization getOrganismVisualization()
 	{
 		return this.organismVisualization;
+	}
+
+	public OrganismUtilites getOrganismUtilites()
+	{
+		return this.organismUtilites;
 	}
 }

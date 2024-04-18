@@ -31,21 +31,21 @@ public class OrganismTests {
     @Test
     public void numOf0sTest() {
         Organism one = new Organism("101111", FitnessType.NUMONES, RandomType.FAKE);
-        assertEquals(1, one.numOf0s());
+        assertEquals(1, one.getOrganismUtilites().numOf0s());
 
         Organism thirteen = new Organism("111010011111001110101011111010110010111", FitnessType.NUMONES,
                 RandomType.FAKE);
-        assertEquals(13, thirteen.numOf0s());
+        assertEquals(13, thirteen.getOrganismUtilites().numOf0s());
     }
 
     @Test
     public void numOf1sTest() {
         Organism one = new Organism("001000", FitnessType.NUMONES, RandomType.FAKE);
-        assertEquals(1, one.numOf1s());
+        assertEquals(1, one.getOrganismUtilites().numOf1s());
 
         Organism thirteen = new Organism("000010010011001010101010000010000010101", FitnessType.NUMONES,
                 RandomType.FAKE);
-        assertEquals(13, thirteen.numOf1s());
+        assertEquals(13, thirteen.getOrganismUtilites().numOf1s());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class OrganismTests {
     public void toIntArrTest() {
         Organism four = new Organism("0101", FitnessType.NUMONES, RandomType.FAKE);
         int[][] expected = { { 0, 1 }, { 0, 1 } };
-        int[][] fourArr = four.geOrganismVisualization().toIntAr();
+        int[][] fourArr = four.getOrganismVisualization().toIntAr();
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 assertEquals(expected[i][j], fourArr[i][j]);
