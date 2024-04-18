@@ -251,4 +251,45 @@ public class PopulationTest {
         assertEquals("1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",secondGen[99].getChromosome());
     }
 
+    @Test
+	public void testAlternate () {
+        Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
+        testPopulation.getEvolutionParameters().setSelection(SelectionType.ALTERNATE);
+        testPopulation.spawnFirstGeneration();
+        Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        firstGen[10].setChromosome("1010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010");
+        firstGen[20].setChromosome("0000101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010");
+        Organism fittestOrganism = testPopulation.getFittest();
+        assertEquals("1010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010",fittestOrganism.getChromosome());
+        testPopulation.nextGeneration();
+        Organism newFittestOrganism = testPopulation.getFittest();
+	    assertEquals("1010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010", newFittestOrganism.getChromosome());
+        Organism[] secondGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        assertEquals("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",secondGen[96].getChromosome());
+        assertEquals("0000101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010",secondGen[97].getChromosome());
+        assertEquals("1010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010",secondGen[99].getChromosome());
+    }
+
+    @Test
+	public void testAlternate_TargetOrganismFitness() {
+        Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);
+        testPopulation.getEvolutionParameters().setSelection(SelectionType.ALTERNATE);
+        testPopulation.spawnFirstGeneration();
+        Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        firstGen[10].setChromosome("1011010000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+        firstGen[20].setChromosome("1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+        Organism fittestOrganism = testPopulation.getFittest();
+        assertEquals("1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",fittestOrganism.getChromosome());
+        testPopulation.nextGeneration();
+        Organism newFittestOrganism = testPopulation.getFittest();
+	    assertEquals("1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110", newFittestOrganism.getChromosome());
+        Organism[] secondGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        assertEquals("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",secondGen[96].getChromosome());
+        assertEquals("1011010000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",secondGen[97].getChromosome());
+        assertEquals("1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",secondGen[99].getChromosome());
+    }
+
 }

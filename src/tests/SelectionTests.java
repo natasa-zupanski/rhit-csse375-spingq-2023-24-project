@@ -10,6 +10,7 @@ import mainApp.FakeSelectionLearningChance;
 import mainApp.FitnessType;
 import mainApp.Organism;
 import mainApp.RandomType;
+import mainApp.SelectionAlternate;
 import mainApp.SelectionRank;
 import mainApp.SelectionRankRoulette;
 import mainApp.SelectionRouletteWheel;
@@ -304,5 +305,47 @@ public class SelectionTests {
             assertEquals(chromTwo, selected[k].getChromosome());
         }
     }
+
+    @Test
+    public void selectionAlternateTestOne() {
+        int genSize = 100;
+        // int chromSize = 10;
+        String chromOne = "1111111111";
+        String chromTwo = "0000000000";
+        Organism[] orgs = new Organism[genSize];
+        for (int i = 0; i < genSize ; i+=2) {
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE);
+            orgs[i+1] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE);
+        }
+        SelectionStrategy selection = new SelectionAlternate();
+        assertEquals(SelectionType.ALTERNATE, selection.getSelectionType());
+        Organism[] selected = selection.selectFrom(orgs);
+        for (int k = 0; k < genSize; k++) {
+            assertEquals(0, selected[k].fitness());
+            assertEquals(chromTwo, selected[k].getChromosome());
+        }
+    }
+
+    @Test
+    public void selectionAlternateTestTwo() {
+        int genSize = 99;
+        // int chromSize = 10;
+        String chromOne = "1111111111";
+        String chromTwo = "0000000000";
+        Organism[] orgs = new Organism[genSize];
+        for (int i = 0; i < genSize - 1 ; i+=2) {
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE);
+            orgs[i+1] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE);
+        }
+        orgs[orgs.length-1] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE);
+        SelectionStrategy selection = new SelectionAlternate();
+        assertEquals(SelectionType.ALTERNATE, selection.getSelectionType());
+        Organism[] selected = selection.selectFrom(orgs);
+        for (int k = 0; k < genSize; k++) {
+            assertEquals(10, selected[k].fitness());
+            assertEquals(chromOne, selected[k].getChromosome());
+        }
+    }
+
 
 }
