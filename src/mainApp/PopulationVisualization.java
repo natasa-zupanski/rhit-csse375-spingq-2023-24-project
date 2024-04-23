@@ -80,9 +80,6 @@ public class PopulationVisualization implements PopulationVisualizationInterface
 			g.drawLine(50 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)),
 					50 + (i + 1) * scale,
 					350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1))));
-			g.setColor(Color.BLACK);
-			g.drawLine(50, 50 - graphicParam.getBestFitness(i) * 3, 50 + (i + 1) * scale,
-					50 - graphicParam.getBestFitness(i) * 3);
 			if (this.parameters.getSelectionType() == SelectionType.LEARNINGCHANCE) {
 				g.setColor(Color.BLUE);
 				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum1s(i) * 3, 50 + (i + 1) * scale,

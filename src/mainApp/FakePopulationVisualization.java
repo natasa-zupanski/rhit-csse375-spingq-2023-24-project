@@ -82,9 +82,6 @@ public class FakePopulationVisualization implements PopulationVisualizationInter
             sb.append("SetColor: MAGENTA\n");
             sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i))) + " x2:" + (50 + (i + 1) * scale) 
             + " y2:" + (350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1)))) + "\n");
-            sb.append("SetColor: BLACK\n");
-            sb.append("DrawLine: x1:" + 50 + " y1:" + (50 - graphicParam.getBestFitness(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
-            + " y2:" + (50 - graphicParam.getBestFitness(i + 1) * 3) + "\n");
 			if (this.parameters.getSelectionType() == SelectionType.LEARNINGCHANCE) {
 				sb.append("SetColor: BLUE\n");
                 sb.append("DrawLine: x1:" + (50 + i * scale) + " y1:" + (350 - graphicParam.getAvgNum1s(i) * 3) + " x2:" + (50 + (i + 1) * scale) 
