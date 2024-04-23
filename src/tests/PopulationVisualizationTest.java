@@ -188,8 +188,6 @@ public class PopulationVisualizationTest {
         "DrawLine: x1:50 y1:335 x2:150 y2:320\n" +
         "SetColor: MAGENTA\n" +
         "DrawLine: x1:50 y1:305 x2:150 y2:320\n" +
-        "SetColor: BLACK\n" +
-        "DrawLine: x1:50 y1:-100 x2:150 y2:-70\n" +
         "SetColor: GREEN\n" +
         "DrawLine: x1:150 y1:230 x2:250 y2:260\n" +
         "SetColor: ORANGE\n" +
@@ -198,8 +196,6 @@ public class PopulationVisualizationTest {
         "DrawLine: x1:150 y1:320 x2:250 y2:290\n" +
         "SetColor: MAGENTA\n" +
         "DrawLine: x1:150 y1:320 x2:250 y2:340\n" +
-        "SetColor: BLACK\n" +
-        "DrawLine: x1:50 y1:-70 x2:250 y2:-40\n" +
         "SetColor: GREEN\n" +
         "DrawLine: x1:250 y1:260 x2:350 y2:200\n" +
         "SetColor: ORANGE\n" +
@@ -207,9 +203,7 @@ public class PopulationVisualizationTest {
         "SetColor: RED\n" +
         "DrawLine: x1:250 y1:290 x2:350 y2:335\n" +
         "SetColor: MAGENTA\n" +
-        "DrawLine: x1:250 y1:340 x2:350 y2:305\n" +
-        "SetColor: BLACK\n" +
-        "DrawLine: x1:50 y1:-40 x2:350 y2:-100\n";
+        "DrawLine: x1:250 y1:340 x2:350 y2:305\n";
         assertEquals(expectedString, populationVisualization.getDrawValueString());
     }
 
@@ -287,8 +281,6 @@ public class PopulationVisualizationTest {
         "DrawLine: x1:50 y1:335 x2:150 y2:320\n" +
         "SetColor: MAGENTA\n" +
         "DrawLine: x1:50 y1:305 x2:150 y2:320\n" +
-        "SetColor: BLACK\n" +
-        "DrawLine: x1:50 y1:-100 x2:150 y2:-70\n" +
         "SetColor: BLUE\n" +
         "DrawLine: x1:50 y1:200 x2:150 y2:206\n" +
         "SetColor: CYAN\n" +
@@ -303,8 +295,6 @@ public class PopulationVisualizationTest {
         "DrawLine: x1:150 y1:320 x2:250 y2:290\n" +
         "SetColor: MAGENTA\n" +
         "DrawLine: x1:150 y1:320 x2:250 y2:340\n" +
-        "SetColor: BLACK\n" +
-        "DrawLine: x1:50 y1:-70 x2:250 y2:-40\n" +
         "SetColor: BLUE\n" +
         "DrawLine: x1:150 y1:206 x2:250 y2:206\n" +
         "SetColor: CYAN\n" +
@@ -319,8 +309,6 @@ public class PopulationVisualizationTest {
         "DrawLine: x1:250 y1:290 x2:350 y2:335\n" +
         "SetColor: MAGENTA\n" +
         "DrawLine: x1:250 y1:340 x2:350 y2:305\n" +
-        "SetColor: BLACK\n" +
-        "DrawLine: x1:50 y1:-40 x2:350 y2:-100\n" +
         "SetColor: BLUE\n" +
         "DrawLine: x1:250 y1:206 x2:350 y2:200\n" +
         "SetColor: CYAN\n" +
