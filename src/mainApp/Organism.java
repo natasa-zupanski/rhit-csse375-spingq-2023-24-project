@@ -203,12 +203,16 @@ public class Organism implements Comparable<Organism> {
 	 * @param x, the x coordinate of the allele to flip
 	 * @param y, the y coordinate of the allele to flip
 	 */
-	public void flipAlleleCoord(int x, int y) {
-		int rows = (int) Math.sqrt(this.length());
-		int boxSide = this.HEIGHT / rows;
+	public void flipAlleleCoord(int x, int y, int height) {
+		if(height < 0)
+		{
+			height = this.HEIGHT;
+		}
+		int rows = (int) Math.sqrt(this.length()); 
+		int boxSide = height / rows;
 		int cols = this.length() / rows;
 
-		if (x < cols * boxSide && y < HEIGHT) {
+		if (x < cols * boxSide && y < height) {
 
 			int row = y / boxSide;
 			int col = x / boxSide;
