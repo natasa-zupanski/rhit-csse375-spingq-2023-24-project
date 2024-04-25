@@ -18,7 +18,7 @@ public class PoppulationComponetTest {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
 
-        pComponent.createNewPopulation(2, 200, 105, 200, 1, SelectionType.RANK, FitnessType.TARGETORG, false, 50);
+        pComponent.createNewPopulation(2, 200, 105, 200, 1, SelectionType.RANK, FitnessType.TARGETORG, false, 50, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         assertEquals("2", pComponent.handleGetMutationRate());
         assertEquals("200", pComponent.handleGetNumGens());
         assertEquals("105", pComponent.handleGetGenSize());

@@ -16,7 +16,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestCalculateScaleFactors_DefaultScreen () {
         EvolutionParameters evolutionParameters = new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION,
-                FitnessType.NUMONES, true, 100);
+                FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         JFrame frame = new JFrame();
         frame.setSize(1313, 600);
@@ -28,7 +28,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestCalculateScaleFactors_LargerScreen () {
         EvolutionParameters evolutionParameters = new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION,
-                FitnessType.NUMONES, true, 100);
+                FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         JFrame frame = new JFrame();
         frame.setSize(2000, 700);
@@ -40,7 +40,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestCalculateScaleFactors_SmallerScreen () {
         EvolutionParameters evolutionParameters = new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION,
-                FitnessType.NUMONES, true, 100);
+                FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         JFrame frame = new JFrame();
         frame.setSize(1000, 500);
@@ -52,7 +52,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestPopulationData () {
         EvolutionParameters evolutionParameters = new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION,
-                FitnessType.NUMONES, true, 100);
+                FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         populationVisualization.populateData(50, 10, 5, 50, 50, 5);
         populationVisualization.populateData(40, 20, 10, 50, 50, 5);
@@ -67,7 +67,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestPopulationData_SelectionTypeLearningChange () {
         EvolutionParameters evolutionParameters = new EvolutionParameters(1, 500, 100, 100, 1,
-                SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100);
+                SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         populationVisualization.populateData(50, 10, 5, 50, 50, 5);
         populationVisualization.populateData(40, 20, 10, 48, 52, 0);
@@ -88,7 +88,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestGensSoFar ()
     {
-        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 3, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100);
+        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 3, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         populationVisualization.populateData(50, 10, 5, 50, 50, 5);
         populationVisualization.populateData(40, 20, 10, 48, 52, 0);
@@ -100,7 +100,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestPrintBestFitness () 
     {
-        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 3, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100);
+        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 3, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         populationVisualization.populateData(50, 10, 5, 50, 50, 5);
         populationVisualization.printBestFitness();
@@ -117,7 +117,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestDrawOn ()
     {
-        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 10, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.NUMONES, true, 100);
+        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 10, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         populationVisualization.populateData(50, 10, 5, 50, 50, 5);
         populationVisualization.populateData(40, 20, 10, 48, 52, 0);
@@ -210,7 +210,7 @@ public class PopulationVisualizationTest {
     @Test
     public void TestDrawOn_LearningChance ()
     {
-        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 10, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100);
+        EvolutionParameters evolutionParameters = new EvolutionParameters(1, 10, 100, 100, 1, SelectionType.LEARNINGCHANCE, FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         FakePopulationVisualization populationVisualization = new FakePopulationVisualization(evolutionParameters);
         populationVisualization.populateData(50, 10, 5, 50, 50, 5);
         populationVisualization.populateData(40, 20, 10, 48, 52, 0);

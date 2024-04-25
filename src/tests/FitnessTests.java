@@ -49,7 +49,7 @@ public class FitnessTests {
 
     @Test
     public void fitnessTargetOrganismTest() throws Exception {
-        FitnessStrategy fitness = new FitnessTargetOrganism();
+        FitnessStrategy fitness = new FitnessTargetOrganism("1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         assertEquals(FitnessType.TARGETORG, fitness.getFitnessType());
         assertEquals(100, fitness.getFitness(
                 "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110"));
