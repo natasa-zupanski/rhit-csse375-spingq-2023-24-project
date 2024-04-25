@@ -25,8 +25,9 @@ public class GenerationViewer extends Views {
 
 	public GenerationViewer() {
 		this.orgs = new Organism[100];
+		
 		for (int i = 0; i < 100; i++) {
-			this.orgs[i] = new Organism(100, FitnessType.NUMONES, RandomType.FAKE);
+			this.orgs[i] = new Organism(100, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
 		}
 	}
 
@@ -78,5 +79,4 @@ public class GenerationViewer extends Views {
 		this.frame.setSize(40*getGraphSize(),34*getGraphSize());
 		this.frame.revalidate();
 	}
-
 }

@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 public class SelectionRankRoulette implements SelectionStrategy {
     private RandomInterface r;
+    private String targetOrganism;
 
-    public SelectionRankRoulette(RandomType randomType) {
+    public SelectionRankRoulette(RandomType randomType, String targetOrganism) {
         r = RandomFactory.getRandomOfType(randomType);
+        this.targetOrganism = targetOrganism;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class SelectionRankRoulette implements SelectionStrategy {
             sum += ranks[index];
             if (chance >= lastSum && chance <= sum) {
                 return new Organism(orgs[index].getChromosome(), orgs[index].getFitnessType(),
-                        orgs[index].getRandomType());
+                        orgs[index].getRandomType(), this.targetOrganism);
             }
         }
 

@@ -35,6 +35,8 @@ import javax.swing.SwingConstants;
  */
 public class OrganismViewer extends Views {
 
+	private String targetOrganism = "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110";
+
 	@Override
 	public void setUpViewer() {
 		super.setUpViewer();
@@ -61,6 +63,7 @@ public class OrganismViewer extends Views {
 				component.flipAllele(x - 10, y - 40, (int) frame.getSize().getHeight() - 100, (int) frame.getSize().getWidth() - 10);
 
 				frame.repaint();
+				targetOrganism = component.getOrganismGenotype();
 
 			}
 
@@ -138,7 +141,7 @@ public class OrganismViewer extends Views {
 							e1.printStackTrace();
 						}
 						component.setOrganism(
-								new Organism(genotype, FitnessStrategyFactory.getTypeFromString("Target Organism"), RandomType.FAKE));
+								new Organism(genotype, FitnessStrategyFactory.getTypeFromString("Target Organism"), RandomType.FAKE, genotype));
 						fileTitle.setText(file.getName());
 						frame.repaint();
 						fileChooserFrame.setVisible(false);
@@ -191,5 +194,9 @@ public class OrganismViewer extends Views {
 		panel.add(save);
 
 	}
+
+    public String getTargetOrganism() {
+        return this.targetOrganism;
+    }
 
 }

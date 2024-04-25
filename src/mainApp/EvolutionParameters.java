@@ -14,6 +14,7 @@ public class EvolutionParameters {
     private Organism[] currentGeneration;
     private boolean termination;
     private RandomType random = RandomType.TRUE;
+    private String targetOranism;
 
     /**
      * ensures: constructs a populations parameters
@@ -41,7 +42,7 @@ public class EvolutionParameters {
      *                              population to end
      */
     public EvolutionParameters(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
-            SelectionType selectionType, FitnessType fitnessType, boolean crossover, int terminationCondition) {
+            SelectionType selectionType, FitnessType fitnessType, boolean crossover, int terminationCondition, String targetOrganism) {
         this.mutationRate = mutationRate;
         this.numOfGens = numOfGens;
         this.genSize = genSize;
@@ -56,6 +57,7 @@ public class EvolutionParameters {
         }
         this.fitnessType = fitnessType;
         this.currentGeneration = new Organism[genSize];
+        this.targetOranism = targetOrganism;
     }
 
     /**
@@ -287,5 +289,9 @@ public class EvolutionParameters {
 
     public void setRandomeType(RandomType randomType){
         this.random = randomType;
+    }
+
+    public String getTargetOrganism() {
+       return this.targetOranism;
     }
 }

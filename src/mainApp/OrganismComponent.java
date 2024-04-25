@@ -32,7 +32,7 @@ public class OrganismComponent extends JComponent {
 	 *          requires: h>0
 	 */
 	public OrganismComponent(int setHeight, JFrame frame) {
-		this.organism = new Organism(100, FitnessStrategyFactory.getTypeFromString(""), RandomType.FAKE);
+		this.organism = new Organism(100, FitnessStrategyFactory.getTypeFromString(""), RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
 		this.frame = frame;
 		this.setHeight = setHeight;
 	}

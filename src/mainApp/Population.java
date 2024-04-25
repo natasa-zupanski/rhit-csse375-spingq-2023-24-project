@@ -44,7 +44,7 @@ public class Population {
 	 * ensures: constructs a population based on default values
 	 */
 	public Population() {
-		this(new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.NUMONES, true, 100));
+		this(new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.NUMONES, true, 100, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110"));
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class Population {
 	public void spawnFirstGeneration() {
 		for (int i = 0; i < parameters.getGenSize(); i++) {
 			this.parameters.setCurrGen(i, new Organism(parameters.getChromosomeLength(), parameters.getFitnessType(),
-					parameters.getUnsure(), parameters.getRandomType()));
+					parameters.getUnsure(), parameters.getRandomType(), this.parameters.getTargetOrganism()));
 		}
 	}
 
@@ -134,7 +134,7 @@ public class Population {
 		// to the selection method
 		SelectionType type = parameters.getSelectionType();
 		SelectionStrategy strategy = SelectionStrategyFactory.getSelectionStrategyOfType(type, STABLE_PERCENT,
-				parameters.getNumbersOfGen(), parameters.getRandomType());
+				parameters.getNumbersOfGen(), parameters.getRandomType(), this.parameters.getTargetOrganism());
 		toMutate = strategy.selectFrom(leftover);
 
 		// applies crossover if crossover is turned on
@@ -231,7 +231,7 @@ public class Population {
 		for (int index = 0; index < toMutate.length; index++) {
 			// creates a new organism from the one at the current index
 			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.parameters.getFitnessType(),
-					parameters.getRandomType());
+					parameters.getRandomType(), this.parameters.getTargetOrganism());
 			// mutates that new organism
 			intermediate.mutate(this.parameters.getMutationRate());
 			// adds it to the result

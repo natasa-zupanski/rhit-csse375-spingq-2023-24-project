@@ -48,8 +48,8 @@ public class PopulationViewer extends Views {
 	private Timer timer;
 	
 	FittestOrganismViewer fittestOrganism = new FittestOrganismViewer();
+	OrganismViewer organismViewer = new OrganismViewer();
 	GenerationViewer generationViewer = new GenerationViewer();
-	Views organismViewer = new OrganismViewer();
 
 	public void setUpViewer() {
 		super.setUpViewer();
@@ -192,13 +192,14 @@ public class PopulationViewer extends Views {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (status == Status.STOPPED) {
+					String targetOranism = organismViewer.getTargetOrganism();
 					pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
 							Integer.parseInt(numGensText.getText()), Integer.parseInt(genSizeText.getText()),
 							Integer.parseInt(genomeLengthText.getText()), Integer.parseInt(elitismText.getText()),
 							SelectionStrategyFactory
 									.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
 							FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()),
-							crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()));
+							crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()), targetOranism);
 					// System.out.println((String) fitnessOptions.getSelectedItem());
 					pop.handleRunPopulationEvol();
 					timer.restart();
@@ -223,13 +224,14 @@ public class PopulationViewer extends Views {
 				timer.restart();
 				timer.stop();
 				startButton.setText("Start");
+				String targetOrganism = organismViewer.getTargetOrganism();
 				pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
 						Integer.parseInt(numGensText.getText()), Integer.parseInt(genSizeText.getText()),
 						Integer.parseInt(genomeLengthText.getText()), Integer.parseInt(elitismText.getText()),
 						SelectionStrategyFactory
 								.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
 						FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()),
-						crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()));
+						crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()), targetOrganism);
 				pop.repaint();
 				status = Status.STOPPED;
 			}

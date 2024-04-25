@@ -21,6 +21,7 @@ public class Organism implements Comparable<Organism> {
 	private int numGens = 0;
 	private OrganismVisualization organismVisualization;
 	private OrganismUtilites organismUtilites;
+	private String targetOrganism;
 
 	private RandomInterface r = new WrappedRandom();
 
@@ -43,8 +44,8 @@ public class Organism implements Comparable<Organism> {
 	 *                       organism. If false, there will only be 0s and 1s in the
 	 *                       genetic code.
 	 */
-	public Organism(int length, FitnessType type, boolean someUnsure, RandomType random) {
-		this(length, type, random);
+	public Organism(int length, FitnessType type, boolean someUnsure, RandomType random, String targetOrganism) {
+		this(length, type, random, targetOrganism);
 		if (someUnsure) {
 			char[] randomChromosome = new char[length];
 			for (int index = 0; index < length; index++) {
@@ -74,13 +75,14 @@ public class Organism implements Comparable<Organism> {
 	 * @param fitnessMethod, the name of the process used to determine how fit an
 	 *                       organism is based on their genetic code
 	 */
-	public Organism(String chromosome, FitnessType type, RandomType randomType) {
+	public Organism(String chromosome, FitnessType type, RandomType randomType, String targetOrganism) {
 		this.chromosome = chromosome;
 		this.fitnessType = type;
-		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(randomType, type, null, null);
+		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(randomType, type, null, null, targetOrganism);
 		this.r = RandomFactory.getRandomOfType(randomType);
 		this.organismVisualization = new OrganismVisualization(chromosome);
 		this.organismUtilites = new OrganismUtilites(chromosome);
+		this.targetOrganism = targetOrganism;
 	}
 
 	/**
@@ -91,7 +93,7 @@ public class Organism implements Comparable<Organism> {
 	 * @param length,        the number of alleles in the genetic code
 	 * @param fitnessMethod, the process which decides how fit an organism is
 	 */
-	public Organism(int length, FitnessType type, RandomType randomType) {
+	public Organism(int length, FitnessType type, RandomType randomType, String targetOrganism) {
 		char[] randomChromosome = new char[length];
 		r = RandomFactory.getRandomOfType(randomType);
 		for (int i = 0; i < length; i++) {
@@ -106,13 +108,18 @@ public class Organism implements Comparable<Organism> {
 		this.chromosome = String.valueOf(randomChromosome);
 		this.organismVisualization = new OrganismVisualization(chromosome);
 		this.organismUtilites = new OrganismUtilites(chromosome);
+		this.targetOrganism = targetOrganism;
 	}
 
 	public Organism(Organism organism) {
-		this(organism.getChromosome(), organism.getFitnessType(), organism.getRandomType());
+		this(organism.getChromosome(), organism.getFitnessType(), organism.getRandomType(), organism.getTargetOrganism());
 	}
 
 	
+	private String getTargetOrganism() {
+		return this.targetOrganism;
+	}
+
 	/**
 	 * ensures: gets and returns the length of the chromosome of the organism, the
 	 * number of alleles in its genetic code
@@ -229,7 +236,7 @@ public class Organism implements Comparable<Organism> {
 	 * @return, the fitness of the organism
 	 */
 	public int fitness() {
-		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(r.getType(), fitnessType, numGens, constantFitness);
+		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(r.getType(), fitnessType, numGens, constantFitness, targetOrganism);
 		int num = fitness.getFitness(chromosome);
 		this.constantFitness = num;
 		return num;
@@ -279,7 +286,7 @@ public class Organism implements Comparable<Organism> {
 			result += first.substring(0, crossoverPoint);
 			result += second.substring(crossoverPoint);
 
-			return new Organism(result, this.fitness.getFitnessType(), r.getType());
+			return new Organism(result, this.fitness.getFitnessType(), r.getType(), targetOrganism);
 		} else {
 			return null;
 		}

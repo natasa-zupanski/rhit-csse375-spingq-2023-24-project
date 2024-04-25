@@ -2,14 +2,14 @@ package mainApp;
 
 public class FitnessStrategyFactory {
     public static FitnessStrategy getFitnessStrategyOfType(RandomType random, FitnessType type, Integer numGens,
-            Integer constantFitness) {
+            Integer constantFitness, String targetOrganism) {
         switch (type) {
             case NUMONES:
                 return new FitnessNumOfOnes();
             case CONSECONES:
                 return new FitnessConsecOnes();
             case TARGETORG:
-                return new FitnessTargetOrganism();
+                return new FitnessTargetOrganism(targetOrganism);
             case PRODCONSECONES:
                 return new FitnessProdConsecOnes();
             case LEARNINGCHANCE:

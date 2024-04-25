@@ -1,10 +1,16 @@
 package mainApp;
 
 public class FitnessTargetOrganism implements FitnessStrategy {
+    
+    private String targetOrganism;
+
+    public FitnessTargetOrganism(String targetOrganism) {
+       this.targetOrganism = targetOrganism;
+    }
 
     @Override
     public int getFitness(String chromosome) {
-        String targetOrganism = "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110";
+       // String targetOrganism = "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110";
         return chromosome.length() - getNumDiffsForStrings(chromosome, targetOrganism);
     }
 

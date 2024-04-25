@@ -3,7 +3,7 @@ package mainApp;
 public class SelectionStrategyFactory {
 
     public static SelectionStrategy getSelectionStrategyOfType(SelectionType type, int percent, int numGens,
-            RandomType randomType) {
+            RandomType randomType, String targetOranism) {
         switch (type) {
             case STABLESTATE:
                 return new SelectionStableState(percent);
@@ -12,9 +12,9 @@ public class SelectionStrategyFactory {
             case TRUNCATION:
                 return new SelectionTruncation();
             case RANKROULETTE:
-                return new SelectionRankRoulette(randomType);
+                return new SelectionRankRoulette(randomType, targetOranism);
             case ROULETTEWHEEL:
-                return new SelectionRouletteWheel(randomType);
+                return new SelectionRouletteWheel(randomType, targetOranism);
             case RANK:
                 return new SelectionRank();
             case ALTERNATE:
