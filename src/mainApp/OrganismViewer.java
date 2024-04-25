@@ -63,7 +63,7 @@ public class OrganismViewer extends Views {
 				component.flipAllele(x - 10, y - 40, (int) frame.getSize().getHeight() - 100, (int) frame.getSize().getWidth() - 10);
 
 				frame.repaint();
-				targetOrganism = component.getOrganismGenotype();
+			targetOrganism = component.getOrganismGenotype();
 
 			}
 
@@ -140,6 +140,7 @@ public class OrganismViewer extends Views {
 						} catch (FileNotFoundException e1) {
 							e1.printStackTrace();
 						}
+						targetOrganism = genotype;
 						component.setOrganism(
 								new Organism(genotype, FitnessStrategyFactory.getTypeFromString("Target Organism"), RandomType.FAKE, genotype));
 						fileTitle.setText(file.getName());
