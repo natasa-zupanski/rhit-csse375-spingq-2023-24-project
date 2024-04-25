@@ -63,7 +63,7 @@ public class PopulationViewer extends Views {
 		final int frameWidth = 1313;
 		final int frameHeight = 600;
 
-		this.frame.setTitle("EvolutionViewer");
+		this.frame.setTitle("PopulationViewer");
 		this.frame.setSize(frameWidth, frameHeight);
 		this.frame.setLocation(25, 175);
 

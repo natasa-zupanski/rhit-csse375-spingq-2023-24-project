@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+
 import org.junit.*;
 
 public class OrganismTests {
@@ -190,9 +191,9 @@ public class OrganismTests {
     @Test
     public void flipAlleleCoordTest() {
             Organism one = new Organism("111111111", FitnessType.NUMONES, RandomType.FAKE);
-            one.flipAlleleCoord(2, 1);
+            one.flipAlleleCoord(2, 1, 420, 360);
             assertEquals("011111111", one.getChromosome());
-            one.flipAlleleCoord(100, 100);
+            one.flipAlleleCoord(200, 200, 420, 360);
             assertEquals("011101111", one.getChromosome());
     }
 

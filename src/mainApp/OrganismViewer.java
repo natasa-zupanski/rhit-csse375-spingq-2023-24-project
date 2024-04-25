@@ -41,7 +41,7 @@ public class OrganismViewer extends Views {
 		final int frameWidth = 360;
 		final int frameHeight = 420;
 
-		this.frame.setTitle("ChromosomeViewer");
+		this.frame.setTitle("OrganismViewer");
 		this.frame.setSize(frameWidth, frameHeight);
 		this.frame.setLocation(1100, 100);
 
