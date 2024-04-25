@@ -38,7 +38,11 @@ public class OrganismComponent extends JComponent {
 	}
 
 	public void flipAllele(int x, int y, int height, int width) {
-		this.organism.flipAlleleCoord(x, y, height, width);
+		int index = this.organism.getOrganismVisualization().flipAlleleCoord(x, y, height, width);
+		if(index > 0)
+		{
+			this.organism.flipAllele(index);
+		}
 	}
 
 	public void handleMutate(int rate) {

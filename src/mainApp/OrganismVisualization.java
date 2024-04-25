@@ -12,6 +12,9 @@ public class OrganismVisualization {
     
     private String chromosome;
 
+	// constant fields
+	private final int HEIGHT = 300;
+
     public OrganismVisualization(String chromosome)
     {
         this.chromosome = chromosome;
@@ -133,6 +136,34 @@ public class OrganismVisualization {
 		}
 
 		return result;
+	}
+
+		/**
+	 * ensures: flips an allele at a given x,y coordinate, calculating first which
+	 * row and column this allele is in and, from this, getting the index of that
+	 * allele. The allele is then flipped at that index.
+	 * 
+	 * @param x, the x coordinate of the allele to flip
+	 * @param y, the y coordinate of the allele to flip
+	 */
+	public int flipAlleleCoord(int x, int y, int height, int widths) {
+		if(height < 0)
+		{
+			height = this.HEIGHT;
+		}
+		int rows = (int) Math.sqrt(this.length()); 
+		int boxSide = height / rows;
+		int cols = this.length() / rows;
+		int width = widths / cols;
+		if (y < height) {
+
+			int row = y / boxSide;
+			int col = x / width;
+
+			int index = this.rowColToIndex(row, col);
+			return index;
+		}
+		return -1;
 	}
 
     /**
