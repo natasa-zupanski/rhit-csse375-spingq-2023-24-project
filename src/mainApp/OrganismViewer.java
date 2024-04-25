@@ -135,11 +135,10 @@ public class OrganismViewer extends Views {
 								}
 							}
 						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						component.setOrganism(
-								new Organism(genotype, FitnessStrategyFactory.getTypeFromString(""), RandomType.FAKE));
+								new Organism(genotype, FitnessStrategyFactory.getTypeFromString("Target Organism"), RandomType.FAKE));
 						fileTitle.setText(file.getName());
 						frame.repaint();
 						fileChooserFrame.setVisible(false);
