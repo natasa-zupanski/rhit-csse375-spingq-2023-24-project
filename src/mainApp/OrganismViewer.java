@@ -58,7 +58,7 @@ public class OrganismViewer extends Views {
 				int x = arg0.getX();
 				int y = arg0.getY();
 
-				component.flipAllele(x - 25, y - 40, (int) frame.getSize().getHeight() - 100);
+				component.flipAllele(x - 10, y - 40, (int) frame.getSize().getHeight() - 100, (int) frame.getSize().getWidth() - 10);
 
 				frame.repaint();
 

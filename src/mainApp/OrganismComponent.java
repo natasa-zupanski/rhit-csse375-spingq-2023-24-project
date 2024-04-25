@@ -37,8 +37,8 @@ public class OrganismComponent extends JComponent {
 		this.setHeight = setHeight;
 	}
 
-	public void flipAllele(int x, int y, int height) {
-		this.organism.flipAlleleCoord(x, y, height);
+	public void flipAllele(int x, int y, int height, int width) {
+		this.organism.flipAlleleCoord(x, y, height, width);
 	}
 
 	public void handleMutate(int rate) {
