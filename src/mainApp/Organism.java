@@ -23,6 +23,9 @@ public class Organism implements Comparable<Organism> {
 	private OrganismUtilites organismUtilites;
 
 	private RandomInterface r = new WrappedRandom();
+
+	// constant fields
+	private final int HEIGHT = 300;
 	
 	/**
 	 * ensures: constructs an organism given the length of its chromosome, the
@@ -126,7 +129,7 @@ public class Organism implements Comparable<Organism> {
 	 * 
 	 * @param index, the index at which to flip the allele
 	 */
-	void flipAllele(int index) {
+	private void flipAllele(int index) {
 		char c = chromosome.toCharArray()[index];
 		char[] result = chromosome.toCharArray();
 		if (c == '0') {
@@ -189,6 +192,34 @@ public class Organism implements Comparable<Organism> {
 	 */
 	public String getChromosome() {
 		return this.chromosome;
+	}
+
+
+	/**
+	 * ensures: flips an allele at a given x,y coordinate, calculating first which
+	 * row and column this allele is in and, from this, getting the index of that
+	 * allele. The allele is then flipped at that index.
+	 * 
+	 * @param x, the x coordinate of the allele to flip
+	 * @param y, the y coordinate of the allele to flip
+	 */
+	public void flipAlleleCoord(int x, int y, int height, int widths) {
+		if(height < 0)
+		{
+			height = this.HEIGHT;
+		}
+		int rows = (int) Math.sqrt(this.length()); 
+		int boxSide = height / rows;
+		int cols = this.length() / rows;
+		int width = widths / cols;
+		if (y < height) {
+
+			int row = y / boxSide;
+			int col = x / width;
+
+			int index = this.organismVisualization.rowColToIndex(row, col);
+			this.flipAllele(index);
+		}
 	}
 
 	/**
