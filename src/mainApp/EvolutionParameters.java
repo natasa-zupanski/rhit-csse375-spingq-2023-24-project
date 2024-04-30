@@ -285,7 +285,7 @@ public class EvolutionParameters {
         return this.random;
     }
 
-    public void setRandomeType(RandomType randomType){
+    public void setRandomeType(RandomType randomType) {
         this.random = randomType;
     }
 }

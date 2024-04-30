@@ -8,9 +8,6 @@ public class RankLibrary {
     }
 
     public static int[] getRanks(int num) {
-        // List<Integer> list = IntStream.rangeClosed(1,
-        // num).boxed().collect(Collectors.toList());
-        // return new Integer[1];
         int[] result = new int[num];
 
         int cur = 1;

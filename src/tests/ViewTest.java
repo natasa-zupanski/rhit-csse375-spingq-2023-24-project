@@ -12,34 +12,34 @@ import mainApp.*;
 
 public class ViewTest {
     @Test
-	public void testFittestOrganism () {
+    public void testFittestOrganism() {
         FittestOrganismViewer view = new FittestOrganismViewer();
         view.setUpViewer();
         assertEquals(JFrame.DISPOSE_ON_CLOSE, view.getFrame().getDefaultCloseOperation());
         assertTrue(view.getFrame().getLayout() instanceof BorderLayout);
-	}
+    }
 
     @Test
-	public void testGeneration () {
+    public void testGeneration() {
         GenerationViewer view = new GenerationViewer();
         view.setUpViewer();
         assertEquals(JFrame.DISPOSE_ON_CLOSE, view.getFrame().getDefaultCloseOperation());
         assertTrue(view.getFrame().getLayout() instanceof BorderLayout);
-	}
+    }
 
     @Test
-	public void testPopulation () {
+    public void testPopulation() {
         PopulationViewer view = new PopulationViewer();
         view.setUpViewer();
         assertEquals(JFrame.EXIT_ON_CLOSE, view.getFrame().getDefaultCloseOperation());
         assertTrue(view.getFrame().getLayout() instanceof BorderLayout);
-	}
+    }
 
     @Test
-	public void testOrganism () {
+    public void testOrganism() {
         OrganismViewer view = new OrganismViewer();
         view.setUpViewer();
         assertEquals(JFrame.DISPOSE_ON_CLOSE, view.getFrame().getDefaultCloseOperation());
         assertTrue(view.getFrame().getLayout() instanceof BorderLayout);
-	}
+    }
 }
