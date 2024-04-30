@@ -27,7 +27,7 @@ public class Organism implements Comparable<Organism> {
 
 	// constant fields
 	private final int HEIGHT = 300;
-	
+
 	/**
 	 * ensures: constructs an organism given the length of its chromosome, the
 	 * number of alleles each organism has in its genetic code, the fitness method,
@@ -112,10 +112,10 @@ public class Organism implements Comparable<Organism> {
 	}
 
 	public Organism(Organism organism) {
-		this(organism.getChromosome(), organism.getFitnessType(), organism.getRandomType(), organism.getTargetOrganism());
+		this(organism.getChromosome(), organism.getFitnessType(), organism.getRandomType(),
+				organism.getTargetOrganism());
 	}
 
-	
 	private String getTargetOrganism() {
 		return this.targetOrganism;
 	}
@@ -201,7 +201,6 @@ public class Organism implements Comparable<Organism> {
 		return this.chromosome;
 	}
 
-
 	/**
 	 * ensures: flips an allele at a given x,y coordinate, calculating first which
 	 * row and column this allele is in and, from this, getting the index of that
@@ -211,11 +210,10 @@ public class Organism implements Comparable<Organism> {
 	 * @param y, the y coordinate of the allele to flip
 	 */
 	public void flipAlleleCoord(int x, int y, int height, int widths) {
-		if(height < 0)
-		{
+		if (height < 0) {
 			height = this.HEIGHT;
 		}
-		int rows = (int) Math.sqrt(this.length()); 
+		int rows = (int) Math.sqrt(this.length());
 		int boxSide = height / rows;
 		int cols = this.length() / rows;
 		int width = widths / cols;
@@ -236,7 +234,8 @@ public class Organism implements Comparable<Organism> {
 	 * @return, the fitness of the organism
 	 */
 	public int fitness() {
-		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(r.getType(), fitnessType, numGens, constantFitness, targetOrganism);
+		fitness = FitnessStrategyFactory.getFitnessStrategyOfType(r.getType(), fitnessType, numGens, constantFitness,
+				targetOrganism);
 		int num = fitness.getFitness(chromosome);
 		this.constantFitness = num;
 		return num;
@@ -348,20 +347,17 @@ public class Organism implements Comparable<Organism> {
 		return r.getType();
 	}
 
-	public void setChromosome(String chromosome)
-	{
+	public void setChromosome(String chromosome) {
 		this.chromosome = chromosome;
 		this.organismVisualization.setChromosome(chromosome);
 		this.organismUtilites.setChromosome(chromosome);
 	}
 
-	public OrganismVisualization getOrganismVisualization()
-	{
+	public OrganismVisualization getOrganismVisualization() {
 		return this.organismVisualization;
 	}
 
-	public OrganismUtilites getOrganismUtilites()
-	{
+	public OrganismUtilites getOrganismUtilites() {
 		return this.organismUtilites;
 	}
 }

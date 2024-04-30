@@ -11,6 +11,8 @@ public class RankLibrary {
         // List<Integer> list = IntStream.rangeClosed(1,
         // num).boxed().collect(Collectors.toList());
         // return new Integer[1];
+
+        // return IntStream.rangeClosed(1, num);
         int[] result = new int[num];
 
         int cur = 1;
