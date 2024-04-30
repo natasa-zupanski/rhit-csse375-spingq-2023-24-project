@@ -18,9 +18,12 @@ public class MainApp {
 		// organismViewer.setUpViewer();
 		// organismViewer.runApp();
 
-		Views populationViewer = new PopulationViewer();
-		populationViewer.setUpViewer();
-		populationViewer.runApp();
+		Views start = new StartViewer();
+		start.setUpViewer();
+		start.runApp();
+		// Views populationViewer = new PopulationViewer();
+		// populationViewer.setUpViewer();
+		// populationViewer.runApp();
 	} // runApp
 
 	/**
