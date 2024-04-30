@@ -14,7 +14,7 @@ public class EvolutionParameters {
     private Organism[] currentGeneration;
     private boolean termination;
     private RandomType random = RandomType.TRUE;
-    private String targetOranism;
+    private String targetOrganism;
 
     /**
      * ensures: constructs a populations parameters
@@ -57,7 +57,7 @@ public class EvolutionParameters {
         }
         this.fitnessType = fitnessType;
         this.currentGeneration = new Organism[genSize];
-        this.targetOranism = targetOrganism;
+        this.targetOrganism = targetOrganism;
     }
 
     /**
@@ -292,6 +292,6 @@ public class EvolutionParameters {
     }
 
     public String getTargetOrganism() {
-       return this.targetOranism;
+       return this.targetOrganism;
     }
 }
