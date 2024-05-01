@@ -218,6 +218,7 @@ public class PopulationViewer extends Views {
 					 * // System.out.println((String) fitnessOptions.getSelectedItem());
 					 */
 					pop.createNewPopulation();
+					pop.setTargetOrganism(targetOranism);
 					pop.handleRunPopulationEvol();
 					timer.restart();
 					status = Status.RUNNING;
@@ -255,6 +256,7 @@ public class PopulationViewer extends Views {
 				 * crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()),
 				 * targetOrganism);
 				 */
+
 				pop.createNewPopulation();
 				pop.repaint();
 

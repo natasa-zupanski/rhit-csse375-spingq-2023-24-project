@@ -157,4 +157,8 @@ public class PopulationComponent extends JComponent {
 		return (int) Math.sqrt(population.getEvolutionParameters().getChromosomeLength());
 	}
 
+	public void setTargetOrganism(String targetOrganism) {
+		this.evolutionParameters.setTargetOrganism(targetOrganism);
+	}
+
 }

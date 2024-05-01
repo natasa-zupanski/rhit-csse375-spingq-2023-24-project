@@ -40,6 +40,8 @@ public class EvolutionParameters {
      * @param terminationCondition, specifies which fitness level needs to be
      *                              achieved for the program and evolution of the
      *                              population to end
+     * 
+     * @param targetOrganism,
      */
     public EvolutionParameters(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
             SelectionType selectionType, FitnessType fitnessType, boolean crossover, int terminationCondition,
@@ -308,5 +310,9 @@ public class EvolutionParameters {
 
     public String getTargetOrganism() {
         return this.targetOrganism;
+    }
+
+    public void setTargetOrganism(String targetOrganism2) {
+        this.targetOrganism = targetOrganism2;
     }
 }
