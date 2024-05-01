@@ -46,6 +46,11 @@ public class PopulationComponent extends JComponent {
 		this.repaint();
 	}
 
+	public void createNewPopulation() {
+		this.population = new Population(evolutionParameters);
+		// this.evolutionParameters = population.getEvolutionParameters();
+	}
+
 	public void createNewPopulation(int mutationRate, int numOfGens, int genSize, int chromosomeLength,
 			int elitismPercent, SelectionType selectionType, FitnessType fitnessType, boolean crossover,
 			int termination, String targetOrganism) {

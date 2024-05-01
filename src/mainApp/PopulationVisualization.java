@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import java.awt.Color;
 
-public class PopulationVisualization implements PopulationVisualizationInterface{
+public class PopulationVisualization implements PopulationVisualizationInterface {
 	private GraphicsParameters graphicParam;
 	private EvolutionParameters parameters;
 	private double scaleFactorX;
@@ -126,14 +126,14 @@ public class PopulationVisualization implements PopulationVisualizationInterface
 
 	public void printBestFitness() {
 		// System.out.println(
-		// 		"Created gen #" + this.gensSoFar() + " Best fitness: "
-		// 				+ this.graphicParam.getBestFitness(graphicParam.bestFitSize() - 1));
+		// "Created gen #" + this.gensSoFar() + " Best fitness: "
+		// + this.graphicParam.getBestFitness(graphicParam.bestFitSize() - 1));
 	}
 
 	public void terminate() {
 		Saver saver = new Saver();
 		// saver.addDataLine();
-		throw new UnsupportedOperationException("Unimplemented method 'terminate'");
+		// throw new UnsupportedOperationException("Unimplemented method 'terminate'");
 	}
 
 }

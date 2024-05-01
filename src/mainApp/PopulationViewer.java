@@ -59,7 +59,7 @@ public class PopulationViewer extends Views {
 		fittestOrganism.setUpViewer();
 		generationViewer.setUpViewer();
 
-		final int frameWidth = 1313;
+		final int frameWidth = 1500;
 		final int frameHeight = 600;
 
 		this.frame.setTitle("PopulationViewer");
@@ -72,19 +72,6 @@ public class PopulationViewer extends Views {
 		timer.stop();
 		frame.add(pop);
 
-		JLabel selectionLabel = new JLabel("Selection Method", SwingConstants.CENTER);
-		String[] selectionMethods = SelectionStrategyFactory.getStrings();// { "Truncation", "Roulette Wheel", "Rank",
-																			// "Rank Roulette", "Stable State" ,
-																			// "Learning Chance"};
-		JComboBox<String> selectionOptions = new JComboBox<String>(selectionMethods);
-		selectionOptions.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				pop.handleSetSelection(SelectionStrategyFactory
-						.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()));
-			}
-		});
-
 		JLabel fitnessLabel = new JLabel("Fitness Method", SwingConstants.CENTER);
 		String[] fitnessMethods = FitnessStrategyFactory.getStrings();// { "Num. of 1s", "Target Organism", "Consec.
 																		// num. of 1s" };
@@ -94,6 +81,29 @@ public class PopulationViewer extends Views {
 			public void actionPerformed(ActionEvent e) {
 				pop.handleSetFitness(
 						FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()));
+			}
+		});
+
+		JLabel selectionLabel = new JLabel("Selection Method", SwingConstants.CENTER);
+		selectionLabel.setToolTipText(
+				"How to select which organisms from the previous generation contribute to the next generation.");
+		String[] selectionMethods = SelectionStrategyFactory.getStrings();// { "Truncation", "Roulette Wheel", "Rank",
+																			// "Rank Roulette", "Stable State" ,
+																			// "Learning Chance"};
+		JComboBox<String> selectionOptions = new JComboBox<String>(selectionMethods);
+		// selectionOptions.getComponent(i) // for each and add the corresponding tool
+		// tip
+		selectionOptions.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SelectionType type = SelectionStrategyFactory
+						.getSelectionTypeFromString((String) selectionOptions.getSelectedItem());
+				pop.handleSetSelection(type);
+				if (type == SelectionType.LEARNINGCHANCE) {
+					fitnessOptions.setEnabled(false);
+				} else if (!fitnessOptions.isEnabled()) {
+					fitnessOptions.setEnabled(true);
+				}
 			}
 		});
 
@@ -114,7 +124,8 @@ public class PopulationViewer extends Views {
 				if (size > 0 && size <= MAX_GEN_SIZE) {
 					pop.handleSetGenSize(size);
 				} else {
-					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX GEN SIZE");
+					handleBadGenSize();
+					System.out.println("HERE");
 				}
 			}
 		});
@@ -192,14 +203,21 @@ public class PopulationViewer extends Views {
 			public void actionPerformed(ActionEvent e) {
 				if (status == Status.STOPPED) {
 					String targetOranism = organismViewer.getTargetOrganism();
-					pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
-							Integer.parseInt(numGensText.getText()), Integer.parseInt(genSizeText.getText()),
-							Integer.parseInt(genomeLengthText.getText()), Integer.parseInt(elitismText.getText()),
-							SelectionStrategyFactory
-									.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
-							FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()),
-							crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()), targetOranism);
-					// System.out.println((String) fitnessOptions.getSelectedItem());
+					/*
+					 * pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
+					 * Integer.parseInt(numGensText.getText()),
+					 * Integer.parseInt(genSizeText.getText()),
+					 * Integer.parseInt(genomeLengthText.getText()),
+					 * Integer.parseInt(elitismText.getText()),
+					 * SelectionStrategyFactory
+					 * .getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
+					 * FitnessStrategyFactory.getTypeFromString((String)
+					 * fitnessOptions.getSelectedItem()),
+					 * crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()),
+					 * targetOranism);
+					 * // System.out.println((String) fitnessOptions.getSelectedItem());
+					 */
+					pop.createNewPopulation();
 					pop.handleRunPopulationEvol();
 					timer.restart();
 					status = Status.RUNNING;
@@ -224,14 +242,22 @@ public class PopulationViewer extends Views {
 				timer.stop();
 				startButton.setText("Start");
 				String targetOrganism = organismViewer.getTargetOrganism();
-				pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
-						Integer.parseInt(numGensText.getText()), Integer.parseInt(genSizeText.getText()),
-						Integer.parseInt(genomeLengthText.getText()), Integer.parseInt(elitismText.getText()),
-						SelectionStrategyFactory
-								.getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
-						FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()),
-						crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()), targetOrganism);
+				/*
+				 * pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
+				 * Integer.parseInt(numGensText.getText()),
+				 * Integer.parseInt(genSizeText.getText()),
+				 * Integer.parseInt(genomeLengthText.getText()),
+				 * Integer.parseInt(elitismText.getText()),
+				 * SelectionStrategyFactory
+				 * .getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
+				 * FitnessStrategyFactory.getTypeFromString((String)
+				 * fitnessOptions.getSelectedItem()),
+				 * crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()),
+				 * targetOrganism);
+				 */
+				pop.createNewPopulation();
 				pop.repaint();
+
 				status = Status.STOPPED;
 			}
 		});
@@ -270,7 +296,21 @@ public class PopulationViewer extends Views {
 		buttonPanel.setPreferredSize(buttonPanelSize);
 		this.frame.add(buttonPanel, BorderLayout.NORTH);
 
-		frame.add(pop);
+		frame.add(pop, BorderLayout.CENTER); // then add keys to the west
+
+		JPanel keys = new JPanel(new GridLayout(5, 1));
+		JLabel highest = new JLabel("Highest Fitness");
+		JLabel average = new JLabel("Average Fitness");
+		JLabel lowest = new JLabel("Lowest Fitness");
+		JLabel variance = new JLabel("Variance in Fitness");
+		Dimension keysPanelSize = new Dimension(150, 200);
+		keys.add(highest);
+		keys.add(average);
+		keys.add(lowest);
+		keys.add(variance);
+		keys.setPreferredSize(keysPanelSize);
+
+		frame.add(keys, BorderLayout.EAST);
 
 		JPanel panel = new JPanel(new GridLayout(2, 1));
 		JPanel top = new JPanel(new GridLayout(1, 9));
@@ -310,5 +350,12 @@ public class PopulationViewer extends Views {
 		} catch (NullPointerException e) {
 
 		}
+	}
+
+	private void handleBadGenSize() {
+		Views popup = new PopUpView(
+				"Generation Size must be greater than 0 and less than or equal to " + MAX_GEN_SIZE + ".");
+		popup.setUpViewer();
+		popup.runApp();
 	}
 }

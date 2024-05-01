@@ -42,7 +42,8 @@ public class EvolutionParameters {
      *                              population to end
      */
     public EvolutionParameters(int mutationRate, int numOfGens, int genSize, int chromosomeLength, int elitism,
-            SelectionType selectionType, FitnessType fitnessType, boolean crossover, int terminationCondition, String targetOrganism) {
+            SelectionType selectionType, FitnessType fitnessType, boolean crossover, int terminationCondition,
+            String targetOrganism) {
         this.mutationRate = mutationRate;
         this.numOfGens = numOfGens;
         this.genSize = genSize;
@@ -52,10 +53,11 @@ public class EvolutionParameters {
         this.termination = false;
         this.terminationCondition = terminationCondition;
         this.selectionType = selectionType;
+        this.fitnessType = fitnessType;
         if (selectionType == SelectionType.LEARNINGCHANCE) {
             isUnsure = true;
+            this.fitnessType = FitnessType.LEARNINGCHANCE;
         }
-        this.fitnessType = fitnessType;
         this.currentGeneration = new Organism[genSize];
         this.targetOranism = targetOrganism;
     }
@@ -251,10 +253,23 @@ public class EvolutionParameters {
      */
     public void setSelection(SelectionType type) {
         this.selectionType = type;
+        if (type == SelectionType.LEARNINGCHANCE) {
+            this.isUnsure = true;
+            this.fitnessType = FitnessType.LEARNINGCHANCE;
+        }
     }
 
     public void setCurrGen(int i, Organism organism) {
         this.currentGeneration[i] = organism;
+    }
+
+    private void clearCurrGen() {
+        this.currentGeneration = new Organism[this.genSize];
+    }
+
+    public void reset() {
+        clearCurrGen();
+        this.termination = false;
     }
 
     public Organism[] getCurrentGeneration() {
@@ -287,11 +302,11 @@ public class EvolutionParameters {
         return this.random;
     }
 
-    public void setRandomeType(RandomType randomType){
+    public void setRandomeType(RandomType randomType) {
         this.random = randomType;
     }
 
     public String getTargetOrganism() {
-       return this.targetOranism;
+        return this.targetOranism;
     }
 }
