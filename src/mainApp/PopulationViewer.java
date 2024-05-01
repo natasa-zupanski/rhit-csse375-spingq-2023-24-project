@@ -1,10 +1,13 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.text.DefaultEditorKit;
 
 /**
  * Class: PopulationViewer
@@ -129,6 +133,24 @@ public class PopulationViewer extends Views {
 				}
 			}
 		});
+		genSizeText.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent f) {
+				genSizeText.setBackground(null);
+			}
+
+			@Override
+			public void focusLost(FocusEvent f) {
+				int size = Integer.parseInt(genSizeText.getText());
+				if (size > 0 && size <= MAX_GEN_SIZE) {
+					pop.handleSetGenSize(size);
+				} else {
+					handleBadGenSize();
+					genSizeText.setBackground(Color.red);
+				}
+			}
+		});
 
 		JLabel mutationRateLabel = new JLabel("Mutation Rate (N/pop)", SwingConstants.CENTER);
 		JTextField mutationRateText = new JTextField(pop.handleGetMutationRate());
@@ -149,6 +171,24 @@ public class PopulationViewer extends Views {
 		numGensText.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int num = Integer.parseInt(numGensText.getText());
+				if (num > 0 && num <= MAX_NUM_GENS) {
+					pop.handleSetNumGens(num);
+				} else {
+					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX NUM OF GENS");
+				}
+			}
+		});
+		numGensText.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent f) {
+
+			}
+
+			@Override
+			public void focusLost(FocusEvent f) {
+				System.out.println("HERE3");
 				int num = Integer.parseInt(numGensText.getText());
 				if (num > 0 && num <= MAX_NUM_GENS) {
 					pop.handleSetNumGens(num);
