@@ -1,6 +1,8 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -16,7 +18,13 @@ public class PopUpView extends Views {
 
         JLabel label = new JLabel(text);
 
+        int width = 6 * text.length() + 2 * 10;
+
+        Dimension dims = new Dimension(width, 100);
+
         frame.add(label, BorderLayout.CENTER);
+        frame.setSize(dims);
+        // frame.setFocusCycleRoot(true);
     }
 
 }
