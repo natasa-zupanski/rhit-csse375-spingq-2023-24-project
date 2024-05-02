@@ -2,6 +2,7 @@ package mainApp;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,10 +11,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.JTextComponent;
 
 /**
  * Class: PopulationViewer
@@ -96,9 +101,25 @@ public class PopulationViewer extends Views {
 		String[] selectionMethods = SelectionStrategyFactory.getStrings();// { "Truncation", "Roulette Wheel", "Rank",
 																			// "Rank Roulette", "Stable State" ,
 																			// "Learning Chance"};
+		/*
+		 * WrappedLabel selectionTexts[] = new WrappedLabel[selectionMethods.length];
+		 * for (int i = 0; i < selectionMethods.length; i++) {
+		 * selectionTexts[i] = new WrappedLabel(selectionMethods[i]);
+		 * selectionTexts[i].setToolTipText("WEEE");
+		 * 
+		 * }
+		 */
 		JComboBox<String> selectionOptions = new JComboBox<String>(selectionMethods);
+		// JComboBox<JLabel> selectionOptions = new JComboBox<>(selectionTexts);
 		// selectionOptions.getComponent(i) // for each and add the corresponding tool
 		// tip
+		/*
+		 * for (int i = 0; i < selectionMethods.length; i++) {
+		 * //Component comp = selectionOptions.getComponent(i);
+		 * //comp.
+		 * selectionOptions.
+		 * }
+		 */
 		selectionOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -112,6 +133,49 @@ public class PopulationViewer extends Views {
 				}
 			}
 		});
+
+		/*
+		 * selectionOptions.addMouseListener(new MouseListener() {
+		 * Component current;
+		 * Timer timer;
+		 * 
+		 * public void mouseEntered(MouseEvent e) {
+		 * Component next = selectionOptions.getComponentAt(e.getPoint());
+		 * if (next == null) {
+		 * // outside of the combobox
+		 * } else if (current != next) {
+		 * // we've changed what we're over
+		 * startTimer();
+		 * }
+		 * }
+		 * 
+		 * private void startTimer() {
+		 * timer = new Timer(500, new ActionListener() {
+		 * public void actionPerformed(ActionEvent e) {
+		 * selectionOptions.setToolTipText("WEEEE");
+		 * }
+		 * });
+		 * timer.setRepeats(false);
+		 * timer.start();
+		 * }
+		 * 
+		 * public void mouseExited(MouseEvent e) {
+		 * 
+		 * }
+		 * 
+		 * public void mouseReleased(MouseEvent e) {
+		 * 
+		 * }
+		 * 
+		 * public void mouseClicked(MouseEvent e) {
+		 * 
+		 * }
+		 * 
+		 * public void mousePressed(MouseEvent e) {
+		 * 
+		 * }
+		 * });
+		 */
 
 		JCheckBox crossoverCheckBox = new JCheckBox("Crossover?");
 		crossoverCheckBox.addActionListener(new ActionListener() {
@@ -348,7 +412,7 @@ public class PopulationViewer extends Views {
 		keys.add(variance);
 		keys.setPreferredSize(keysPanelSize);
 
-		frame.add(keys, BorderLayout.EAST);
+		// frame.add(keys, BorderLayout.EAST);
 
 		JPanel panel = new JPanel(new GridLayout(2, 1));
 		JPanel top = new JPanel(new GridLayout(1, 9));
