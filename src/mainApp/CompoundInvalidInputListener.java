@@ -6,7 +6,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 public class CompoundInvalidInputListener implements KeyListener, FocusListener {
@@ -48,7 +47,6 @@ public class CompoundInvalidInputListener implements KeyListener, FocusListener 
                 pop.handleSetGenSize(size);
             } else {
                 handleBadInput();
-                component.setBackground(Color.red);
             }
         } catch (Exception ex) {
             if (!component.getText().equals("")) {
@@ -69,14 +67,18 @@ public class CompoundInvalidInputListener implements KeyListener, FocusListener 
 
     private void handleBadInput() {
         running = new PopUpView(InputErrorFactory.getPopUpTextFromInputType(type, lower, upper));
-        running.setUpViewer();
-        running.runApp();
+        handleGeneralError();
     }
 
     private void handleNonNumeric() {
         running = new PopUpView(InputErrorFactory.getPopUpTextFromInputType(InputType.NONNUMERIC, 0, 0));
+        handleGeneralError();
+    }
+
+    private void handleGeneralError() {
         running.setUpViewer();
         running.runApp();
+        component.setBackground(Color.red);
     }
 
 }
