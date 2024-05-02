@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -121,36 +123,10 @@ public class PopulationViewer extends Views {
 
 		JLabel genSizeLabel = new JLabel("Gen. Size", SwingConstants.CENTER);
 		JTextField genSizeText = new JTextField(pop.handleGetGenSize());
-		genSizeText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int size = Integer.parseInt(genSizeText.getText());
-				if (size > 0 && size <= MAX_GEN_SIZE) {
-					pop.handleSetGenSize(size);
-				} else {
-					handleBadGenSize();
-					System.out.println("HERE");
-				}
-			}
-		});
-		genSizeText.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(FocusEvent f) {
-				genSizeText.setBackground(null);
-			}
-
-			@Override
-			public void focusLost(FocusEvent f) {
-				int size = Integer.parseInt(genSizeText.getText());
-				if (size > 0 && size <= MAX_GEN_SIZE) {
-					pop.handleSetGenSize(size);
-				} else {
-					handleBadGenSize();
-					genSizeText.setBackground(Color.red);
-				}
-			}
-		});
+		CompoundInvalidInputListener genSizeListener = new CompoundInvalidInputListener(InputType.GENSIZE, genSizeText,
+				0, MAX_GEN_SIZE, pop);
+		genSizeText.addKeyListener(genSizeListener);
+		genSizeText.addFocusListener(genSizeListener);
 
 		JLabel mutationRateLabel = new JLabel("Mutation Rate (N/pop)", SwingConstants.CENTER);
 		JTextField mutationRateText = new JTextField(pop.handleGetMutationRate());
@@ -171,24 +147,6 @@ public class PopulationViewer extends Views {
 		numGensText.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int num = Integer.parseInt(numGensText.getText());
-				if (num > 0 && num <= MAX_NUM_GENS) {
-					pop.handleSetNumGens(num);
-				} else {
-					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX NUM OF GENS");
-				}
-			}
-		});
-		numGensText.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(FocusEvent f) {
-
-			}
-
-			@Override
-			public void focusLost(FocusEvent f) {
-				System.out.println("HERE3");
 				int num = Integer.parseInt(numGensText.getText());
 				if (num > 0 && num <= MAX_NUM_GENS) {
 					pop.handleSetNumGens(num);
@@ -394,10 +352,18 @@ public class PopulationViewer extends Views {
 		}
 	}
 
-	private void handleBadGenSize() {
+	private Views handleBadGenSize() {
 		Views popup = new PopUpView(
 				"Generation Size must be greater than 0 and less than or equal to " + MAX_GEN_SIZE + ".");
 		popup.setUpViewer();
 		popup.runApp();
+		return popup;
+	}
+
+	private Views handleNonNumericInput() {
+		Views popup = new PopUpView("Input must be a number.");
+		popup.setUpViewer();
+		popup.runApp();
+		return popup;
 	}
 }
