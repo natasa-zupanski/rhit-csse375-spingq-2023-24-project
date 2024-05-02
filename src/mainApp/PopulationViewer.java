@@ -130,70 +130,108 @@ public class PopulationViewer extends Views {
 
 		JLabel mutationRateLabel = new JLabel("Mutation Rate (N/pop)", SwingConstants.CENTER);
 		JTextField mutationRateText = new JTextField(pop.handleGetMutationRate());
-		mutationRateText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int rate = Integer.parseInt(mutationRateText.getText());
-				if (rate < 0 || rate > MAX_MUTATE_RATE) {
-					System.out.println("NOT YET IMPLEMENTED - NEG OR OVER MAX MUTATE RATE");
-				} else {
-					pop.handleSetMutationRate(rate);
-				}
-			}
-		});
+		CompoundInvalidInputListener mutationRateListener = new CompoundInvalidInputListener(InputType.MUTATIONRATE,
+				mutationRateText, -1, MAX_MUTATE_RATE, pop);
+		mutationRateText.addKeyListener(mutationRateListener);
+		mutationRateText.addFocusListener(mutationRateListener);
+
+		/*
+		 * mutationRateText.addActionListener(new ActionListener() {
+		 * 
+		 * @Override
+		 * public void actionPerformed(ActionEvent e) {
+		 * int rate = Integer.parseInt(mutationRateText.getText());
+		 * if (rate < 0 || rate > MAX_MUTATE_RATE) {
+		 * System.out.println("NOT YET IMPLEMENTED - NEG OR OVER MAX MUTATE RATE");
+		 * } else {
+		 * pop.handleSetMutationRate(rate);
+		 * }
+		 * }
+		 * });
+		 */
 
 		JLabel numGensLabel = new JLabel("# of Gens.", SwingConstants.CENTER);
 		JTextField numGensText = new JTextField(pop.handleGetNumGens());
-		numGensText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.parseInt(numGensText.getText());
-				if (num > 0 && num <= MAX_NUM_GENS) {
-					pop.handleSetNumGens(num);
-				} else {
-					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX NUM OF GENS");
-				}
-			}
-		});
+		CompoundInvalidInputListener numGensListener = new CompoundInvalidInputListener(InputType.NUMGENS, numGensText,
+				0, MAX_NUM_GENS, pop);
+		numGensText.addKeyListener(numGensListener);
+		numGensText.addFocusListener(numGensListener);
+
+		/*
+		 * numGensText.addActionListener(new ActionListener() {
+		 * 
+		 * @Override
+		 * public void actionPerformed(ActionEvent e) {
+		 * int num = Integer.parseInt(numGensText.getText());
+		 * if (num > 0 && num <= MAX_NUM_GENS) {
+		 * pop.handleSetNumGens(num);
+		 * } else {
+		 * System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX NUM OF GENS");
+		 * }
+		 * }
+		 * });
+		 */
 
 		JLabel genomeLengthLabel = new JLabel("Genome Length", SwingConstants.CENTER);
 		JTextField genomeLengthText = new JTextField(pop.handleGetGenomeLength());
-		genomeLengthText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int length = Integer.parseInt(genomeLengthText.getText());
-				if (length > 0 && length <= MAX_LENGTH) {
-					pop.handleSetGenomeLength(length);
-				} else {
-					System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX LENGTH");
-				}
-			}
-		});
+		CompoundInvalidInputListener genomeLengthListener = new CompoundInvalidInputListener(InputType.GENOMELENGTH,
+				genomeLengthText, 0, MAX_LENGTH, pop);
+		genomeLengthText.addKeyListener(genomeLengthListener);
+		genomeLengthText.addFocusListener(genomeLengthListener);
+
+		/*
+		 * genomeLengthText.addActionListener(new ActionListener() {
+		 * 
+		 * @Override
+		 * public void actionPerformed(ActionEvent e) {
+		 * int length = Integer.parseInt(genomeLengthText.getText());
+		 * if (length > 0 && length <= MAX_LENGTH) {
+		 * pop.handleSetGenomeLength(length);
+		 * } else {
+		 * System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX LENGTH");
+		 * }
+		 * }
+		 * });
+		 */
 
 		JLabel elitismLabel = new JLabel("Elitism %", SwingConstants.CENTER);
 		JTextField elitismText = new JTextField(pop.handleGetElitism());
-		elitismText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int rate = Integer.parseInt(elitismText.getText());
-				System.out.println("Elitism: " + rate);
-				if (rate >= 0 && rate <= 100) {
-					pop.handleSetElitism(rate);
-				} else {
-					System.out.println("NOT YET IMPLEMENTED - NEG OR OVER 100 PERCENT ELITISM");
-				}
-			}
-		});
+		CompoundInvalidInputListener elistismListener = new CompoundInvalidInputListener(InputType.ELITISM, elitismText,
+				-1, 100, pop);
+		elitismText.addKeyListener(elistismListener);
+		elitismText.addFocusListener(elistismListener);
+		/*
+		 * elitismText.addActionListener(new ActionListener() {
+		 * 
+		 * @Override
+		 * public void actionPerformed(ActionEvent e) {
+		 * int rate = Integer.parseInt(elitismText.getText());
+		 * System.out.println("Elitism: " + rate);
+		 * if (rate >= 0 && rate <= 100) {
+		 * pop.handleSetElitism(rate);
+		 * } else {
+		 * System.out.println("NOT YET IMPLEMENTED - NEG OR OVER 100 PERCENT ELITISM");
+		 * }
+		 * }
+		 * });
+		 */
 
 		JLabel terminationLabel = new JLabel("Termination Fitness", SwingConstants.CENTER);
 		JTextField terminationText = new JTextField(pop.handleGetTermination());
-		terminationText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int condition = Integer.parseInt(terminationText.getText());
-				pop.handleSetTermination(condition);
-			}
-		});
+		CompoundInvalidInputListener terminationListener = new CompoundInvalidInputListener(
+				InputType.TERMINATIONFITNESS, terminationText, 0, Integer.parseInt(pop.handleGetGenomeLength()), pop);
+		terminationText.addKeyListener(terminationListener);
+		terminationText.addFocusListener(terminationListener);
+		/*
+		 * terminationText.addActionListener(new ActionListener() {
+		 * 
+		 * @Override
+		 * public void actionPerformed(ActionEvent e) {
+		 * int condition = Integer.parseInt(terminationText.getText());
+		 * pop.handleSetTermination(condition);
+		 * }
+		 * });
+		 */
 
 		JButton startButton = new JButton("Start Evoltuion");
 		startButton.addActionListener(new ActionListener() {
@@ -350,20 +388,5 @@ public class PopulationViewer extends Views {
 		} catch (NullPointerException e) {
 
 		}
-	}
-
-	private Views handleBadGenSize() {
-		Views popup = new PopUpView(
-				"Generation Size must be greater than 0 and less than or equal to " + MAX_GEN_SIZE + ".");
-		popup.setUpViewer();
-		popup.runApp();
-		return popup;
-	}
-
-	private Views handleNonNumericInput() {
-		Views popup = new PopUpView("Input must be a number.");
-		popup.setUpViewer();
-		popup.runApp();
-		return popup;
 	}
 }

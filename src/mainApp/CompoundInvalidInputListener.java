@@ -42,9 +42,9 @@ public class CompoundInvalidInputListener implements KeyListener, FocusListener 
     @Override
     public void keyReleased(KeyEvent e) {
         try {
-            int size = Integer.parseInt(component.getText());
-            if (size > lower && size <= upper) {
-                pop.handleSetGenSize(size);
+            int value = Integer.parseInt(component.getText());
+            if (value > lower && value <= upper) {
+                handleSetValue(value);
             } else {
                 handleBadInput();
             }
@@ -79,6 +79,33 @@ public class CompoundInvalidInputListener implements KeyListener, FocusListener 
         running.setUpViewer();
         running.runApp();
         component.setBackground(Color.red);
+    }
+
+    private void handleSetValue(int value) {
+        System.out.println("Attempting to set value " + value + " for type " + type + ".");
+        switch (type) {
+            case GENSIZE:
+                pop.handleSetGenSize(value);
+                return;
+            case ELITISM:
+                pop.handleSetElitism(value);
+                // System.out.println(pop.handleGetElitism());
+                return;
+            case GENOMELENGTH:
+                pop.handleSetGenomeLength(value);
+                return;
+            case NUMGENS:
+                pop.handleSetNumGens(value);
+                return;
+            case MUTATIONRATE:
+                pop.handleSetMutationRate(value);
+                return;
+            case TERMINATIONFITNESS:
+                pop.handleSetTermination(value);
+                return;
+            default:
+                System.out.println("Failed to set value " + value + " for unknown type " + type + ".");
+        }
     }
 
 }
