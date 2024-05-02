@@ -272,6 +272,7 @@ public class EvolutionParameters {
     public void reset() {
         clearCurrGen();
         this.termination = false;
+        this.isUnsure = false;
     }
 
     public Organism[] getCurrentGeneration() {

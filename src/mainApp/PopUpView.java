@@ -24,6 +24,8 @@ public class PopUpView extends Views {
 
         frame.add(label, BorderLayout.CENTER);
         frame.setSize(dims);
+        this.frame.setLocation(600, 400);
+        // frame.setLocation(0, 0);
         // frame.setFocusCycleRoot(true);
     }
 
