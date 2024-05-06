@@ -317,7 +317,7 @@ public class PopulationTest {
         firstGen[10].setChromosome("1010101010");
         firstGen[20].setChromosome("0000101010");
         Organism fittestOrganism = testPopulation.getFittest();
-     //   assertEquals("1010101010",fittestOrganism.getChromosome());
+        assertEquals("1010101010",fittestOrganism.getChromosome());
         testPopulation.nextGeneration();
         Organism newFittestOrganism = testPopulation.getFittest();
 	    assertEquals("1010101010", newFittestOrganism.getChromosome());
