@@ -53,6 +53,67 @@ public class PopulationTest {
     }
 
     @Test
+	public void testTrucation_ConsectiveNum1s() {
+        Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setGenomeLength(10);
+        testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.CONSECONES);
+        testPopulation.spawnFirstGeneration();
+        Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        firstGen[10].setChromosome("1011111000");
+        firstGen[20].setChromosome("1010000000");
+        Organism fittestOrganism = testPopulation.getFittest();
+        assertEquals("1011111000",fittestOrganism.getChromosome());
+        testPopulation.nextGeneration();
+        Organism newFittestOrganism = testPopulation.getFittest();
+	    assertEquals("1011111000", newFittestOrganism.getChromosome());
+        Organism[] secondGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        assertEquals("0000000000",secondGen[95].getChromosome());
+        assertEquals("1010000000",secondGen[96].getChromosome());
+        assertEquals("1011111000",secondGen[99].getChromosome());
+    }
+
+    @Test
+	public void testTrucation_FiftyFifty() {
+        Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setGenomeLength(10);
+        testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.FIFTYFIFTY);
+        testPopulation.spawnFirstGeneration();
+        Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        firstGen[10].setChromosome("1011000000");
+        firstGen[20].setChromosome("1010000000");
+        Organism fittestOrganism = testPopulation.getFittest();
+        assertEquals("1011000000",fittestOrganism.getChromosome());
+        testPopulation.nextGeneration();
+        Organism newFittestOrganism = testPopulation.getFittest();
+	    assertEquals("1011000000", newFittestOrganism.getChromosome());
+        Organism[] secondGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        assertEquals("0000000000",secondGen[95].getChromosome());
+        assertEquals("1010000000",secondGen[96].getChromosome());
+        assertEquals("1011000000",secondGen[99].getChromosome());
+    }
+
+    @Test
+	public void testTrucation_OneMinusZeros() {
+        Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setGenomeLength(10);
+        testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.ONESMINUSZEROS);
+        testPopulation.spawnFirstGeneration();
+        Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        firstGen[10].setChromosome("1011000000");
+        firstGen[20].setChromosome("1010000000");
+        Organism fittestOrganism = testPopulation.getFittest();
+        assertEquals("0000000000",fittestOrganism.getChromosome());
+        testPopulation.nextGeneration();
+        Organism newFittestOrganism = testPopulation.getFittest();
+	    assertEquals("0000000000", newFittestOrganism.getChromosome());
+        Organism[] secondGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
+        assertEquals("0000000000",secondGen[99].getChromosome());
+    }
+
+    @Test
 	public void testRank () {
         Population testPopulation = new Population();
         testPopulation.getEvolutionParameters().setGenomeLength(10);
