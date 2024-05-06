@@ -342,7 +342,7 @@ public class PopulationViewer extends Views {
 				timer.restart();
 				timer.stop();
 				startButton.setText("Start");
-				String targetOrganism = organismViewer.getTargetOrganism();
+				//String targetOrganism = organismViewer.getTargetOrganism();
 				/*
 				 * pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
 				 * Integer.parseInt(numGensText.getText()),
