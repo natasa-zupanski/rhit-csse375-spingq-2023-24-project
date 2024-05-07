@@ -45,7 +45,7 @@ public class Population {
 	 * ensures: constructs a population based on default values
 	 */
 	public Population() {
-		this(new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.NUMONES, true, 100,
+		this(new EvolutionParameters(1, 500, 100, 100, 1, SelectionType.TRUNCATION, FitnessType.TARGETORG, false, 100,
 				"1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110"));
 	}
 

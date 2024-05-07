@@ -125,13 +125,13 @@ public class PopulationVisualization implements PopulationVisualizationInterface
 	}
 
 	public void printBestFitness() {
-		// System.out.println(
-		// "Created gen #" + this.gensSoFar() + " Best fitness: "
-		// + this.graphicParam.getBestFitness(graphicParam.bestFitSize() - 1));
+		System.out.println(
+		"Created gen #" + this.gensSoFar() + " Best fitness: "
+		+ this.graphicParam.getBestFitness(graphicParam.bestFitSize() - 1));
 	}
 
 	public void terminate() {
-		Saver saver = new Saver();
+		//Saver saver = new Saver();
 		// saver.addDataLine();
 		// throw new UnsupportedOperationException("Unimplemented method 'terminate'");
 	}
