@@ -58,7 +58,7 @@ public class EvolutionParameters {
         this.fitnessType = fitnessType;
         if (selectionType == SelectionType.LEARNINGCHANCE) {
             isUnsure = true;
-            //this.fitnessType = FitnessType.LEARNINGCHANCE;
+            this.fitnessType = FitnessType.LEARNINGCHANCE;
         }
         this.currentGeneration = new Organism[genSize];
         this.targetOrganism = targetOrganism;
@@ -257,7 +257,7 @@ public class EvolutionParameters {
         this.selectionType = type;
         if (type == SelectionType.LEARNINGCHANCE) {
             this.isUnsure = true;
-            //this.fitnessType = FitnessType.LEARNINGCHANCE;
+            this.fitnessType = FitnessType.LEARNINGCHANCE;
         }
     }
 
