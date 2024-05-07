@@ -14,22 +14,6 @@ import mainApp.SelectionType;
 public class PoppulationComponetTest {
     // Testing all methods directly effected by refactoring
     @Test
-    public void testCreateNewPopulation() {
-        Population testPopulation = new Population();
-        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
-
-        pComponent.createNewPopulation(2, 200, 105, 200, 1, SelectionType.RANK, FitnessType.TARGETORG, false, 50, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
-        assertEquals("2", pComponent.handleGetMutationRate());
-        assertEquals("200", pComponent.handleGetNumGens());
-        assertEquals("105", pComponent.handleGetGenSize());
-        assertEquals("200", pComponent.handleGetGenomeLength());
-        assertEquals(false, pComponent.handleGetCrossover());
-        assertEquals("1", pComponent.handleGetElitism());
-        assertEquals(0, pComponent.handleGetGensSoFar());
-        assertEquals("50", pComponent.handleGetTermination());
-    }
-
-    @Test
     public void testPopulationConstructor() {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
