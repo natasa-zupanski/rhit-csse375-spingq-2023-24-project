@@ -1,6 +1,6 @@
 package tests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import javax.swing.JFrame;
 
@@ -23,7 +23,7 @@ public class PoppulationComponetTest {
         assertEquals("100", pComponent.handleGetGenSize());
         assertEquals("100", pComponent.handleGetGenomeLength());
         assertEquals(false, pComponent.handleGetCrossover());
-        assertEquals("1", pComponent.handleGetElitism());
+        assertEquals("1", pComponent.handleGetElitism()); 
         assertEquals(0, pComponent.handleGetGensSoFar());
         assertEquals("100", pComponent.handleGetTermination());
     }
@@ -90,5 +90,17 @@ public class PoppulationComponetTest {
         testPopulation.nextGeneration();
         assertEquals(3, pComponent.handleGetGensSoFar());
         assertEquals(10, pComponent.getColumnNum());
+    }
+
+    //Integration testing
+    @Test
+    public void testCreateNewPopulation() {
+        Population testPopulation = new Population();
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
+        testPopulation.getEvolutionParameters().setUnsure(true);
+        testPopulation.getEvolutionParameters().terminate();
+        pComponent.createNewPopulation();
+        assertFalse(testPopulation.getEvolutionParameters().getUnsure());
+        assertFalse(testPopulation.getEvolutionParameters().getTerminated());
     }
 }
