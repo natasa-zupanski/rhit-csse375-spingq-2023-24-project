@@ -82,7 +82,6 @@ public class CompoundInvalidInputListener implements KeyListener, FocusListener 
     }
 
     private void handleSetValue(int value) {
-        System.out.println("Attempting to set value " + value + " for type " + type + ".");
         switch (type) {
             case GENSIZE:
                 pop.handleSetGenSize(value);

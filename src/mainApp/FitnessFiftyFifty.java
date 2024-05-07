@@ -17,7 +17,6 @@ public class FitnessFiftyFifty implements FitnessStrategy {
         }
         int half = chromosome.length() / 2;
         int num = chromosome.length() - (Math.abs(half - sum0) + Math.abs(half - sum1));
-        System.out.println(num);
         return num;
     }
 
