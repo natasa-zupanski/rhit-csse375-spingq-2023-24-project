@@ -38,7 +38,8 @@ public class SelectionRouletteWheel implements SelectionStrategy {
             sum += fitnesses[index];
             if (chance >= lastSum && chance <= sum) {
                 return new Organism(orgs[index].getChromosome(), orgs[index].getFitnessType(),
-                        orgs[index].getRandomType(), this.targetOrganism);
+                        orgs[index].getRandomType(), this.targetOrganism, orgs[index].getNumGens(),
+                        orgs[index].fitness());
             }
         }
         return null;

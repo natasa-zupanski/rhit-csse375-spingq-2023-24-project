@@ -38,10 +38,14 @@ public class SelectionTests {
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize / 2; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         for (int j = genSize / 2; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new SelectionTruncation();
@@ -61,10 +65,14 @@ public class SelectionTests {
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize / 2 + 1; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         for (int j = genSize / 2 + 1; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new SelectionTruncation();
@@ -84,10 +92,14 @@ public class SelectionTests {
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize / 2 + 1; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         for (int j = genSize / 2 + 1; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new SelectionRank();
@@ -129,15 +141,26 @@ public class SelectionTests {
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize / 2; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         for (int j = genSize / 2; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         Arrays.sort(orgs);
-        SelectionStrategy selection = new SelectionRankRoulette(RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110"); // since this defaults to 0, it should
-                                                                                  // return the least ranked organism
-                                                                                  // each time for selection
+        SelectionStrategy selection = new SelectionRankRoulette(RandomType.FAKE,
+                "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110"); // since
+                                                                                                                         // this
+                                                                                                                         // defaults
+                                                                                                                         // to
+                                                                                                                         // 0,
+                                                                                                                         // it
+                                                                                                                         // should
+        // return the least ranked organism
+        // each time for selection
         assertEquals(SelectionType.RANKROULETTE, selection.getSelectionType());
         Organism[] selected = selection.selectFrom(orgs);
         for (int k = 0; k < genSize; k++) {
@@ -154,16 +177,26 @@ public class SelectionTests {
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize / 2; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         for (int j = genSize / 2; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         Arrays.sort(orgs);
-        SelectionStrategy selection = new SelectionRouletteWheel(RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110"); // since this defaults to 0, it
-                                                                                   // should
-                                                                                   // return the least fit organism
-                                                                                   // each time for selection
+        SelectionStrategy selection = new SelectionRouletteWheel(RandomType.FAKE,
+                "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110"); // since
+                                                                                                                         // this
+                                                                                                                         // defaults
+                                                                                                                         // to
+                                                                                                                         // 0,
+                                                                                                                         // it
+        // should
+        // return the least fit organism
+        // each time for selection
         assertEquals(SelectionType.ROULETTEWHEEL, selection.getSelectionType());
         Organism[] selected = selection.selectFrom(orgs);
         for (int k = 0; k < genSize; k++) {
@@ -180,10 +213,14 @@ public class SelectionTests {
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize / 2; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         for (int j = genSize / 2; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new SelectionStableState(50);
@@ -203,10 +240,14 @@ public class SelectionTests {
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < 40; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         for (int j = 40; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    0, 0);
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new SelectionStableState(50);
@@ -240,7 +281,8 @@ public class SelectionTests {
         // int chromSize = 10;
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize; i++) {
-            orgs[i] = new Organism(10, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(10, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new SelectionStableState(50);
@@ -258,7 +300,8 @@ public class SelectionTests {
         // int chromSize = 10;
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize; i++) {
-            orgs[i] = new Organism(10, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(10, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new SelectionStableState(10);
@@ -282,10 +325,14 @@ public class SelectionTests {
         String chromTwo = "00000000??";
         Organism[] orgs = new Organism[genSize];
         for (int i = 0; i < genSize / 2; i++) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    1, -1);
         }
         for (int j = genSize / 2; j < genSize; j++) {
-            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+            orgs[j] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    1, -1);
         }
         Arrays.sort(orgs);
         SelectionStrategy selection = new FakeSelectionLearningChance(1, RandomType.FAKE); // the original learning
@@ -313,9 +360,13 @@ public class SelectionTests {
         String chromOne = "1111111111";
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
-        for (int i = 0; i < genSize ; i+=2) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
-            orgs[i+1] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+        for (int i = 0; i < genSize; i += 2) {
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    1, -1);
+            orgs[i + 1] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    1, -1);
         }
         SelectionStrategy selection = new SelectionAlternate();
         assertEquals(SelectionType.ALTERNATE, selection.getSelectionType());
@@ -333,11 +384,17 @@ public class SelectionTests {
         String chromOne = "1111111111";
         String chromTwo = "0000000000";
         Organism[] orgs = new Organism[genSize];
-        for (int i = 0; i < genSize - 1 ; i+=2) {
-            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
-            orgs[i+1] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+        for (int i = 0; i < genSize - 1; i += 2) {
+            orgs[i] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    1, -1);
+            orgs[i + 1] = new Organism(chromTwo, FitnessType.NUMONES, RandomType.FAKE,
+                    "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                    1, -1);
         }
-        orgs[orgs.length-1] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE, "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110");
+        orgs[orgs.length - 1] = new Organism(chromOne, FitnessType.NUMONES, RandomType.FAKE,
+                "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
+                1, -1);
         SelectionStrategy selection = new SelectionAlternate();
         assertEquals(SelectionType.ALTERNATE, selection.getSelectionType());
         Organism[] selected = selection.selectFrom(orgs);
@@ -346,6 +403,5 @@ public class SelectionTests {
             assertEquals(chromOne, selected[k].getChromosome());
         }
     }
-
 
 }

@@ -40,7 +40,8 @@ public class SelectionRankRoulette implements SelectionStrategy {
             sum += ranks[index];
             if (chance >= lastSum && chance <= sum) {
                 return new Organism(orgs[index].getChromosome(), orgs[index].getFitnessType(),
-                        orgs[index].getRandomType(), this.targetOrganism);
+                        orgs[index].getRandomType(), this.targetOrganism, orgs[index].getNumGens(),
+                        orgs[index].fitness());
             }
         }
 

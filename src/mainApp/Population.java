@@ -233,7 +233,8 @@ public class Population {
 		for (int index = 0; index < toMutate.length; index++) {
 			// creates a new organism from the one at the current index
 			Organism intermediate = new Organism(toMutate[index].getChromosome(), this.parameters.getFitnessType(),
-					parameters.getRandomType(), this.parameters.getTargetOrganism());
+					parameters.getRandomType(), this.parameters.getTargetOrganism(), toMutate[index].getNumGens(),
+					toMutate[index].fitness());
 			// mutates that new organism
 			intermediate.mutate(this.parameters.getMutationRate());
 			// adds it to the result

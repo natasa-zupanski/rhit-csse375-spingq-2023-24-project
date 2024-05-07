@@ -50,7 +50,7 @@ public class OrganismViewer extends Views {
 		JLabel fileTitle = new JLabel("");
 		this.frame.add(fileTitle, BorderLayout.NORTH);
 
-		OrganismComponent component = new OrganismComponent(0,frame);
+		OrganismComponent component = new OrganismComponent(0, frame);
 		this.frame.add(component, BorderLayout.CENTER);
 
 		class ClickListener implements MouseListener {
@@ -60,10 +60,11 @@ public class OrganismViewer extends Views {
 				int x = arg0.getX();
 				int y = arg0.getY();
 
-				component.flipAllele(x - 10, y - 40, (int) frame.getSize().getHeight() - 100, (int) frame.getSize().getWidth() - 10);
+				component.flipAllele(x - 10, y - 40, (int) frame.getSize().getHeight() - 100,
+						(int) frame.getSize().getWidth() - 10);
 
 				frame.repaint();
-			targetOrganism = component.getOrganismGenotype();
+				targetOrganism = component.getOrganismGenotype();
 
 			}
 
@@ -142,7 +143,8 @@ public class OrganismViewer extends Views {
 						}
 						targetOrganism = genotype;
 						component.setOrganism(
-								new Organism(genotype, FitnessStrategyFactory.getTypeFromString("Target Organism"), RandomType.FAKE, genotype));
+								new Organism(genotype, FitnessStrategyFactory.getTypeFromString("Target Organism"),
+										RandomType.FAKE, genotype, 0, 100));
 						fileTitle.setText(file.getName());
 						frame.repaint();
 						fileChooserFrame.setVisible(false);
@@ -196,8 +198,8 @@ public class OrganismViewer extends Views {
 
 	}
 
-    public String getTargetOrganism() {
-        return this.targetOrganism;
-    }
+	public String getTargetOrganism() {
+		return this.targetOrganism;
+	}
 
 }

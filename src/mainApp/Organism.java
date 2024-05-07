@@ -75,14 +75,18 @@ public class Organism implements Comparable<Organism> {
 	 * @param fitnessMethod, the name of the process used to determine how fit an
 	 *                       organism is based on their genetic code
 	 */
-	public Organism(String chromosome, FitnessType type, RandomType randomType, String targetOrganism) {
+	public Organism(String chromosome, FitnessType type, RandomType randomType, String targetOrganism, int numGens,
+			int constantFitness) {
 		this.chromosome = chromosome;
 		this.fitnessType = type;
-		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(randomType, type, null, null, targetOrganism);
+		this.fitness = FitnessStrategyFactory.getFitnessStrategyOfType(randomType, type, numGens, constantFitness,
+				targetOrganism);
 		this.r = RandomFactory.getRandomOfType(randomType);
 		this.organismVisualization = new OrganismVisualization(chromosome);
 		this.organismUtilites = new OrganismUtilites(chromosome);
 		this.targetOrganism = targetOrganism;
+		this.numGens = numGens;
+		this.constantFitness = constantFitness;
 	}
 
 	/**
@@ -113,7 +117,11 @@ public class Organism implements Comparable<Organism> {
 
 	public Organism(Organism organism) {
 		this(organism.getChromosome(), organism.getFitnessType(), organism.getRandomType(),
-				organism.getTargetOrganism());
+				organism.getTargetOrganism(), organism.getNumGens(), organism.fitness());
+	}
+
+	public int getNumGens() {
+		return numGens;
 	}
 
 	private String getTargetOrganism() {
@@ -285,7 +293,7 @@ public class Organism implements Comparable<Organism> {
 			result += first.substring(0, crossoverPoint);
 			result += second.substring(crossoverPoint);
 
-			return new Organism(result, this.fitness.getFitnessType(), r.getType(), targetOrganism);
+			return new Organism(result, this.fitness.getFitnessType(), r.getType(), targetOrganism, numGens, -1);
 		} else {
 			return null;
 		}
