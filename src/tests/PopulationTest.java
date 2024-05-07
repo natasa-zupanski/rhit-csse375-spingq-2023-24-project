@@ -14,8 +14,10 @@ public class PopulationTest {
     @Test
 	public void testTrucation () {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.NUMONES);
         testPopulation.spawnFirstGeneration();
         Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
         firstGen[10].setChromosome("1010101010");
@@ -34,6 +36,7 @@ public class PopulationTest {
     @Test
 	public void testTrucation_TargetOrganismFitness() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);
@@ -55,6 +58,7 @@ public class PopulationTest {
     @Test
 	public void testTrucation_ConsectiveNum1s() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.CONSECONES);
@@ -76,6 +80,7 @@ public class PopulationTest {
     @Test
 	public void testTrucation_FiftyFifty() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.FIFTYFIFTY);
@@ -97,6 +102,7 @@ public class PopulationTest {
     @Test
 	public void testTrucation_OneMinusZeros() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.ONESMINUSZEROS);
@@ -116,7 +122,9 @@ public class PopulationTest {
     @Test
 	public void testRank () {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.NUMONES);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setSelection(SelectionType.RANK);
         testPopulation.spawnFirstGeneration();
@@ -138,6 +146,7 @@ public class PopulationTest {
     @Test
 	public void testRank_TargetOrganismFitness() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);
@@ -161,6 +170,7 @@ public class PopulationTest {
     @Test
 	public void testRank_ConsectiveNum1s() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.CONSECONES);
@@ -184,6 +194,7 @@ public class PopulationTest {
     @Test
 	public void testRank_FiftyFifty() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.FIFTYFIFTY);
@@ -207,6 +218,7 @@ public class PopulationTest {
     @Test
 	public void testRank_OneMinusZeros() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setSelection(SelectionType.RANK);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
@@ -227,7 +239,9 @@ public class PopulationTest {
     @Test
 	public void testRankRoulette () {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.NUMONES);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setSelection(SelectionType.RANKROULETTE);
         testPopulation.spawnFirstGeneration();
@@ -247,6 +261,7 @@ public class PopulationTest {
     @Test
 	public void testRankRoulette_TargetOrganismFitness() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);
@@ -268,7 +283,9 @@ public class PopulationTest {
     @Test
 	public void testRouletteWheel () {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.NUMONES);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setSelection(SelectionType.ROULETTEWHEEL);
         testPopulation.spawnFirstGeneration();
@@ -288,6 +305,7 @@ public class PopulationTest {
     @Test
 	public void testRoletteWheel_TargetOrganismFitness() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);
@@ -309,50 +327,33 @@ public class PopulationTest {
     @Test
 	public void testLearningChance () {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.NUMONES);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setSelection(SelectionType.LEARNINGCHANCE);
         testPopulation.spawnFirstGeneration();
         Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
-        firstGen[10].setChromosome("1010101010");
-        firstGen[20].setChromosome("0000101010");
+        firstGen[10].setChromosome("10101010??");
+        firstGen[20].setChromosome("00001010??");
         Organism fittestOrganism = testPopulation.getFittest();
-        assertEquals("1010101010",fittestOrganism.getChromosome());
+        assertEquals("1111111111",fittestOrganism.getChromosome());
         testPopulation.nextGeneration();
         Organism newFittestOrganism = testPopulation.getFittest();
-	    assertEquals("1010101010", newFittestOrganism.getChromosome());
+	    assertEquals("1111111111", newFittestOrganism.getChromosome());
         Organism[] secondGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
-        assertEquals("0000000000",secondGen[96].getChromosome());
-        assertEquals("1010101010",secondGen[99].getChromosome());
+        assertEquals("1111111111",secondGen[96].getChromosome());
+        assertEquals("1111111111",secondGen[99].getChromosome());
     }
-
-    // @Test
-	// public void testLearningChance_TargetOrganismFitness() {
-    //     Population testPopulation = new Population();
-    //     testPopulation.getEvolutionParameters().setGenomeLength(10);
-    //     testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
-    //     testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);
-    //     testPopulation.getEvolutionParameters().setSelection(SelectionType.LEARNINGCHANCE);
-    //     testPopulation.spawnFirstGeneration();
-    //     Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
-    //     firstGen[10].setChromosome("1011010000");
-    //     firstGen[20].setChromosome("1010000000");
-    //     Organism fittestOrganism = testPopulation.getFittest();
-    //     assertEquals("1010000000",fittestOrganism.getChromosome());
-    //     testPopulation.nextGeneration();
-    //     Organism newFittestOrganism = testPopulation.getFittest();
-	//     assertEquals("1010000000", newFittestOrganism.getChromosome());
-    //     Organism[] secondGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
-    //     assertEquals("0000000000",secondGen[96].getChromosome());
-    //     assertEquals("1010000000",secondGen[99].getChromosome());
-    // }
 
     @Test
 	public void testStableState () {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setSelection(SelectionType.STABLESTATE);
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.NUMONES);
         testPopulation.spawnFirstGeneration();
         Organism[] firstGen = testPopulation.getEvolutionParameters().getCurrentGeneration();
         firstGen[10].setChromosome("1010101010");
@@ -371,6 +372,7 @@ public class PopulationTest {
     @Test
 	public void testStableState_TargetOrganismFitness() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);
@@ -393,6 +395,8 @@ public class PopulationTest {
     @Test
 	public void testAlternate () {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.NUMONES);
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setSelection(SelectionType.ALTERNATE);
@@ -414,6 +418,7 @@ public class PopulationTest {
     @Test
 	public void testAlternate_TargetOrganismFitness() {
         Population testPopulation = new Population();
+        testPopulation.getEvolutionParameters().setCrossover(true);
         testPopulation.getEvolutionParameters().setGenomeLength(10);
         testPopulation.getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
         testPopulation.getEvolutionParameters().setFitnessMethod(FitnessType.TARGETORG);

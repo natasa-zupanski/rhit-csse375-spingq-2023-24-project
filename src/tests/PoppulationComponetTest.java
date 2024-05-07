@@ -38,7 +38,7 @@ public class PoppulationComponetTest {
         assertEquals("500", pComponent.handleGetNumGens());
         assertEquals("100", pComponent.handleGetGenSize());
         assertEquals("100", pComponent.handleGetGenomeLength());
-        assertEquals(true, pComponent.handleGetCrossover());
+        assertEquals(false, pComponent.handleGetCrossover());
         assertEquals("1", pComponent.handleGetElitism());
         assertEquals(0, pComponent.handleGetGensSoFar());
         assertEquals("100", pComponent.handleGetTermination());
@@ -57,9 +57,9 @@ public class PoppulationComponetTest {
         pComponent.handleSetNumGens(200);
         assertEquals("200", pComponent.handleGetNumGens());
 
-        assertEquals(true, pComponent.handleGetCrossover());
-        pComponent.handleSetCrossover(false);
         assertEquals(false, pComponent.handleGetCrossover());
+        pComponent.handleSetCrossover(true);
+        assertEquals(true, pComponent.handleGetCrossover());
 
         assertEquals("100", pComponent.handleGetGenSize());
         pComponent.handleSetGenSize(105);
@@ -77,9 +77,9 @@ public class PoppulationComponetTest {
         pComponent.handleSetTermination(50);
         assertEquals("50", pComponent.handleGetTermination());
 
-        assertEquals(FitnessType.NUMONES, pComponent.getPopulation().getEvolutionParameters().getFitnessType());
-        pComponent.handleSetFitness(FitnessType.TARGETORG);
         assertEquals(FitnessType.TARGETORG, pComponent.getPopulation().getEvolutionParameters().getFitnessType());
+        pComponent.handleSetFitness(FitnessType.NUMONES);
+        assertEquals(FitnessType.NUMONES, pComponent.getPopulation().getEvolutionParameters().getFitnessType());
 
         assertEquals(SelectionType.TRUNCATION, pComponent.getPopulation().getEvolutionParameters().getSelectionType());
         pComponent.handleSetSelection(SelectionType.RANK);
