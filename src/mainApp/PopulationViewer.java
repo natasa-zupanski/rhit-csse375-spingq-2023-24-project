@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -86,6 +88,8 @@ public class PopulationViewer extends Views {
 			}
 		};
 		fitnessOptions.addActionListener(fitnessListener);
+		String[] toolTipsFit = FitnessStrategyFactory.getToolTips();
+		fitnessOptions.setRenderer(new ComboBoxToolTip(toolTipsFit));
 
 		JLabel selectionLabel = new JLabel("Selection Method", SwingConstants.CENTER);
 		selectionLabel.setToolTipText(
@@ -97,20 +101,12 @@ public class PopulationViewer extends Views {
 		WrappedLabel selectionTexts[] = new WrappedLabel[selectionMethods.length];
 		for (int i = 0; i < selectionMethods.length; i++) {
 			selectionTexts[i] = new WrappedLabel(selectionMethods[i]);
-			// selectionTexts[i].setToolTipText("WEEE");
 		}
+
 		JComboBox<WrappedLabel> selectionOptions = new JComboBox<WrappedLabel>(selectionTexts);
 		String learningChance = SelectionStrategyFactory.getSelectionStringFromType(SelectionType.LEARNINGCHANCE);
-		// JComboBox<JLabel> selectionOptions = new JComboBox<>(selectionTexts);
-		// selectionOptions.getComponent(i) // for each and add the corresponding tool
-		// tip
-		/*
-		 * for (int i = 0; i < selectionMethods.length; i++) {
-		 * //Component comp = selectionOptions.getComponent(i);
-		 * //comp.
-		 * selectionOptions.
-		 * }
-		 */
+		String[] toolTipsSel = SelectionStrategyFactory.getToolTips();
+		selectionOptions.setRenderer(new ComboBoxToolTip(toolTipsSel));
 		selectionOptions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -126,49 +122,6 @@ public class PopulationViewer extends Views {
 				}
 			}
 		});
-
-		/*
-		 * selectionOptions.addMouseListener(new MouseListener() {
-		 * Component current;
-		 * Timer timer;
-		 * 
-		 * public void mouseEntered(MouseEvent e) {
-		 * Component next = selectionOptions.getComponentAt(e.getPoint());
-		 * if (next == null) {
-		 * // outside of the combobox
-		 * } else if (current != next) {
-		 * // we've changed what we're over
-		 * startTimer();
-		 * }
-		 * }
-		 * 
-		 * private void startTimer() {
-		 * timer = new Timer(500, new ActionListener() {
-		 * public void actionPerformed(ActionEvent e) {
-		 * selectionOptions.setToolTipText("WEEEE");
-		 * }
-		 * });
-		 * timer.setRepeats(false);
-		 * timer.start();
-		 * }
-		 * 
-		 * public void mouseExited(MouseEvent e) {
-		 * 
-		 * }
-		 * 
-		 * public void mouseReleased(MouseEvent e) {
-		 * 
-		 * }
-		 * 
-		 * public void mouseClicked(MouseEvent e) {
-		 * 
-		 * }
-		 * 
-		 * public void mousePressed(MouseEvent e) {
-		 * 
-		 * }
-		 * });
-		 */
 
 		JCheckBox crossoverCheckBox = new JCheckBox("Crossover?");
 		crossoverCheckBox.addActionListener(new ActionListener() {
@@ -192,42 +145,12 @@ public class PopulationViewer extends Views {
 		mutationRateText.addKeyListener(mutationRateListener);
 		mutationRateText.addFocusListener(mutationRateListener);
 
-		/*
-		 * mutationRateText.addActionListener(new ActionListener() {
-		 * 
-		 * @Override
-		 * public void actionPerformed(ActionEvent e) {
-		 * int rate = Integer.parseInt(mutationRateText.getText());
-		 * if (rate < 0 || rate > MAX_MUTATE_RATE) {
-		 * System.out.println("NOT YET IMPLEMENTED - NEG OR OVER MAX MUTATE RATE");
-		 * } else {
-		 * pop.handleSetMutationRate(rate);
-		 * }
-		 * }
-		 * });
-		 */
-
 		JLabel numGensLabel = new JLabel("# of Gens.", SwingConstants.CENTER);
 		JTextField numGensText = new JTextField(pop.handleGetNumGens());
 		CompoundInvalidInputListener numGensListener = new CompoundInvalidInputListener(InputType.NUMGENS, numGensText,
 				0, MAX_NUM_GENS, pop);
 		numGensText.addKeyListener(numGensListener);
 		numGensText.addFocusListener(numGensListener);
-
-		/*
-		 * numGensText.addActionListener(new ActionListener() {
-		 * 
-		 * @Override
-		 * public void actionPerformed(ActionEvent e) {
-		 * int num = Integer.parseInt(numGensText.getText());
-		 * if (num > 0 && num <= MAX_NUM_GENS) {
-		 * pop.handleSetNumGens(num);
-		 * } else {
-		 * System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX NUM OF GENS");
-		 * }
-		 * }
-		 * });
-		 */
 
 		JLabel genomeLengthLabel = new JLabel("Genome Length", SwingConstants.CENTER);
 		JTextField genomeLengthText = new JTextField(pop.handleGetGenomeLength());
@@ -236,42 +159,12 @@ public class PopulationViewer extends Views {
 		genomeLengthText.addKeyListener(genomeLengthListener);
 		genomeLengthText.addFocusListener(genomeLengthListener);
 
-		/*
-		 * genomeLengthText.addActionListener(new ActionListener() {
-		 * 
-		 * @Override
-		 * public void actionPerformed(ActionEvent e) {
-		 * int length = Integer.parseInt(genomeLengthText.getText());
-		 * if (length > 0 && length <= MAX_LENGTH) {
-		 * pop.handleSetGenomeLength(length);
-		 * } else {
-		 * System.out.println("NOT YET IMPLEMENTED - NON POS OR OVER MAX LENGTH");
-		 * }
-		 * }
-		 * });
-		 */
-
 		JLabel elitismLabel = new JLabel("Elitism %", SwingConstants.CENTER);
 		JTextField elitismText = new JTextField(pop.handleGetElitism());
 		CompoundInvalidInputListener elistismListener = new CompoundInvalidInputListener(InputType.ELITISM, elitismText,
 				-1, 100, pop);
 		elitismText.addKeyListener(elistismListener);
 		elitismText.addFocusListener(elistismListener);
-		/*
-		 * elitismText.addActionListener(new ActionListener() {
-		 * 
-		 * @Override
-		 * public void actionPerformed(ActionEvent e) {
-		 * int rate = Integer.parseInt(elitismText.getText());
-		 * System.out.println("Elitism: " + rate);
-		 * if (rate >= 0 && rate <= 100) {
-		 * pop.handleSetElitism(rate);
-		 * } else {
-		 * System.out.println("NOT YET IMPLEMENTED - NEG OR OVER 100 PERCENT ELITISM");
-		 * }
-		 * }
-		 * });
-		 */
 
 		JLabel terminationLabel = new JLabel("Termination Fitness", SwingConstants.CENTER);
 		JTextField terminationText = new JTextField(pop.handleGetTermination());
@@ -279,16 +172,6 @@ public class PopulationViewer extends Views {
 				InputType.TERMINATIONFITNESS, terminationText, 0, Integer.parseInt(pop.handleGetGenomeLength()), pop);
 		terminationText.addKeyListener(terminationListener);
 		terminationText.addFocusListener(terminationListener);
-		/*
-		 * terminationText.addActionListener(new ActionListener() {
-		 * 
-		 * @Override
-		 * public void actionPerformed(ActionEvent e) {
-		 * int condition = Integer.parseInt(terminationText.getText());
-		 * pop.handleSetTermination(condition);
-		 * }
-		 * });
-		 */
 
 		JButton startButton = new JButton("Start Evoltuion");
 		startButton.addActionListener(new ActionListener() {
@@ -296,20 +179,6 @@ public class PopulationViewer extends Views {
 			public void actionPerformed(ActionEvent e) {
 				if (status == Status.STOPPED) {
 					String targetOranism = organismViewer.getTargetOrganism();
-					/*
-					 * pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
-					 * Integer.parseInt(numGensText.getText()),
-					 * Integer.parseInt(genSizeText.getText()),
-					 * Integer.parseInt(genomeLengthText.getText()),
-					 * Integer.parseInt(elitismText.getText()),
-					 * SelectionStrategyFactory
-					 * .getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
-					 * FitnessStrategyFactory.getTypeFromString((String)
-					 * fitnessOptions.getSelectedItem()),
-					 * crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()),
-					 * targetOranism);
-					 * // System.out.println((String) fitnessOptions.getSelectedItem());
-					 */
 					if (SelectionStrategyFactory.getSelectionTypeFromString(
 							(String) selectionOptions.getSelectedItem().toString()) == SelectionType.LEARNINGCHANCE) {
 						selectionOptions.setEnabled(false);
@@ -344,20 +213,6 @@ public class PopulationViewer extends Views {
 				timer.stop();
 				startButton.setText("Start");
 				selectionOptions.setEnabled(true);
-				// String targetOrganism = organismViewer.getTargetOrganism();
-				/*
-				 * pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
-				 * Integer.parseInt(numGensText.getText()),
-				 * Integer.parseInt(genSizeText.getText()),
-				 * Integer.parseInt(genomeLengthText.getText()),
-				 * Integer.parseInt(elitismText.getText()),
-				 * SelectionStrategyFactory
-				 * .getSelectionTypeFromString((String) selectionOptions.getSelectedItem()),
-				 * FitnessStrategyFactory.getTypeFromString((String)
-				 * fitnessOptions.getSelectedItem()),
-				 * crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()),
-				 * targetOrganism);
-				 */
 				boolean toAdd = true;
 				for (int i = 0; i < selectionOptions.getComponentCount(); i++) {
 					if (selectionOptions.getComponent(i).toString().equals(learningChance)) {

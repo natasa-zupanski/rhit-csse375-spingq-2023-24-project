@@ -72,4 +72,14 @@ public class SelectionStrategyFactory {
                 "Learning Chance" };
         return methods;
     }
+
+    public static String[] getToolTips() {
+        String[] tips = { "Takes upper half of organisms and copies into bottom half.",
+                "Random choice with chance proportional to fitness.",
+                "Takes top ranked organisms. Rank is determined by fitness.",
+                "Random choice with chance proportional to rank.", "Copies top 10% over rest of organisms.",
+                "Takes every other organism.",
+                "Random choice with chance proportional to performance in learning which counts tries required for each organism to get all 1s by randomly settung underdetermined genes." };
+        return tips;
+    }
 }

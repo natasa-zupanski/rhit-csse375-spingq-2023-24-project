@@ -54,4 +54,12 @@ public class FitnessStrategyFactory {
                 "Fifty Fifty", "1s minus 0s" };
         return methods;
     }
+
+    public static String[] getToolTips() {
+        String[] tips = { "Number of genes that match the target organism. See Chromosome Viewer.",
+                "Number of 1s in the genetic code.", "Largest run of consecutive 1s in the genetic code.",
+                "Difference from a 50-50 split of 1s and 0s, order unimportant.",
+                "Number of 1s minus the number of 0s in the genetic code." };
+        return tips;
+    }
 }
