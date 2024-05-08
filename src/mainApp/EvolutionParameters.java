@@ -319,4 +319,8 @@ public class EvolutionParameters {
     public void setTargetOrganism(String targetOrganism2) {
         this.targetOrganism = targetOrganism2;
     }
+
+    public void setUnsure(boolean b) {
+        isUnsure = b;
+    }
 }

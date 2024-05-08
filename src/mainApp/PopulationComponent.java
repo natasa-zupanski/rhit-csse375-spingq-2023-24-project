@@ -33,7 +33,6 @@ public class PopulationComponent extends JComponent {
 
 	public void updateState() {
 		this.population.nextGeneration();
-
 	}
 
 	@Override
@@ -150,5 +149,4 @@ public class PopulationComponent extends JComponent {
 	public void setTargetOrganism(String targetOrganism) {
 		this.evolutionParameters.setTargetOrganism(targetOrganism);
 	}
-
 }
