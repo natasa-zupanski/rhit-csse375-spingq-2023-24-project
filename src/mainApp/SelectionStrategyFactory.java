@@ -68,8 +68,8 @@ public class SelectionStrategyFactory {
     }
 
     public static String[] getStrings() {
-        String[] methods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State",
-                "Learning Chance", "Alternate" };
+        String[] methods = { "Truncation", "Roulette Wheel", "Rank", "Rank Roulette", "Stable State", "Alternate",
+                "Learning Chance" };
         return methods;
     }
 }
