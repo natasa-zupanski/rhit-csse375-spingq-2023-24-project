@@ -1,6 +1,7 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -76,13 +78,14 @@ public class PopulationViewer extends Views {
 		String[] fitnessMethods = FitnessStrategyFactory.getStrings();// { "Num. of 1s", "Target Organism", "Consec.
 																		// num. of 1s" };
 		JComboBox<String> fitnessOptions = new JComboBox<String>(fitnessMethods);
-		fitnessOptions.addActionListener(new ActionListener() {
+		ActionListener fitnessListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				pop.handleSetFitness(
 						FitnessStrategyFactory.getTypeFromString((String) fitnessOptions.getSelectedItem()));
 			}
-		});
+		};
+		fitnessOptions.addActionListener(fitnessListener);
 
 		JLabel selectionLabel = new JLabel("Selection Method", SwingConstants.CENTER);
 		selectionLabel.setToolTipText(
@@ -90,15 +93,14 @@ public class PopulationViewer extends Views {
 		String[] selectionMethods = SelectionStrategyFactory.getStrings();// { "Truncation", "Roulette Wheel", "Rank",
 																			// "Rank Roulette", "Stable State" ,
 																			// "Learning Chance"};
-		/*
-		 * WrappedLabel selectionTexts[] = new WrappedLabel[selectionMethods.length];
-		 * for (int i = 0; i < selectionMethods.length; i++) {
-		 * selectionTexts[i] = new WrappedLabel(selectionMethods[i]);
-		 * selectionTexts[i].setToolTipText("WEEE");
-		 * 
-		 * }
-		 */
-		JComboBox<String> selectionOptions = new JComboBox<String>(selectionMethods);
+
+		WrappedLabel selectionTexts[] = new WrappedLabel[selectionMethods.length];
+		for (int i = 0; i < selectionMethods.length; i++) {
+			selectionTexts[i] = new WrappedLabel(selectionMethods[i]);
+			// selectionTexts[i].setToolTipText("WEEE");
+		}
+		JComboBox<WrappedLabel> selectionOptions = new JComboBox<WrappedLabel>(selectionTexts);
+		String learningChance = SelectionStrategyFactory.getSelectionStringFromType(SelectionType.LEARNINGCHANCE);
 		// JComboBox<JLabel> selectionOptions = new JComboBox<>(selectionTexts);
 		// selectionOptions.getComponent(i) // for each and add the corresponding tool
 		// tip
@@ -113,8 +115,10 @@ public class PopulationViewer extends Views {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SelectionType type = SelectionStrategyFactory
-						.getSelectionTypeFromString((String) selectionOptions.getSelectedItem());
+						.getSelectionTypeFromString((String) selectionOptions.getSelectedItem().toString());
+				fitnessListener.actionPerformed(e);
 				pop.handleSetSelection(type);
+
 				if (type == SelectionType.LEARNINGCHANCE) {
 					fitnessOptions.setEnabled(false);
 				} else if (!fitnessOptions.isEnabled()) {
@@ -306,6 +310,14 @@ public class PopulationViewer extends Views {
 					 * targetOranism);
 					 * // System.out.println((String) fitnessOptions.getSelectedItem());
 					 */
+					if (SelectionStrategyFactory.getSelectionTypeFromString(
+							(String) selectionOptions.getSelectedItem().toString()) == SelectionType.LEARNINGCHANCE) {
+						selectionOptions.setEnabled(false);
+					} else {
+						System.out.println("Muthafaka");
+						selectionOptions.removeItem(selectionTexts[selectionTexts.length - 1]);
+						// selectionOptions.remove(selectionOptions.getComponentCount() - 1);
+					}
 					pop.createNewPopulation();
 					pop.setTargetOrganism(targetOranism);
 					pop.handleRunPopulationEvol();
@@ -331,7 +343,8 @@ public class PopulationViewer extends Views {
 				timer.restart();
 				timer.stop();
 				startButton.setText("Start");
-				//String targetOrganism = organismViewer.getTargetOrganism();
+				selectionOptions.setEnabled(true);
+				// String targetOrganism = organismViewer.getTargetOrganism();
 				/*
 				 * pop.createNewPopulation(Integer.parseInt(mutationRateText.getText()),
 				 * Integer.parseInt(numGensText.getText()),
@@ -345,6 +358,16 @@ public class PopulationViewer extends Views {
 				 * crossoverCheckBox.isSelected(), Integer.parseInt(terminationText.getText()),
 				 * targetOrganism);
 				 */
+				boolean toAdd = true;
+				for (int i = 0; i < selectionOptions.getComponentCount(); i++) {
+					if (selectionOptions.getComponent(i).toString().equals(learningChance)) {
+						toAdd = false;
+						break;
+					}
+				}
+				if (toAdd) {
+					selectionOptions.addItem(selectionTexts[selectionTexts.length - 1]);
+				}
 
 				pop.createNewPopulation();
 				pop.repaint();
