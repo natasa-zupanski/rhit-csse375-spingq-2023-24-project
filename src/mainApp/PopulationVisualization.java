@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 
 import java.awt.Color;
+import java.awt.Font;
 
 public class PopulationVisualization implements PopulationVisualizationInterface {
 	private GraphicsParameters graphicParam;
@@ -47,48 +48,57 @@ public class PopulationVisualization implements PopulationVisualizationInterface
 		g.setColor(Color.BLACK);
 
 		for (int i = 0; i <= 10; i++) {
-			g.drawLine(50 + i * scale * numOfGens / 10, 350 - 5, 50 + i * scale * numOfGens / 10, 350 + 5);
-			g.drawString("" + i * numOfGens / 10, 50 + (i * scale * numOfGens / 10) - 10, 350 + 20);
-			g.drawLine(50 - 5, 350 - i * 30, 50 + 5, 350 - i * 30);
-			g.drawString("" + i * 10, 50 - 25, 350 - (i * 30) + 5);
+			g.drawLine(70 + i * scale * numOfGens / 10, 345, 70 + i * scale * numOfGens / 10, 355);
+			g.drawString("" + i * numOfGens / 10, 70 + (i * scale * numOfGens / 10) - 10, 370);
+			g.drawLine(65, 350 - i * 30, 75, 350 - i * 30);
+			g.drawString("" + i * 10, 45, 350 - (i * 30) + 5);
 		}
+		g.setFont(new Font("Ariel", Font.BOLD, 12));
+		g.drawString("Generation", 550, 400);
+		String yLabel = "Fitness";
+		int y = 150;
+		for (int i = 0; i < yLabel.length(); i++) {
+            String character = String.valueOf(yLabel.charAt(i));
+            g.drawString(character, 20, y);
+            y += g.getFontMetrics().getHeight(); 
+        }
 
 		g.setStroke(new BasicStroke(2));
 
-		g.drawLine(50, 350, 50 + 1000, 350);
-		g.drawLine(50, 50, 50, 350);
+		g.drawLine(70, 350, 1070, 350);
+		g.drawLine(70, 50, 70, 350);
 
 		g.setColor(Color.GRAY);
 		g.setStroke(new BasicStroke(1));
 		if (gensSoFar() > 2) {
-			g.drawLine(50, 350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3, 50 + (gensSoFar() - 2) * scale,
+			g.drawLine(70, 350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3, 70 + (gensSoFar() - 2) * scale,
 					350 - graphicParam.getBestFitness(gensSoFar() - 2) * 3);
 		}
 
 		g.setStroke(new BasicStroke(2));
 		for (int i = 0; i < gensSoFar() - 2; i++) {
 			g.setColor(Color.GREEN);
-			g.drawLine(50 + i * scale, (350 - graphicParam.getBestFitness(i) * 3), 50 + (i + 1) * scale,
+			g.drawLine(70 + i * scale, (350 - graphicParam.getBestFitness(i) * 3), 70 + (i + 1) * scale,
 					(350 - graphicParam.getBestFitness(i + 1) * 3));
 			g.setColor(Color.ORANGE);
-			g.drawLine(50 + i * scale, 350 - graphicParam.getAvgFitness(i) * 3, 50 + (i + 1) * scale,
+			g.drawLine(70 + i * scale, 350 - graphicParam.getAvgFitness(i) * 3, 70 + (i + 1) * scale,
 					350 - graphicParam.getAvgFitness(i + 1) * 3);
 			g.setColor(Color.RED);
-			g.drawLine(50 + i * scale, 350 - graphicParam.getLowFitness(i) * 3, 50 + (i + 1) * scale,
+			g.drawLine(70 + i * scale, 350 - graphicParam.getLowFitness(i) * 3, 70 + (i + 1) * scale,
 					350 - graphicParam.getLowFitness(i + 1) * 3);
 			g.setColor(Color.MAGENTA);
-			g.drawLine(50 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)),
-					50 + (i + 1) * scale,
+			g.drawLine(70 + i * scale, 350 - (graphicParam.getBestFitness(i) - graphicParam.getLowFitness(i)),
+					70 + (i + 1) * scale,
 					350 - ((graphicParam.getBestFitness(i + 1) - graphicParam.getLowFitness(i + 1))));
 			if (this.parameters.getSelectionType() == SelectionType.LEARNINGCHANCE) {
 				g.setColor(Color.BLUE);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum1s(i) * 3, 50 + (i + 1) * scale,
+				g.drawLine(70 + i * scale, 350 - graphicParam.getAvgNum1s(i) * 3, 70 + (i + 1) * scale,
 						350 - graphicParam.getAvgNum1s(i + 1) * 3);
 				g.setColor(Color.CYAN);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNum0s(i) * 3, 50 + (i + 1) * scale,
+				g.drawLine(70 + i * scale, 350 - graphicParam.getAvgNum0s(i) * 3, 70 + (i + 1) * scale,
 						350 - graphicParam.getAvgNum0s(i + 1) * 3);
 				g.setColor(Color.LIGHT_GRAY);
-				g.drawLine(50 + i * scale, 350 - graphicParam.getAvgNumQs(i) * 3, 50 + (i + 1) * scale,
+				g.drawLine(70 + i * scale, 350 - graphicParam.getAvgNumQs(i) * 3, 70 + (i + 1) * scale,
 						350 - graphicParam.getAvgNumQs(i + 1) * 3);
 
 			}
