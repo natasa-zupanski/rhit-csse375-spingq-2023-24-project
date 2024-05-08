@@ -68,6 +68,32 @@ public class PopulationVisualization implements PopulationVisualizationInterface
 		g.drawLine(70, 350, 1070, 350);
 		g.drawLine(70, 50, 70, 350);
 
+		g.setStroke(new BasicStroke(4));
+		g.setColor(Color.GREEN);
+		g.drawLine(100, 415, 110, 415);
+		g.setColor(Color.ORANGE);
+		g.drawLine(220, 415, 230, 415);
+		g.setColor(Color.RED);
+		g.drawLine(340, 415, 350, 415);
+		g.setColor(Color.MAGENTA);
+		g.drawLine(450, 415, 460, 415);
+		g.setColor(Color.BLUE);
+		g.drawLine(570, 415, 580, 415);
+		g.setColor(Color.CYAN);
+		g.drawLine(720, 415, 730, 415);
+		g.setColor(Color.LIGHT_GRAY);
+		g.drawLine(870, 415, 880, 415);
+
+		g.setFont(new Font("Ariel", Font.PLAIN, 12));
+		g.setColor(Color.BLACK);
+		g.drawString("Greatest Fitness", 120, 420);
+		g.drawString("Average Fitness", 240, 420);
+		g.drawString("Lowest Fitness", 360, 420);
+		g.drawString("Range of Fitness", 470, 420);
+		g.drawString("Average Number of 1s", 590, 420);
+		g.drawString("Average Number of 0s", 740, 420);
+		g.drawString("Average Number of Qs", 890, 420);
+
 		g.setColor(Color.GRAY);
 		g.setStroke(new BasicStroke(1));
 		if (gensSoFar() > 2) {
