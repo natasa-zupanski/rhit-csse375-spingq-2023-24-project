@@ -7,8 +7,10 @@ import javax.swing.JFrame;
 import org.junit.Test;
 
 import mainApp.FitnessType;
+import mainApp.Organism;
 import mainApp.Population;
 import mainApp.PopulationComponent;
+import mainApp.RandomType;
 import mainApp.SelectionType;
 
 public class PoppulationComponetTest {
@@ -68,6 +70,10 @@ public class PoppulationComponetTest {
         assertEquals(SelectionType.TRUNCATION, pComponent.getPopulation().getEvolutionParameters().getSelectionType());
         pComponent.handleSetSelection(SelectionType.RANK);
         assertEquals(SelectionType.RANK, pComponent.getPopulation().getEvolutionParameters().getSelectionType());
+        assertEquals(FitnessType.NUMONES, pComponent.getPopulation().getEvolutionParameters().getFitnessType());
+        pComponent.handleSetSelection(SelectionType.LEARNINGCHANCE);
+        assertEquals(SelectionType.LEARNINGCHANCE, pComponent.getPopulation().getEvolutionParameters().getSelectionType());
+        assertEquals(FitnessType.LEARNINGCHANCE, pComponent.getPopulation().getEvolutionParameters().getFitnessType());
 
     }
 
@@ -94,13 +100,78 @@ public class PoppulationComponetTest {
 
     //Integration testing
     @Test
+    public void testHandleRunPopulationEvol() {
+        Population testPopulation = new Population();
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
+        assertArrayEquals(new Organism[100],pComponent.handleGetLatestGen());
+        pComponent.handleRunPopulationEvol();
+        assertTrue(new Organism[100] != pComponent.handleGetLatestGen());
+    }
+
+    @Test
     public void testCreateNewPopulation() {
         Population testPopulation = new Population();
         PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
-        testPopulation.getEvolutionParameters().setUnsure(true);
-        testPopulation.getEvolutionParameters().terminate();
+        pComponent.getPopulation().getEvolutionParameters().setUnsure(true);
+        pComponent.handleRunPopulationEvol();
+        pComponent.getPopulation().getEvolutionParameters().terminate();
+        Organism[] currentGen = pComponent.handleGetLatestGen();
         pComponent.createNewPopulation();
-        assertFalse(testPopulation.getEvolutionParameters().getUnsure());
-        assertFalse(testPopulation.getEvolutionParameters().getTerminated());
+        assertFalse(pComponent.getPopulation().getEvolutionParameters().getUnsure());
+        assertFalse(pComponent.getPopulation().getEvolutionParameters().getTerminated());
+        assertArrayEquals(new Organism[100],pComponent.handleGetLatestGen());
+        assertTrue(currentGen != pComponent.handleGetLatestGen());
     }
+
+    @Test
+    public void testCreateNewPopulation_LearningChance() {
+        Population testPopulation = new Population();
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
+        pComponent.getPopulation().getEvolutionParameters().setSelection(SelectionType.LEARNINGCHANCE);
+        pComponent.getPopulation().getEvolutionParameters().setUnsure(true);
+        pComponent.handleRunPopulationEvol();
+        pComponent.getPopulation().getEvolutionParameters().terminate();
+        Organism[] currentGen = pComponent.handleGetLatestGen();
+        pComponent.createNewPopulation();
+        assertTrue(pComponent.getPopulation().getEvolutionParameters().getUnsure());
+        assertFalse(pComponent.getPopulation().getEvolutionParameters().getTerminated()); 
+        assertArrayEquals(new Organism[100],pComponent.handleGetLatestGen());
+        assertTrue(currentGen != pComponent.handleGetLatestGen());
+    }
+
+    @Test
+    public void testUpdateState() {
+        Population testPopulation = new Population();
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
+        pComponent.getPopulation().getEvolutionParameters().setGenomeLength(10);
+        pComponent.getPopulation().getEvolutionParameters().setRandomeType(RandomType.FAKEPOPULATION);
+        pComponent.handleRunPopulationEvol();
+        Organism[] firstGen = pComponent.handleGetLatestGen();
+        assertEquals("0000000000", pComponent.getPopulation().getFittest().getChromosome());
+        firstGen[10].setChromosome("1010000000");
+        pComponent.updateState();
+        Organism[] secondGen = pComponent.handleGetLatestGen();
+        assertEquals("1010000000", pComponent.getPopulation().getFittest().getChromosome());
+        assertTrue(firstGen != secondGen);
+    }
+
+    @Test
+    public void testHadleTermination() {
+        Population testPopulation = new Population();
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
+        assertFalse(pComponent.getPopulation().getEvolutionParameters().getTerminated());
+        pComponent.handleRunPopulationEvol();
+        pComponent.handleTerminate();
+        assertTrue(pComponent.getPopulation().getEvolutionParameters().getTerminated());
+    }
+
+    @Test
+    public void testSetTargetOrganism() {
+        Population testPopulation = new Population();
+        PopulationComponent pComponent = new PopulationComponent(testPopulation, new JFrame());
+        assertEquals("1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110", pComponent.getPopulation().getEvolutionParameters().getTargetOrganism());
+        pComponent.setTargetOrganism("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+        assertEquals("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111", pComponent.getPopulation().getEvolutionParameters().getTargetOrganism());
+    }
+
 }
