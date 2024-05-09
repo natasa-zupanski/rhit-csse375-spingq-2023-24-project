@@ -68,6 +68,9 @@ public class PopulationViewer extends Views {
 		organismViewer.runApp();
 		fittestOrganism.setUpViewer();
 		generationViewer.setUpViewer();
+		organismViewer.frame.setVisible(false);
+		fittestOrganism.frame.setVisible(false);
+		generationViewer.frame.setVisible(false);
 
 		final int frameWidth = 1500;
 		final int frameHeight = 600;
@@ -237,7 +240,7 @@ public class PopulationViewer extends Views {
 			}
 		});
 
-		JCheckBox fittestViewToggle = new JCheckBox("Open Fittest Organism Viewer", true);
+		JCheckBox fittestViewToggle = new JCheckBox("Open Fittest Organism Viewer");
 		fittestViewToggle.addActionListener(new ActionListener() {
 
 			@Override
@@ -290,7 +293,7 @@ public class PopulationViewer extends Views {
 			}
 		});
 
-		JCheckBox generationViewToggle = new JCheckBox("Open Generation Viewer", true);
+		JCheckBox generationViewToggle = new JCheckBox("Open Generation Viewer");
 		generationViewToggle.addActionListener(new ActionListener() {
 
 			@Override
@@ -343,7 +346,7 @@ public class PopulationViewer extends Views {
 			}
 		});
 
-		JCheckBox organismViewToggle = new JCheckBox("Open Chromosome Viewer", true);
+		JCheckBox organismViewToggle = new JCheckBox("Open Chromosome Viewer");
 		organismViewToggle.addActionListener(new ActionListener() {
 
 			@Override
