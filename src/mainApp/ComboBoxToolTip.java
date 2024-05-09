@@ -11,7 +11,7 @@ public class ComboBoxToolTip extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
+    public Component getListCellRendererComponent(JList<?> list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
 
         JComponent comp = (JComponent) super.getListCellRendererComponent(list,
