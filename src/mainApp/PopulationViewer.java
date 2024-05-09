@@ -4,10 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -17,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
@@ -231,27 +237,162 @@ public class PopulationViewer extends Views {
 			}
 		});
 
-		JButton openFitnessButton = new JButton("Open Fittest Organism Viewer");
-		openFitnessButton.addActionListener(new ActionListener() {
+		JCheckBox fittestViewToggle = new JCheckBox("Open Fittest Organism Viewer", true);
+		fittestViewToggle.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fittestOrganism.runApp();
+				if (fittestOrganism.frame.isVisible()) {
+					fittestOrganism.frame.setVisible(false);
+					fittestViewToggle.setSelected(false);
+				} else {
+					fittestOrganism.frame.setVisible(true);
+					fittestViewToggle.setSelected(true);
+				}
+			}
+
+		});
+		fittestOrganism.frame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				fittestViewToggle.setSelected(false);
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+
 			}
 		});
 
-		JButton openGenerationButton = new JButton("Open Generation Viewer");
-		openGenerationButton.addActionListener(new ActionListener() {
+		JCheckBox generationViewToggle = new JCheckBox("Open Generation Viewer", true);
+		generationViewToggle.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				generationViewer.runApp();
+				if (generationViewer.frame.isVisible()) {
+					generationViewer.frame.setVisible(false);
+					generationViewToggle.setSelected(false);
+				} else {
+					generationViewer.frame.setVisible(true);
+					generationViewToggle.setSelected(true);
+				}
+			}
+
+		});
+		generationViewer.frame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				generationViewToggle.setSelected(false);
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+
 			}
 		});
 
-		JButton openOrganismButton = new JButton("Open Chromosome Viewer");
-		openOrganismButton.addActionListener(new ActionListener() {
+		JCheckBox organismViewToggle = new JCheckBox("Open Chromosome Viewer", true);
+		organismViewToggle.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				organismViewer.runApp();
+				if (organismViewer.frame.isVisible()) {
+					organismViewer.frame.setVisible(false);
+					organismViewToggle.setSelected(false);
+				} else {
+					organismViewer.frame.setVisible(true);
+					organismViewToggle.setSelected(true);
+				}
+			}
+
+		});
+		organismViewer.frame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				organismViewToggle.setSelected(false);
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+
 			}
 		});
 
@@ -259,9 +400,10 @@ public class PopulationViewer extends Views {
 		Dimension buttonPanelSize = new Dimension(100, 30);
 		JLabel menuLabel = new JLabel("Views Manager:", SwingConstants.CENTER);
 		buttonPanel.add(menuLabel);
-		buttonPanel.add(openFitnessButton);
-		buttonPanel.add(openGenerationButton);
-		buttonPanel.add(openOrganismButton);
+		// buttonPanel.add(openFitnessButton);
+		buttonPanel.add(fittestViewToggle);
+		buttonPanel.add(generationViewToggle);
+		buttonPanel.add(organismViewToggle);
 		buttonPanel.setPreferredSize(buttonPanelSize);
 		this.frame.add(buttonPanel, BorderLayout.NORTH);
 
