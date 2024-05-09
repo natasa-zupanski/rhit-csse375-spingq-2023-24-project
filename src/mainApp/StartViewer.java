@@ -1,9 +1,7 @@
 package mainApp;
 
 import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.LayoutManager;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
