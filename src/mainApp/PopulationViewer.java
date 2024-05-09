@@ -1,7 +1,6 @@
 package mainApp;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,7 +11,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -214,8 +212,8 @@ public class PopulationViewer extends Views {
 				startButton.setText("Start");
 				selectionOptions.setEnabled(true);
 				boolean toAdd = true;
-				for (int i = 0; i < selectionOptions.getComponentCount(); i++) {
-					if (selectionOptions.getComponent(i).toString().equals(learningChance)) {
+				for (int i = 0; i < selectionOptions.getItemCount(); i++) {
+					if (selectionOptions.getItemAt(i).toString().equals(learningChance)) {
 						toAdd = false;
 						break;
 					}
