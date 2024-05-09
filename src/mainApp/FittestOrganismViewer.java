@@ -1,10 +1,10 @@
 package mainApp;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 import javax.swing.JPanel;
 
 /**
@@ -41,18 +41,18 @@ public class FittestOrganismViewer extends Views {
 
 		JPanel top = new JPanel(new GridLayout(1, 6));
 		top.setSize(200, 50);
-
-		JLabel color = new JLabel("//////////");
-		color.setForeground(Color.GREEN);
+		JPanel color = new JPanel(new GridLayout(1, 1));
+		color.setBackground(Color.GREEN);
 		top.add(color);
 		JLabel colorLabel = new JLabel("1s");
 		top.add(colorLabel);
-		JLabel black = new JLabel("//////////");
+		JPanel black = new JPanel(new GridLayout(1, 1));
+		black.setBackground(Color.BLACK);
 		top.add(black);
 		JLabel blackLabel = new JLabel("0s");
 		top.add(blackLabel);
-		JLabel white = new JLabel("//////////");
-		white.setForeground(Color.WHITE);
+		JPanel white = new JPanel(new GridLayout(1, 1));
+		white.setBackground(Color.WHITE);
 		top.add(white);
 		JLabel whiteLabel = new JLabel("?s");
 		top.add(whiteLabel);

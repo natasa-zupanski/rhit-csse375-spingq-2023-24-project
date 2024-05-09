@@ -2,6 +2,7 @@ package mainApp;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +51,8 @@ public class OrganismViewer extends Views {
 
 		JLabel fileTitle = new JLabel("");
 		this.frame.add(fileTitle, BorderLayout.NORTH);
+
+		panel = new JPanel(new GridLayout(2, 1));
 
 		OrganismComponent component = new OrganismComponent(0, frame);
 		this.frame.add(component, BorderLayout.CENTER);
@@ -189,25 +192,24 @@ public class OrganismViewer extends Views {
 			}
 		});
 
-		panel = new JPanel(new GridLayout(2, 1));
-
 		JPanel top = new JPanel(new GridLayout(1, 6));
-		top.setSize(200, 50);
-
-		JLabel color = new JLabel("//////////");
-		color.setForeground(Color.GREEN);
+		JPanel color = new JPanel(new GridLayout(1, 1));
+		color.setBackground(Color.GREEN);
 		top.add(color);
 		JLabel colorLabel = new JLabel("1s");
 		top.add(colorLabel);
-		JLabel black = new JLabel("//////////");
+		JPanel black = new JPanel(new GridLayout(1, 1));
+		black.setBackground(Color.BLACK);
 		top.add(black);
 		JLabel blackLabel = new JLabel("0s");
 		top.add(blackLabel);
-		JLabel white = new JLabel("//////////");
-		white.setForeground(Color.WHITE);
+		JPanel white = new JPanel(new GridLayout(1, 1));
+		white.setBackground(Color.WHITE);
 		top.add(white);
 		JLabel whiteLabel = new JLabel("?s");
 		top.add(whiteLabel);
+		top.setMaximumSize(new Dimension(frameWidth, 10));
+
 		panel.add(top);
 
 		JPanel bottom = new JPanel(new GridLayout(2, 3));
@@ -217,6 +219,8 @@ public class OrganismViewer extends Views {
 		bottom.add(load);
 		bottom.add(save);
 		panel.add(bottom);
+
+		// panel.setMaximumSize(new Dimension(frameWidth, 100));
 
 		this.frame.add(panel, BorderLayout.SOUTH);
 
