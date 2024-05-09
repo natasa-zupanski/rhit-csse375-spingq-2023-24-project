@@ -1,8 +1,11 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * Class: FittestOrganismViewer
@@ -34,10 +37,36 @@ public class FittestOrganismViewer extends Views {
 
 		this.frame.add(component, BorderLayout.CENTER);
 
+		panel = new JPanel(new GridLayout(2, 1));
+
+		JPanel top = new JPanel(new GridLayout(1, 6));
+		top.setSize(200, 50);
+
+		JLabel color = new JLabel("//////////");
+		color.setForeground(Color.GREEN);
+		top.add(color);
+		JLabel colorLabel = new JLabel("1s");
+		top.add(colorLabel);
+		JLabel black = new JLabel("//////////");
+		top.add(black);
+		JLabel blackLabel = new JLabel("0s");
+		top.add(blackLabel);
+		JLabel white = new JLabel("//////////");
+		white.setForeground(Color.WHITE);
+		top.add(white);
+		JLabel whiteLabel = new JLabel("?s");
+		top.add(whiteLabel);
+
+		JPanel bottom = new JPanel(new GridLayout(1, 2));
 		genNum = new JLabel("" + genIndex);
+		genNum.setToolTipText("Number of the current generation.");
 		fitnessText = new JLabel("");
-		panel.add(genNum);
-		panel.add(fitnessText);
+		fitnessText.setToolTipText("Fitness of the fittest organism.");
+		bottom.add(genNum);
+		bottom.add(fitnessText);
+
+		panel.add(top);
+		panel.add(bottom);
 
 		this.frame.add(panel, BorderLayout.SOUTH);
 

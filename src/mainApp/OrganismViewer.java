@@ -1,6 +1,7 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -188,13 +189,36 @@ public class OrganismViewer extends Views {
 			}
 		});
 
-		JPanel panel = new JPanel(new GridLayout(2, 3));
+		panel = new JPanel(new GridLayout(2, 1));
+
+		JPanel top = new JPanel(new GridLayout(1, 6));
+		top.setSize(200, 50);
+
+		JLabel color = new JLabel("//////////");
+		color.setForeground(Color.GREEN);
+		top.add(color);
+		JLabel colorLabel = new JLabel("1s");
+		top.add(colorLabel);
+		JLabel black = new JLabel("//////////");
+		top.add(black);
+		JLabel blackLabel = new JLabel("0s");
+		top.add(blackLabel);
+		JLabel white = new JLabel("//////////");
+		white.setForeground(Color.WHITE);
+		top.add(white);
+		JLabel whiteLabel = new JLabel("?s");
+		top.add(whiteLabel);
+		panel.add(top);
+
+		JPanel bottom = new JPanel(new GridLayout(2, 3));
+		bottom.add(mutate);
+		bottom.add(mutationRateLabel);
+		bottom.add(mutationRateText);
+		bottom.add(load);
+		bottom.add(save);
+		panel.add(bottom);
+
 		this.frame.add(panel, BorderLayout.SOUTH);
-		panel.add(mutate);
-		panel.add(mutationRateLabel);
-		panel.add(mutationRateText);
-		panel.add(load);
-		panel.add(save);
 
 	}
 
