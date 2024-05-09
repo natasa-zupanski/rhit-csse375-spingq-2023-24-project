@@ -351,7 +351,7 @@ public class PopulationViewer extends Views {
 			}
 		});
 
-		JCheckBox organismViewToggle = new JCheckBox("Open Chromosome Viewer");
+		JCheckBox organismViewToggle = new JCheckBox("Open Organism Viewer");
 		organismViewToggle
 				.setToolTipText("Toggles the visibility of a view where a target organism can be set manually.");
 		organismViewToggle.addActionListener(new ActionListener() {

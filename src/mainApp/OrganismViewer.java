@@ -42,7 +42,7 @@ public class OrganismViewer extends Views {
 	public void setUpViewer() {
 		super.setUpViewer();
 		final int frameWidth = 360;
-		final int frameHeight = 420;
+		final int frameHeight = 470;
 
 		this.frame.setTitle("OrganismViewer");
 		this.frame.setSize(frameWidth, frameHeight);
@@ -61,7 +61,7 @@ public class OrganismViewer extends Views {
 				int x = arg0.getX();
 				int y = arg0.getY();
 
-				component.flipAllele(x - 10, y - 40, (int) frame.getSize().getHeight() - 100,
+				component.flipAllele(x - 10, y - 40, (int) frame.getSize().getHeight() - 145,
 						(int) frame.getSize().getWidth() - 10);
 
 				frame.repaint();
@@ -109,6 +109,7 @@ public class OrganismViewer extends Views {
 				int rate = Integer.parseInt(mutationRateText.getText());
 				component.handleMutate(rate);
 				frame.repaint();
+				targetOrganism = component.getOrganismGenotype();
 			}
 		});
 
@@ -192,8 +193,7 @@ public class OrganismViewer extends Views {
 		panel = new JPanel(new GridLayout(2, 1));
 
 		JPanel top = new JPanel(new GridLayout(1, 6));
-		top.setSize(200, 50);
-
+		top.setSize(200, 10);
 		JLabel color = new JLabel("//////////");
 		color.setForeground(Color.GREEN);
 		top.add(color);

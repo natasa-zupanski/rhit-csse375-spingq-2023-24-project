@@ -36,7 +36,7 @@ public class OrganismVisualization {
 		int height = setHeight;
 		if (height == 0) {
 			width = (int) frame.getSize().getWidth() - 10;
-			height = (int) frame.getSize().getHeight() - 100;
+			height = (int) frame.getSize().getHeight() - 145;
 		}
 		int rows = (int) Math.sqrt(this.length());
 		int cols = this.length() / rows;
