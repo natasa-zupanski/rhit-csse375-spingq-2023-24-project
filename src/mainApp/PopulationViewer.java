@@ -86,6 +86,7 @@ public class PopulationViewer extends Views {
 		frame.add(pop);
 
 		JLabel fitnessLabel = new JLabel("Fitness Method", SwingConstants.CENTER);
+		fitnessLabel.setToolTipText("How to determine the fitness of an organism from its genetic code.");
 		String[] fitnessMethods = FitnessStrategyFactory.getStrings();// { "Num. of 1s", "Target Organism", "Consec.
 																		// num. of 1s" };
 		JComboBox<String> fitnessOptions = new JComboBox<String>(fitnessMethods);
@@ -133,6 +134,8 @@ public class PopulationViewer extends Views {
 		});
 
 		JCheckBox crossoverCheckBox = new JCheckBox("Crossover?");
+		crossoverCheckBox.setToolTipText(
+				"Toggle which determines whether to mix the genetic code of every organism pair in creating the next generation.");
 		crossoverCheckBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -141,6 +144,7 @@ public class PopulationViewer extends Views {
 		});
 
 		JLabel genSizeLabel = new JLabel("Gen. Size", SwingConstants.CENTER);
+		genSizeLabel.setToolTipText("The number of organisms in each generation.");
 		JTextField genSizeText = new JTextField(pop.handleGetGenSize());
 		CompoundInvalidInputListener genSizeListener = new CompoundInvalidInputListener(InputType.GENSIZE, genSizeText,
 				0, MAX_GEN_SIZE, pop);
@@ -148,6 +152,7 @@ public class PopulationViewer extends Views {
 		genSizeText.addFocusListener(genSizeListener);
 
 		JLabel mutationRateLabel = new JLabel("Mutation Rate (N/pop)", SwingConstants.CENTER);
+		mutationRateLabel.setToolTipText("The chance for each gene to change as a portion of the genome length.");
 		JTextField mutationRateText = new JTextField(pop.handleGetMutationRate());
 		CompoundInvalidInputListener mutationRateListener = new CompoundInvalidInputListener(InputType.MUTATIONRATE,
 				mutationRateText, -1, MAX_MUTATE_RATE, pop);
@@ -155,6 +160,7 @@ public class PopulationViewer extends Views {
 		mutationRateText.addFocusListener(mutationRateListener);
 
 		JLabel numGensLabel = new JLabel("# of Gens.", SwingConstants.CENTER);
+		numGensLabel.setToolTipText("The number of generations evolution should run for.");
 		JTextField numGensText = new JTextField(pop.handleGetNumGens());
 		CompoundInvalidInputListener numGensListener = new CompoundInvalidInputListener(InputType.NUMGENS, numGensText,
 				0, MAX_NUM_GENS, pop);
@@ -162,6 +168,7 @@ public class PopulationViewer extends Views {
 		numGensText.addFocusListener(numGensListener);
 
 		JLabel genomeLengthLabel = new JLabel("Genome Length", SwingConstants.CENTER);
+		genomeLengthLabel.setToolTipText("The number of genes in the genetic code of an organism.");
 		JTextField genomeLengthText = new JTextField(pop.handleGetGenomeLength());
 		CompoundInvalidInputListener genomeLengthListener = new CompoundInvalidInputListener(InputType.GENOMELENGTH,
 				genomeLengthText, 0, MAX_LENGTH, pop);
@@ -169,6 +176,8 @@ public class PopulationViewer extends Views {
 		genomeLengthText.addFocusListener(genomeLengthListener);
 
 		JLabel elitismLabel = new JLabel("Elitism %", SwingConstants.CENTER);
+		elitismLabel.setToolTipText(
+				"The percentage of fittest organisms to copy over directly to the next generation, exempt from selection and mutation.");
 		JTextField elitismText = new JTextField(pop.handleGetElitism());
 		CompoundInvalidInputListener elistismListener = new CompoundInvalidInputListener(InputType.ELITISM, elitismText,
 				-1, 100, pop);
@@ -176,6 +185,7 @@ public class PopulationViewer extends Views {
 		elitismText.addFocusListener(elistismListener);
 
 		JLabel terminationLabel = new JLabel("Termination Fitness", SwingConstants.CENTER);
+		terminationLabel.setToolTipText("The goal fitness on which evolution will end.");
 		JTextField terminationText = new JTextField(pop.handleGetTermination());
 		CompoundInvalidInputListener terminationListener = new CompoundInvalidInputListener(
 				InputType.TERMINATIONFITNESS, terminationText, 0, Integer.parseInt(pop.handleGetGenomeLength()), pop);
@@ -241,6 +251,7 @@ public class PopulationViewer extends Views {
 		});
 
 		JCheckBox fittestViewToggle = new JCheckBox("Open Fittest Organism Viewer");
+		fittestViewToggle.setToolTipText("Toggles the visibility of a view displaying the fittest organism.");
 		fittestViewToggle.addActionListener(new ActionListener() {
 
 			@Override
@@ -294,6 +305,8 @@ public class PopulationViewer extends Views {
 		});
 
 		JCheckBox generationViewToggle = new JCheckBox("Open Generation Viewer");
+		generationViewToggle.setToolTipText(
+				"Toggles the visibility of a view that displays all organisms in the current generation.");
 		generationViewToggle.addActionListener(new ActionListener() {
 
 			@Override
@@ -347,6 +360,8 @@ public class PopulationViewer extends Views {
 		});
 
 		JCheckBox organismViewToggle = new JCheckBox("Open Chromosome Viewer");
+		organismViewToggle
+				.setToolTipText("Toggles the visibility of a view where a target organism can be set manually.");
 		organismViewToggle.addActionListener(new ActionListener() {
 
 			@Override
