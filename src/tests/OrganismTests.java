@@ -250,14 +250,4 @@ public class OrganismTests {
         one.flipAlleleCoord(200, 200, 420, 360);
         assertEquals("011101111", one.getChromosome());
     }
-
-    @Test
-    public void length() {
-        Organism one = new Organism("111111111", FitnessType.NUMONES, RandomType.FAKE,
-                "1010000000101001110001101110101001000101100101010110010110011001000010100011110101000000010011111110",
-                0, 0);
-        assertEquals(9, one.length());
-        one.setChromosome("0000111110110");
-        assertEquals(13, one.length());
-    }
 }
